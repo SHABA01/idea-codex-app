@@ -1,0 +1,81 @@
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: var(--bg-primary);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  padding: 1.8rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.feature-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-4px);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --- Coming Soon card styling --- */
+.feature-card.coming-soon {
+  position: relative;
+  opacity: 0.8;
+  border-style: dashed;
+  border-color: var(--accent-gold);
+  background: rgba(255, 215, 0, 0.05);
+  cursor: not-allowed;
+}
+
+.feature-card.coming-soon::after {
+  content: "🚀 Coming Soon";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+  font-weight: bold;
+}
+
+/* TABLET (2 columns) */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 3rem 2rem;
+    gap: 1.5rem;
+  }
+}
+
+/* SMARTPHONE (1 column) */
+@media (max-width: 639px) {
+  .features {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+}
+
+/* Dark Mode (optional, if data-theme toggles) 
+[data-theme="dark"] .feature-card {
+  border-color: rgba(255, 215, 0, 0.1);
+}*/
