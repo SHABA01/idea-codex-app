@@ -4,21 +4,36 @@
     <meta charset="UTF-8" />
     <link id="favicon" rel="icon" type="image/svg+xml" href="/IdeaCodex_icon_yellow.svg" />
 
+    <!-- 🌗 Preserve user theme before React and styles load -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        } else {
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+        }
+      })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ideaCodex</title>
+    <title>IdeaCodex</title>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 
+    <!-- 🎨 Dynamic favicon updater (unchanged) -->
     <script>
       const favicon = document.getElementById("favicon");
 
       function setFavicon(theme) {
         if (theme === "dark") {
           favicon.href = "/IdeaCodex_icon_white.svg";
-       } else {
-         favicon.href = "/IdeaCodex_icon_yellow.svg";
+        } else {
+          favicon.href = "/IdeaCodex_icon_yellow.svg";
         }
       }
 

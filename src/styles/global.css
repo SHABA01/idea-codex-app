@@ -13,9 +13,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+/** {
   outline: 1px solid rgba(255, 0, 0, 0.2);
-} /*Debug any hidden overflow*/
+} Debug any hidden overflow*/
 
 
 a {

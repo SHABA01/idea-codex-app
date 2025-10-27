@@ -1,11 +1,14 @@
+// src/components/Header.jsx
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/IdeaCodex_icon_yellow.png";
-import "./Header.css";
+import "../styles/Header.css";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const drawerRef = useRef(null);
+  const navigate = useNavigate();
 
   // --- Focus trap + scroll lock ---
   useEffect(() => {
@@ -27,6 +30,10 @@ const Header = () => {
     return () => document.removeEventListener("focusin", handleFocus);
   }, [menuOpen]);
 
+  // --- Navigation Handlers ---
+  const handleSignUp = () => navigate("/auth?mode=signup");
+  const handleSignIn = () => navigate("/auth?mode=signin");
+
   return (
     <header className="header">
       {/* --- Logo Section --- */}
@@ -37,8 +44,8 @@ const Header = () => {
 
       {/* --- Desktop Buttons --- */}
       <div className="nav-buttons">
-        <button className="btn-signin">Sign In</button>
-        <button className="btn-signup">Sign Up</button>
+        <button className="btn-signin" onClick={handleSignIn}>Sign In</button>
+        <button className="btn-signup" onClick={handleSignUp}>Sign Up</button>
         <ThemeToggle />
       </div>
 
@@ -78,13 +85,26 @@ const Header = () => {
           ✕
         </button>
 
-        {/*<a href="#features" onClick={() => setMenuOpen(false)}>Features</a>
-        <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>*/}
+        <button
+          className="btn-signin"
+          onClick={() => {
+            handleSignIn();
+            setMenuOpen(false);
+          }}
+        >
+          Sign In
+        </button>
 
-        <button className="btn-signin" onClick={() => setMenuOpen(false)}>Sign In</button>
-        <button className="btn-signup" onClick={() => setMenuOpen(false)}>Sign Up</button>
-        {/*<ThemeToggle onClick={() => setMenuOpen(false)}/>*/}
+        <button
+          className="btn-signup"
+          onClick={() => {
+            handleSignUp();
+            setMenuOpen(false);
+          }}
+        >
+          Sign Up
+        </button>
+
         <ThemeToggle />
       </nav>
     </header>

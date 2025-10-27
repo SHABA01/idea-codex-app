@@ -1,6 +1,6 @@
 // src/components/ThemeToggle.jsx
 import React, { useEffect, useState } from "react";
-import "./ThemeToggle.css";
+import "../styles/ThemeToggle.css";
 
 const ThemeToggle = () => {
   // Check user's system preference
