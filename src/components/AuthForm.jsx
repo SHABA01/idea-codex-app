@@ -41,9 +41,18 @@ const AuthForm = () => {
           <span>OR</span>
         </div>
 
-        <button className="google-btn">
+
+
+        {/*<button className="google-btn">
           <span>Continue with Google</span>
+        </button>*/}
+        <button className="google-btn">
+            <span><i className="fa-brands fa-google"></i> Continue with Google</span>
         </button>
+
+
+
+
 
         <p className="auth-toggle">
           {isSignUp ? "Already have an account? " : "Don’t have an account? "}

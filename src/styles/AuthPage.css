@@ -4,34 +4,56 @@
   overflow: hidden;
   background: var(--bg-gradient-start);
   position: relative;
+  isolation: isolate; /* ✅ ensures new stacking context */
 }
-
-/*.auth-bg-blur {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  filter: blur(40px);
-  opacity: 0.3;
-}*/
 
 .auth-left,
 .auth-right {
   flex: 1;
-  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* ✅ create stacking context for each side */
 }
 
+/* =============== LEFT SIDE =============== */
 .auth-left {
   background: radial-gradient(
     circle at center,
     rgba(255, 215, 0, 0.08),
     transparent 70%
   );
+  overflow: hidden;
+  z-index: 0; /* ✅ ensures background is beneath form  */
 }
 
+.auth-left .neural-wrapper,
+.auth-left canvas,
+.auth-left .spiral-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none !important; /* ✅ prevent blocking clicks */
+}
+
+/* Spiral should be centered within the left half */
+.auth-left .spiral-overlay {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.15),
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+/* =============== RIGHT SIDE (AuthForm area) =============== */
 .auth-right {
-  background: var(--bg-gradient-start); /* already theme reactive via CSS vars */
+  background: var(--bg-gradient-start); /* theme reactive */
+  position: relative;
+  z-index: 5; /* ✅ ensures form is above all backgrounds */
 }
-
