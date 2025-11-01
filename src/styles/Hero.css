@@ -41,7 +41,7 @@
 .btn-explore {
   background: transparent;
   border: 1px solid var(--border-gold);
-  color: var(--text-primary);
+  color: var(--accent-gold);
   padding: 8px 18px;
   border-radius: 6px;
   transition: all 0.3s ease;
@@ -49,7 +49,7 @@
 
 .btn-explore:hover {
   transform: scale(1.1);
-  background: var(--border-gold);
+  background: var(--accent-gold);
   color: #000;
 }
 
@@ -67,7 +67,27 @@
   transform: scale(1.1);
   background: transparent;
   border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+}
+
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] .btn-explore {
   color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-explore:hover {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .btn-start {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .btn-start:hover {
+  color: var(--text-primary);
+  background: transparent;
 }
 
 /* TABLET */

@@ -35,7 +35,7 @@
 .btn-signin {
   background: transparent;
   border: 1px solid var(--border-gold);
-  color: var(--text-primary);
+  color: var(--accent-gold);
   padding: 8px 18px;
   border-radius: 6px;
   transition: all 0.3s ease;
@@ -43,7 +43,7 @@
 
 .btn-signin:hover {
   transform: scale(1.1);
-  background: var(--border-gold);
+  background: var(--accent-gold);
   color: #000;
 }
 
@@ -61,7 +61,27 @@
   transform: scale(1.1);
   background: transparent;
   border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+}
+
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] .btn-signin {
   color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-signin:hover {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .btn-signup {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .btn-signup:hover {
+  color: var(--text-primary);
+  background: transparent;
 }
 
 /* ============ HAMBURGER ICON ============ */

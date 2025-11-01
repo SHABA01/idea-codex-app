@@ -17,9 +17,8 @@
 }
 
 .auth-logo img {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
+  width: 80px;
+  height: 80px;
 }
 
 .auth-subtitle {
@@ -83,24 +82,32 @@
 
 .google-btn {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers icon + text */
+  gap: 10px; /* adds space between icon and text */
+  border: 1px solid var(--border-gold);
   border-radius: 6px;
   padding: 10px;
   background: transparent;
   color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .google-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+  background: var(--border-gold);
+  color: #000;
+  border: none;
 }
 
-/*.google-btn i {
-  margin-right: 8px;
-  font-size: 1rem;
-  vertical-align: middle;
-}*/
-
+.google-btn i {
+  font-size: 14px; /* adjusts icon size */
+  display: flex;
+  align-items: center;
+}
 
 .auth-toggle {
   margin-top: 1rem;
@@ -113,4 +120,34 @@
   color: var(--accent-gold);
   cursor: pointer;
   font-weight: 600;
+  padding: 0;
+}
+
+/* Small helpers for multi-step layout */
+.auth-step { display: flex; flex-direction: column; gap: 0.6rem; align-items: stretch; }
+.step-nav { display:flex; justify-content:space-between; gap: 12px; margin-top:12px; }
+.error-text { color: #ff6b6b; font-size: 0.95rem; margin-top: 8px; }
+.resend-btn { background: transparent; border: 1px solid var(--border-gold); color: var(--text-primary); padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+
+/* ================== RESPONSIVE LAYOUT ================== */
+
+/* 🟢 Tablet: maintain equal vertical spacing (centered look) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .auth-form {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 1.8rem;
+    max-width: 360px;
+  }
+}
+
+/* 🔵 Mobile: keep same vertical margins, no scroll behaviour */
+@media (max-width: 767px) {
+  .auth-form {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    padding: 1.6rem;
+    width: 92%;
+    max-width: 340px;
+  }
 }

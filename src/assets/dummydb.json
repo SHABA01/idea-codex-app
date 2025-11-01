@@ -1,0 +1,12 @@
+[
+  { "id": 1, "name": "Alice Johnson", "email": "alice@example.com", "password": "password123", "otp": "123456" },
+  { "id": 2, "name": "Bob Smith", "email": "bob@example.com", "password": "mysecurepass", "otp": "654321" },
+  { "id": 3, "name": "Cynthia Lee", "email": "cynthia@example.com", "password": "welcome2025", "otp": "432198" },
+  { "id": 4, "name": "David Okoro", "email": "david.okoro@example.com", "password": "test123", "otp": "876543" },
+  { "id": 5, "name": "Emma Wright", "email": "emma@example.com", "password": "helloAI", "otp": "112233" },
+  { "id": 6, "name": "Frank Obi", "email": "frank.obi@example.com", "password": "coderlife", "otp": "445566" },
+  { "id": 7, "name": "Grace Lin", "email": "grace@example.com", "password": "devpass", "otp": "778899" },
+  { "id": 8, "name": "Henry Musa", "email": "henry.musa@example.com", "password": "builder2025", "otp": "991122" },
+  { "id": 9, "name": "Isabella Grant", "email": "isabella@example.com", "password": "secureme", "otp": "556677" },
+  { "id": 10, "name": "James Doe", "email": "james.doe@example.com", "password": "passwordAI", "otp": "334455" }
+]

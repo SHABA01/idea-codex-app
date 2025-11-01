@@ -57,3 +57,31 @@
   position: relative;
   z-index: 5; /* ✅ ensures form is above all backgrounds */
 }
+
+/* ================== RESPONSIVE LAYOUT ================== */
+
+/* 🟢 Tablet: shrink left (35%) / right (65%) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .auth-left {
+    flex: 0.5;
+    opacity: 0.9;
+    filter: brightness(0.9);
+    transition: all 0.4s ease;
+  }
+
+  .auth-right {
+    flex: 0.5;
+  }
+}
+
+/* 🔵 Mobile: hide left completely */
+@media (max-width: 767px) {
+  .auth-left {
+    display: none;
+  }
+
+  .auth-right {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}

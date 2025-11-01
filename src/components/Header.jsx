@@ -31,8 +31,8 @@ const Header = () => {
   }, [menuOpen]);
 
   // --- Navigation Handlers ---
-  const handleSignUp = () => navigate("/auth?mode=signup");
-  const handleSignIn = () => navigate("/auth?mode=signin");
+  const handleSignUp = () => navigate("/auth/signup");
+  const handleSignIn = () => navigate("/auth/signin");
 
   return (
     <header className="header">

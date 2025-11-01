@@ -1,0 +1,15 @@
+.otp-container { text-align: center; padding: 1rem 0; }
+.otp-container .muted { color: var(--text-secondary); margin-bottom: 8px; }
+.resend-btn {
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.error-text { color: #ff6b6b; margin-top: 8px; }
+.success-text { color: #7af27a; margin-top: 8px; }
+.step-nav { display:flex; justify-content:space-between; gap: 12px; margin-top:12px; }
+.step-nav .auth-btn.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.08); color: var(--text-primary); }
+.auth-step { padding: 0.25rem 0; }
+.muted { color: var(--text-secondary); font-size: 0.95rem; }
