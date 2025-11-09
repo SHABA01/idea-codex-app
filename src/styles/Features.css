@@ -10,7 +10,7 @@
 }
 
 .feature-card {
-  background: var(--card-bg);
+  background: none;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   color: var(--text-primary);
@@ -21,6 +21,7 @@
 }
 
 .feature-card:hover {
+  background: var(--card-bg);
   border-color: var(--accent-gold);
   transform: translateY(-4px);
 }

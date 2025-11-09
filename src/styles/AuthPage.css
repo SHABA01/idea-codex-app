@@ -1,19 +1,20 @@
 .auth-page {
   display: flex;
-  min-height: 100vh;
-  overflow: hidden;
+  height: 100dvh; /* ✅ use dynamic viewport unit (fixes mobile browser bar issue) */
+  overflow: hidden; /* ✅ remove vertical scroll */
   background: var(--bg-gradient-start);
   position: relative;
   isolation: isolate; /* ✅ ensures new stacking context */
 }
 
+/* Make both sides always fill height */
 .auth-left,
 .auth-right {
-  flex: 1;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* ✅ create stacking context for each side */
+  position: relative;
 }
 
 /* =============== LEFT SIDE =============== */
@@ -60,17 +61,18 @@
 
 /* ================== RESPONSIVE LAYOUT ================== */
 
-/* 🟢 Tablet: shrink left (35%) / right (65%) */
-@media (max-width: 1024px) and (min-width: 601px) {
+/* 🟢 Tablet & Larger: shrink left (50%) / right (50%) */
+@media (min-width: 601px) {
   .auth-left {
-    flex: 0.5;
-    opacity: 0.9;
-    filter: brightness(0.9);
-    transition: all 0.4s ease;
+    display: flex; /* ✅ make sure it reappears */
+    flex: 1;
+    opacity: 1;
+    filter: none;
   }
 
   .auth-right {
-    flex: 0.5;
+    flex: 1;
+    width: 100%;
   }
 }
 

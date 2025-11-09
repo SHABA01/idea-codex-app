@@ -66,6 +66,19 @@ html, body, #root {
   overflow-x: hidden; /* Prevent horizontal scroll / gray gap */
 }
 
+/* Hide browser's default "show password" and clear icons */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none !important;
+}
+
+/* Extra safety for some browsers */
+input[type="password"]::-webkit-clear-button,
+input[type="password"]::-webkit-inner-spin-button {
+  display: none !important;
+}
+
 /* Smooth Theme Transitions */
 html, body, * {
   transition:

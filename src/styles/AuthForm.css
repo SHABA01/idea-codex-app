@@ -134,9 +134,8 @@
 /* 🟢 Tablet: maintain equal vertical spacing (centered look) */
 @media (max-width: 1024px) and (min-width: 601px) {
   .auth-form {
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    padding: 1.8rem;
+    margin: 0; /* ✅ remove vertical margins */
+    padding: 1.6rem;
     max-width: 360px;
   }
 }
@@ -144,9 +143,8 @@
 /* 🔵 Mobile: keep same vertical margins, no scroll behaviour */
 @media (max-width: 600px) {
   .auth-form {
-    margin-top: 4vh;
-    margin-bottom: 4vh;
-    padding: 1.6rem;
+    margin: 0; /* ✅ remove top/bottom margins */
+    padding: 1.4rem;
     width: 92%;
     max-width: 340px;
   }

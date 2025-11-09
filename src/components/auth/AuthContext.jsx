@@ -1,10 +1,25 @@
 // src/components/auth/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import dummyDB from "../../assets/dummydb.json";
+import { useNavigate } from "react-router-dom";
+import dummySeed from "../../assets/dummydb.json";
 
 const AuthContext = createContext();
-
 export const useAuth = () => useContext(AuthContext);
+
+const LOCAL_KEY = "dummydb_v1"; // store users here
+
+const loadDB = () => {
+  const local = localStorage.getItem(LOCAL_KEY);
+  if (local) return JSON.parse(local);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(dummySeed));
+  return dummySeed;
+};
+
+const saveDB = (data) => {
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+};
+
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
 export const AuthProvider = ({ children }) => {
   const [mode, setMode] = useState("signup"); // 'signup' | 'signin'
@@ -19,8 +34,16 @@ export const AuthProvider = ({ children }) => {
   });
   const [authMessage, setAuthMessage] = useState("");
   const [verified, setVerified] = useState(false);
+  const navigate = useNavigate();
 
-  // progress mapping (auto-calculated)
+  // ⚙️ Local “database” simulation
+  const [db, setDB] = useState(loadDB());
+
+  useEffect(() => {
+    saveDB(db); // persist updates
+  }, [db]);
+
+  // Auto-calculate progress
   useEffect(() => {
     const totalSteps = mode === "signup" ? 3 : 2;
     setProgress(Math.round((step / totalSteps) * 100));
@@ -30,43 +53,64 @@ export const AuthProvider = ({ children }) => {
     setFormData((p) => ({ ...p, [field]: value }));
   };
 
-  // Simulate sending OTP (we'll just use dummyDB stored OTP)
-  const triggerOTP = () => {
-    const user = dummyDB.find((u) => u.email === formData.email);
-    if (user) {
-      setAuthMessage(`OTP sent to ${formData.email} (simulated)`);
-    } else {
-      setAuthMessage(`No account found for ${formData.email}`);
-    }
+  // 🟡 Generate & store OTP for given user (new or existing)
+  const triggerOTP = (email) => {
+    const otp = generateOTP();
+    const updated = db.map((u) =>
+      u.email === email ? { ...u, otp } : u
+    );
+    setDB(updated);
+    saveDB(updated);
+    console.log(`📩 OTP for ${email}: ${otp}`);
+    setAuthMessage(`OTP sent to ${email} (simulated, check console/localStorage)`);
+    return otp;
   };
 
+  // 🔁 Resend OTP — just calls triggerOTP again
+  const resendOTP = () => {
+    if (!formData.email) {
+      setAuthMessage("Enter your email to resend OTP.");
+      return;
+    }
+    triggerOTP(formData.email);
+  };
+
+  // ✅ OTP Verification
   const verifyOTP = () => {
-    const user = dummyDB.find((u) => u.email === formData.email);
+    const user = db.find((u) => u.email === formData.email);
     if (user && formData.otp === user.otp) {
       setVerified(true);
       setAuthMessage("✅ Verification successful!");
-      // simulate redirect/next step
+
       setTimeout(() => {
         if (mode === "signup") {
-          // in real case, you would create user in DB then redirect to sign-in
+          // After signup verification → go to sign-in
           setMode("signin");
           setStep(1);
+          setFormData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            otp: ""
+          });
         } else {
-          // successful sign-in -> redirect to dashboard (simulate)
-          setAuthMessage("✅ Signed in. Redirecting to Dashboard (simulated)...");
+          // After sign-in verification → go to choice page
+          setAuthMessage("✅ Signed in successfully! Redirecting...");
+          setTimeout(() => navigate("/choice"), 800);
         }
         setVerified(false);
-        setFormData({ name: "", email: "", password: "", confirmPassword: "", otp: "" });
       }, 1200);
     } else {
       setAuthMessage("❌ Incorrect OTP, please try again.");
     }
   };
 
-  // Sign up simulation: validate and move to OTP step
+  // 🧩 Sign-up handler — adds new user to DB, triggers OTP
   const handleSignUp = () => {
     setAuthMessage("");
-    if (!formData.email || !formData.password || !formData.confirmPassword) {
+
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
       setAuthMessage("Please fill in all required fields.");
       return;
     }
@@ -74,26 +118,42 @@ export const AuthProvider = ({ children }) => {
       setAuthMessage("Passwords do not match.");
       return;
     }
-    const exists = dummyDB.some((u) => u.email === formData.email);
+
+    const exists = db.some((u) => u.email === formData.email);
     if (exists) {
       setAuthMessage("Email already registered.");
       return;
     }
-    // proceed to OTP (simulated)
-    setAuthMessage("Proceeding to OTP verification...");
+
+    // Add new user
+    const newUser = {
+      id: db.length + 1,
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      otp: generateOTP()
+    };
+    const updated = [...db, newUser];
+    setDB(updated);
+    saveDB(updated);
+
+    console.log("🧾 New user added:", newUser);
+    setAuthMessage(`OTP generated for ${formData.email}. Proceed to verification.`);
     setStep(3);
-    // in real app: send OTP via backend, here we just call triggerOTP
-    setTimeout(() => triggerOTP(), 400);
   };
 
-  // Sign in simulation: check credentials then OTP
+  // 🔐 Sign-in handler
   const handleSignIn = () => {
     setAuthMessage("");
-    const user = dummyDB.find((u) => u.email === formData.email && u.password === formData.password);
+
+    const user = db.find(
+      (u) => u.email === formData.email && u.password === formData.password
+    );
+
     if (user) {
       setAuthMessage("Proceeding to OTP verification...");
-      setStep(2); // Signin uses 2 steps: credentials -> OTP
-      setTimeout(() => triggerOTP(), 400);
+      setStep(2);
+      triggerOTP(user.email);
     } else {
       setAuthMessage("Invalid email or password.");
     }
@@ -110,6 +170,7 @@ export const AuthProvider = ({ children }) => {
     handleSignUp,
     handleSignIn,
     verifyOTP,
+    resendOTP,
     authMessage,
     setAuthMessage,
     verified

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 
 const OTPVerification = () => {
-  const { formData, updateField, verifyOTP, authMessage } = useAuth();
+  const { formData, updateField, verifyOTP, resendOTP, authMessage } = useAuth();
   const [timer, setTimer] = useState(30);
 
   useEffect(() => {
@@ -16,13 +16,17 @@ const OTPVerification = () => {
   return (
     <div className="otp-container">
       <h3>Verify your account</h3>
-      <p className="muted">Enter the 6-digit code sent to <strong>{formData.email}</strong></p>
+      <p className="muted">
+        Enter the 6-digit code sent to <strong>{formData.email}</strong>
+      </p>
 
       <input
         className="auth-input"
         maxLength={6}
         value={formData.otp}
-        onChange={(e) => updateField("otp", e.target.value.replace(/\D/g, "").slice(0,6))}
+        onChange={(e) =>
+          updateField("otp", e.target.value.replace(/\D/g, "").slice(0, 6))
+        }
         placeholder="123456"
         inputMode="numeric"
       />
@@ -39,13 +43,23 @@ const OTPVerification = () => {
         {timer > 0 ? (
           <span className="muted">Resend code in {timer}s</span>
         ) : (
-          <button className="resend-btn" onClick={() => setTimer(30)}>
+          <button
+            className="resend-btn"
+            onClick={() => {
+              resendOTP();
+              setTimer(30);
+            }}
+          >
             Resend Code
           </button>
         )}
       </div>
 
-      {authMessage && <p className="error-text" style={{ marginTop: 12 }}>{authMessage}</p>}
+      {authMessage && (
+        <p className="error-text" style={{ marginTop: 12 }}>
+          {authMessage}
+        </p>
+      )}
     </div>
   );
 };

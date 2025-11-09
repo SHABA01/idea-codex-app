@@ -14,11 +14,17 @@
   position: relative; /* 🆕 Makes sure it floats above the canvas */
   z-index: 1;
   max-width: 700px;
-  background: var(--card-bg);
+  background: none;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 3rem;
   color: var(--text-primary);
+  transition: all 1.0s ease;
+}
+
+.hero-content:hover {
+  background: var(--card-bg);
+  box-shadow: 0 25px 60px rgba(2, 2, 2, 0.8);
 }
 
 .hero h1 {

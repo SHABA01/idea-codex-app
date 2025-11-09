@@ -1,0 +1,32 @@
+.process-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+}
+
+.process-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.42);
+  backdrop-filter: blur(4px);
+  z-index: -1;
+}
+
+.process-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 12px;
+  min-width: 240px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border: 1px solid rgba(255,213,45,0.06);
+}
+
+.process-message {
+  color: var(--text-secondary);
+}

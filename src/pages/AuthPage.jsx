@@ -5,7 +5,7 @@ import "../styles/AuthPage.css";
 
 const AuthPage = () => {
   const { mode } = useParams();
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 601;
 
   return (
     <div className="auth-page">

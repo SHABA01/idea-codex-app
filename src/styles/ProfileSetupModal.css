@@ -1,0 +1,86 @@
+/* ProfileSetupModal.css - styles for the profile completion overlay */
+
+.profile-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1300;
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(0,0,0,0.6));
+  padding: 28px;
+}
+
+.profile-card {
+  width: min(760px, 96vw);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255,213,45,0.06);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.profile-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.profile-head h2 { margin:0; color: var(--text-primary); }
+
+.btn-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  cursor:pointer;
+}
+
+.profile-form { display:flex; flex-direction:column; gap:10px; }
+
+.field { display:flex; flex-direction:column; gap:6px; }
+.label { font-weight:600; color: var(--text-secondary); font-size: 0.9rem; }
+.field input, .field textarea {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,213,45,0.06);
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.username-row { display:flex; align-items:center; gap:8px; }
+.username-row .static { background: rgba(255,255,255,0.02); padding: 8px 10px; border-radius: 8px; color: var(--text-secondary); border:1px solid rgba(255,213,45,0.04); }
+
+.hint { color: var(--text-secondary); font-size:0.85rem; }
+.error { color: #ff6b6b; font-size:0.95rem; margin-top:6px; }
+
+.profile-actions { display:flex; justify-content:space-between; gap:12px; margin-top:8px; }
+.profile-actions .btn-muted {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-radius: 8px;
+}
+.profile-actions .btn-primary {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-hover));
+  color: #000;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight:700;
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .profile-card { width: min(720px, 94vw); padding: 16px; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .profile-card { width: 96vw; padding: 14px; }
+  .profile-actions { flex-direction: column-reverse; }
+  .profile-actions .btn-primary { width:100%; }
+  .profile-actions .btn-muted { width:100%; }
+}

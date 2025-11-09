@@ -14,12 +14,12 @@ import logo from "../assets/IdeaCodex_icon_yellow.png";
 import "../styles/AuthForm.css";
 
 const AuthFormInner = () => {
-  const { mode, setMode, step, setStep, progress } = useAuth();
+  const { mode, setMode, step, setStep, progress, handleSignUp, handleSignIn } = useAuth();
   const navigate = useNavigate();
   const { mode: routeMode } = useParams(); // "signup" or "signin"
-  const [isSynced, setIsSynced] = useState(false); // fixes the brief mode mismatch
+  const [isSynced, setIsSynced] = useState(false);
 
-  // Initialize or sync mode with route
+  // 🧭 Sync mode with route param
   useEffect(() => {
     if (routeMode && routeMode !== mode) {
       setMode(routeMode);
@@ -28,37 +28,48 @@ const AuthFormInner = () => {
     setIsSynced(true);
   }, [routeMode]);
 
-  // toggle sign in / sign up (no double triggering)
+  // 🔁 Toggle between signup/signin
   const toggleMode = () => {
     const newMode = mode === "signup" ? "signin" : "signup";
     navigate(`/auth/${newMode}`);
   };
 
-  // back to landing page
-  const handleBackHome = () => {
-    navigate("/");
-  };
+  const handleBackHome = () => navigate("/");
 
-  // render appropriate step
+  // ✅ Render steps (connected to context logic)
   const renderStep = () => {
     if (mode === "signup") {
-      if (step === 1) return <SignUpStep1 onContinue={() => setStep(2)} />;
+      if (step === 1)
+        return (
+          <SignUpStep1
+            onContinue={() => setStep(2)}
+          />
+        );
       if (step === 2)
         return (
           <SignUpStep2
             onBack={() => setStep(1)}
-            onContinue={() => setStep(3)}
+            onContinue={() => {
+              handleSignUp(); // ⬅️ runs your AuthContext signup logic
+            }}
           />
         );
       if (step === 3) return <OTPVerification />;
     } else {
-      if (step === 1) return <SignInStep1 onContinue={() => setStep(2)} />;
+      if (step === 1)
+        return (
+          <SignInStep1
+            onContinue={() => {
+              handleSignIn(); // ⬅️ runs your AuthContext signin logic
+            }}
+          />
+        );
       if (step === 2) return <OTPVerification />;
     }
     return null;
   };
 
-  // avoid premature render before sync
+  // Avoid flicker before sync
   if (!isSynced) return null;
 
   return (
@@ -107,7 +118,7 @@ const AuthFormInner = () => {
   );
 };
 
-// Wrap in AuthProvider
+// Wrap in AuthProvider (unchanged)
 const AuthForm = ({ mode = "signup" }) => (
   <AuthProvider>
     <AuthFormInner initialMode={mode} />
