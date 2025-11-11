@@ -129,6 +129,26 @@
 .error-text { color: #ff6b6b; font-size: 0.95rem; margin-top: 8px; }
 .resend-btn { background: transparent; border: 1px solid var(--border-gold); color: var(--text-primary); padding: 8px 12px; border-radius: 6px; cursor: pointer; }
 
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] .google-btn {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .google-btn:hover {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .auth-btn {
+  color: #000;
+  background: var(--border-gold);
+}
+
+[data-theme="dark"] .auth-btn:hover {
+  color: var(--text-primary);
+  background: transparent;
+}
+
 /* ================== RESPONSIVE LAYOUT ================== */
 
 /* 🟢 Tablet: maintain equal vertical spacing (centered look) */

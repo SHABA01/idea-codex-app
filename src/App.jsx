@@ -13,17 +13,17 @@ const App = () => {
     <LoaderProvider>
       <Router>
         {/* SplashRouteWrapper shows splash once per session before landing */}
-        <SplashRouteWrapper>
+        {/*<SplashRouteWrapper>*/}
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/auth/:mode" element={<AuthPage />} />
             <Route path="/choice" element={<ChoiceModal />} />
             {/* add other routes here */}
           </Routes>
-        </SplashRouteWrapper>
+        {/*</SplashRouteWrapper>./}
 
         {/* Global process loader (renders above everything when active) */}
-        <ProcessLoader />
+        {/*<ProcessLoader />*/}
       </Router>
     </LoaderProvider>
   );

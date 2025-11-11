@@ -40,7 +40,7 @@ const ChoiceModal = () => {
             <div className="choice-brand">
               <img src="/IdeaCodex_icon_yellow.svg" alt="IdeaCodex" className="choice-logo" />
               <div className="choice-welcome">
-                <div className="welcome-line">Welcome,</div>
+                {/*<div className="welcome-line">Welcome,</div>*/}
                 <strong className="user-name">Creative Maker</strong>
               </div>
             </div>
@@ -58,7 +58,7 @@ const ChoiceModal = () => {
             <div className="action-grid">
               <button className="btn-studio-choice wide" onClick={() => window.location.assign("/studio")}>
                 Go to Idea Studio
-                <small className="muted">Start creating — demo or live</small>
+                <small className="muted">Start creating ideas</small>
               </button>
 
               <button className="btn-community-choice wide" onClick={() => window.location.assign("/community")}>

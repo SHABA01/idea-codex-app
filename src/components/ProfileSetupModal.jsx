@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ProfileSetupModal.css";
 
 /**
@@ -9,6 +9,17 @@ import "../styles/ProfileSetupModal.css";
  * Minimal client-side validation for demo / MVP.
  */
 const ProfileSetupModal = ({ onClose = () => {} }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+   const handleResize = () => setWindowWidth(window.innerWidth);
+   window.addEventListener("resize", handleResize);
+   return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isTablet = windowWidth < 1025;
+  const isMobile = windowWidth < 601;
+
   const [form, setForm] = useState({
     fullName: "",
     displayName: "",
@@ -43,7 +54,16 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
       <div className="profile-card">
         <header className="profile-head">
           <h2>Complete your profile</h2>
-          <button className="btn-close" onClick={onClose} aria-label="Close profile setup">✕</button>
+          {/*<button className="btn-close" onClick={onClose} aria-label="Close profile setup">✕</button>*/}
+
+          {/* Skip Profile button */}
+          <button type="button" className="btn-skip" onClick={onClose}>
+            {isTablet || isMobile ? (
+              <p>Skip</p> // Tablet & Mobile
+            ) : (
+              <p>Skip for now</p> // Desktop
+            )}
+          </button>        
         </header>
 
         <form className="profile-form" onSubmit={handleSave}>
@@ -75,8 +95,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
           {error && <div className="error">{error}</div>}
 
           <div className="profile-actions">
-            <button type="button" className="btn-muted" onClick={onClose}>Skip for now</button>
-            <button type="submit" className="btn-primary" disabled={saving}>{saving ? "Saving..." : "Save profile"}</button>
+            <button type="submit" className="btn-save-profile" disabled={saving}>{saving ? "Saving..." : "Save profile"}</button>
           </div>
         </form>
       </div>
