@@ -57,6 +57,46 @@
   gap:10px; 
 }
 
+.avatar-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-gold);
+}
+
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.avatar-btn {
+  background: transparent;
+  border: 1px solid rgba(255,213,45,0.2);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--accent-gold);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+
+
+
 .field { 
   display:flex; 
   flex-direction:column; 

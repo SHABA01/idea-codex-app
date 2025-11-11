@@ -25,12 +25,21 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
     displayName: "",
     username: "",
     bio: "",
-    location: "",
+    avatar: "",
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   const update = (k, v) => setForm((p) => ({ ...p, [k]: v }));
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => update("avatar", reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -39,14 +48,21 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
       setError("Please provide a Display name or Username.");
       return;
     }
+
     setError("");
     setSaving(true);
+
     // Simulate saving
     setTimeout(() => {
-      setSaving(false);
+      localStorage.setItem("userProfile", JSON.stringify(form));
+
+       // ✅ Dispatch custom event so ProfileProgress updates instantly
+       window.dispatchEvent(new Event("profileUpdated"));
+
+       setSaving(false);
+      console.log("Profile saved:", form);
       onClose();
-      // In real app: call API, then redirect / update profile state
-    }, 900);
+    }, 800);
   };
 
   return (
@@ -67,6 +83,19 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
         </header>
 
         <form className="profile-form" onSubmit={handleSave}>
+          {/* Avatar Upload */}
+          <div className="avatar-upload">
+            {form.avatar ? (
+              <img src={form.avatar} alt="Avatar" className="avatar-preview" />
+            ) : (
+              <div className="avatar-placeholder">No Image</div>
+            )}
+            <label className="avatar-btn">
+              Change Picture
+              <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+            </label>
+          </div>
+
           <label className="field">
             <span className="label">Full name *</span>
             <input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Philip Shaba" required />

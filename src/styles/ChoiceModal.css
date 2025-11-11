@@ -124,17 +124,6 @@
 .choice-welcome .welcome-line { color: var(--text-secondary); font-size: 0.85rem; }
 .user-name { font-size:1.05rem; color: var(--text-primary); }
 
-/* profile completion pill */
-.profile-completion .progress-pill {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,213,45,0.06);
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: var(--text-secondary);
-  font-weight:600;
-  font-size:0.85rem;
-}
-
 /* Actions */
 .choice-actions { 
     margin-top: 6px; 

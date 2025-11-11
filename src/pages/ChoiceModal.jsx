@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileSetupModal from "../components/ProfileSetupModal";
-import "../styles/ChoiceModal.css";
 import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
+import ProfileProgress from "../components/ProfileProgress";
+import "../styles/ChoiceModal.css";
 
 /**
  * ChoiceModal page. Shows the choice modal after sign-in.
@@ -11,6 +12,21 @@ import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
  */
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
+  const [firstName, setFirstName] = useState("Maker");
+  const [avatar, setAvatar] = useState("/IdeaCodex_icon_yellow.png");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const profile = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (user?.name) {
+      const first = user.name.split(" ")[0];
+      setFirstName(first);
+    }
+    if (profile?.avatar) {
+      setAvatar(profile.avatar);
+    }
+  }, []);
 
   return (
     <div className="choice-page">
@@ -38,16 +54,13 @@ const ChoiceModal = () => {
         <main className="choice-right">
           <header className="choice-header">
             <div className="choice-brand">
-              <img src="/IdeaCodex_icon_yellow.svg" alt="IdeaCodex" className="choice-logo" />
+              <img src={avatar} alt="Profile" className="choice-logo" />
               <div className="choice-welcome">
-                {/*<div className="welcome-line">Welcome,</div>*/}
-                <strong className="user-name">Creative Maker</strong>
+                <strong className="user-name">{firstName}</strong>
               </div>
             </div>
 
-            <div className="profile-completion">
-              <div className="progress-pill">Profile: <strong>40%</strong></div>
-            </div>
+            <ProfileProgress />
           </header>
 
           <section className="choice-actions">
