@@ -59,37 +59,39 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
           {/* Skip Profile button */}
           <button type="button" className="btn-skip" onClick={onClose}>
             {isTablet || isMobile ? (
-              <p>Skip</p> // Tablet & Mobile
+              <>Skip</> // Tablet & Mobile
             ) : (
-              <p>Skip for now</p> // Desktop
+              <>Skip for now</> // Desktop
             )}
           </button>        
         </header>
 
         <form className="profile-form" onSubmit={handleSave}>
           <label className="field">
-            <span className="label">Full name (optional)</span>
-            <input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Ada Lovelace" />
-            <small className="hint">Shown on invoices & verified pages (optional)</small>
+            <span className="label">Full name *</span>
+            <input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Philip Shaba" required />
+            <small className="hint">Shown on invoices</small>
           </label>
 
           <label className="field">
-            <span className="label">Display name</span>
-            <input value={form.displayName} onChange={(e) => update("displayName", e.target.value)} placeholder="How people will see you" required />
+            <span className="label">Display name (optional)</span>
+            <input value={form.displayName} onChange={(e) => update("displayName", e.target.value)} placeholder="MACHOpes" />
+            <small className="hint">How people will see you</small>
           </label>
 
           <label className="field">
-            <span className="label">Username / handle</span>
+            <span className="label">Handle *</span>
             <div className="username-row">
               <span className="static">@</span>
-              <input value={form.username} onChange={(e) => update("username", e.target.value.replace(/\s+/g, ""))} placeholder="your-handle" />
+              <input value={form.username} onChange={(e) => update("username", e.target.value.replace(/\s+/g, ""))} placeholder="philshaba_IdeaCodex" required />
             </div>
             <small className="hint">Used for profile links. No spaces.</small>
           </label>
 
           <label className="field">
-            <span className="label">Short bio</span>
-            <textarea value={form.bio} onChange={(e) => update("bio", e.target.value)} placeholder="Tell the community what you build" rows="3" />
+            <span className="label">Short bio *</span>
+            <textarea value={form.bio} onChange={(e) => update("bio", e.target.value)} placeholder="I’m a problem solver and builder passionate about turning ideas into actionable solutions. I create projects that combine technology, creativity, and data to make a real impact and help communities collaborate." rows="3" maxLength={350} /*max number of characters*/ required />
+            <small className="hint">Introduce yourself — who you are and what you’re building (350 characters max)</small>
           </label>
 
           {error && <div className="error">{error}</div>}

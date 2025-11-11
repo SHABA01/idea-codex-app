@@ -274,7 +274,7 @@
 }
 
 /* ========================= TABLET (601px - 1024px) ========================= */
-@media (max-width: 1024px) and (min-width: 601px) {
+@media (max-width: 1024px) and (min-width: 831px) {
   .choice-modal { width: min(900px, 94vw); max-height: 88vh; }
   .choice-left { min-width: 300px; padding: 28px; }
   .choice-right { padding: 22px; }
@@ -282,7 +282,7 @@
 }
 
 /* ========================= MOBILE (<= 600px) ========================= */
-@media (max-width: 600px) {
+@media (max-width: 830px) {
   .choice-modal {
     width: min(96vw, 520px);
     flex-direction: column;

@@ -14,13 +14,13 @@
 }
 
 .profile-card {
-  width: min(760px, 96vw);
+  width: min(800px, 96vw);
   background: transparent;
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.2);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -70,18 +70,20 @@
 }
 
 .field input, .field textarea {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,213,45,0.06);
+  background: rgba(255, 255, 255, 0.05);
   padding: 10px 12px;
-  border-radius: 8px;
   color: var(--text-primary);
   outline: none;
 }
 
 .username-row { 
   display:flex; 
-  align-items:center; 
   gap:8px; 
+}
+
+.field input, .username-row, .field .username-row input, .field textarea {
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
 }
 
 .username-row .static { 
@@ -90,6 +92,17 @@
   border-radius: 8px; 
   color: var(--text-secondary); 
   border:1px solid rgba(255,213,45,0.04); 
+}
+
+.field .username-row input {
+  border: none;
+  width: 100%;
+}
+
+.field textarea {
+  resize: vertical;
+  max-height: 150px;
+  min-height: 50px;
 }
 
 .hint { 
@@ -157,7 +170,7 @@
   .profile-card {
     margin: 0; /* ✅ remove vertical margins */
     padding: 1.6rem;
-    max-width: 360px;
+    max-width: 500px;
   }
 }
 
