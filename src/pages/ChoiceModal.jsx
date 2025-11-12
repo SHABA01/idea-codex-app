@@ -12,7 +12,8 @@ import "../styles/ChoiceModal.css";
  */
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
-  const [firstName, setFirstName] = useState("Maker");
+  const [firstName, setFirstName] = useState("IdeaCodex");
+  const [handle, setHandle] = useState("IdeaCodex");
   const [avatar, setAvatar] = useState("../../assets/IdeaCodex_icon_yellow.png");
 
   useEffect(() => {
@@ -55,8 +56,9 @@ const ChoiceModal = () => {
           <header className="choice-header">
             <div className="choice-brand">
               <img src={avatar} alt="Profile" className="choice-logo" />
-              <div className="choice-welcome">
-                <strong className="user-name">{firstName}</strong>
+              <div className="choice-name">
+                <strong className="firstName">{firstName}</strong>
+                <small className="muted">@{handle}</small>
               </div>
             </div>
 
