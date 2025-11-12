@@ -20,10 +20,10 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
   const isTablet = windowWidth < 1025;
   const isMobile = windowWidth < 601;
 
-  const [form, setForm] = useState({
+  const [formData, setForm] = useState({
     fullName: "",
     displayName: "",
-    username: "",
+    handle: "",
     bio: "",
     avatar: "",
   });
@@ -43,9 +43,9 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    // Basic validation: require displayName or username
-    if (!form.displayName && !form.username) {
-      setError("Please provide a Display name or Username.");
+    // Basic validation: require FullName or handle
+    if (!formData.fullName && !formData.handle) {
+      setError("Please provide your Full name or handle.");
       return;
     }
 
@@ -54,13 +54,13 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
 
     // Simulate saving
     setTimeout(() => {
-      localStorage.setItem("userProfile", JSON.stringify(form));
+      localStorage.setItem("userProfile", JSON.stringify(formData));
 
        // ✅ Dispatch custom event so ProfileProgress updates instantly
        window.dispatchEvent(new Event("profileUpdated"));
 
        setSaving(false);
-      console.log("Profile saved:", form);
+      console.log("Profile saved:", formData);
       onClose();
     }, 800);
   };
@@ -81,8 +81,8 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
         <form className="profile-form" onSubmit={handleSave}>
           {/* Avatar Upload */}
           <div className="avatar-upload">
-            {form.avatar ? (
-              <img src={form.avatar} alt="Avatar" className="avatar-preview" />
+            {formData.avatar ? (
+              <img src={formData.avatar} alt="Avatar" className="avatar-preview" />
             ) : (
               <div className="avatar-placeholder">No Image</div>
             )}
@@ -94,28 +94,28 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
 
           <label className="field">
             <span className="label">Full name *</span>
-            <input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Philip Shaba" required />
+            <input value={formData.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Philip Shaba" required />
             <small className="hint">Shown on invoices</small>
           </label>
 
           <label className="field">
             <span className="label">Display name (optional)</span>
-            <input value={form.displayName} onChange={(e) => update("displayName", e.target.value)} placeholder="MACHOpes" />
+            <input value={formData.displayName} onChange={(e) => update("displayName", e.target.value)} placeholder="MACHOpes" />
             <small className="hint">How people will see you</small>
           </label>
 
           <label className="field">
             <span className="label">Handle *</span>
-            <div className="username-row">
+            <div className="handle-row">
               <span className="static">@</span>
-              <input value={form.username} onChange={(e) => update("username", e.target.value.replace(/\s+/g, ""))} placeholder="philshaba_IdeaCodex" required />
+              <input value={formData.handle} onChange={(e) => update("handle", e.target.value.replace(/\s+/g, ""))} placeholder="philshaba_IdeaCodex" required />
             </div>
             <small className="hint">Used for profile links. No spaces.</small>
           </label>
 
           <label className="field">
             <span className="label">Short bio *</span>
-            <textarea value={form.bio} onChange={(e) => update("bio", e.target.value)} placeholder="I’m a problem solver and builder passionate about turning ideas into actionable solutions. I create projects that combine technology, creativity, and data to make a real impact and help communities collaborate." rows="3" maxLength={350} /*max number of characters*/ required />
+            <textarea value={formData.bio} onChange={(e) => update("bio", e.target.value)} placeholder="I’m a problem solver and builder passionate about turning ideas into actionable solutions. I create projects that combine technology, creativity, and data to make a real impact and help communities collaborate." rows="3" maxLength={350} /*max number of characters*/ required />
             <small className="hint">Introduce yourself — who you are and what you’re building (350 characters max)</small>
           </label>
 

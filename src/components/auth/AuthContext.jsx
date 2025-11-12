@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33);
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   // 🧮 Function to calculate profile completion dynamically
   const calculateProfileCompletion = (userData) => {
     if (!userData) return 0;
-    const profileFields = ["displayName", "username", "bio", "location", "avatar"];
+    const profileFields = ["fullName", "handle", "bio", "avatar"];
     const filledFields = profileFields.filter(
       (field) => userData[field] && userData[field].trim() !== ""
     );
@@ -117,7 +117,7 @@ export const AuthProvider = ({ children }) => {
           setMode("signin");
           setStep(1);
           setFormData({
-            name: "",
+            fullName: "",
             email: "",
             password: "",
             confirmPassword: "",
@@ -139,7 +139,7 @@ export const AuthProvider = ({ children }) => {
   const handleSignUp = () => {
     setAuthMessage("");
 
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
       setAuthMessage("Please fill in all required fields.");
       return;
     }
@@ -157,12 +157,12 @@ export const AuthProvider = ({ children }) => {
     // Add new user
     const newUser = {
       id: db.length + 1,
-      name: formData.name,
+      fullName: formData.fullName,
       email: formData.email,
       password: formData.password,
       otp: generateOTP(),
       displayName: "",
-      username: "",
+      handle: "",
       bio: "",
       avatar: "",
       profileCompletion: 0,

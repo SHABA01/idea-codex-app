@@ -3,8 +3,9 @@ export const users = [
     id: 1,
     email: "philip@example.com",
     password: "123456",
-    displayName: "Philip Shaba",
-    username: "philipshaba",
+    fullName: "Philip Shaba",
+    displayName: "MACHOpes",
+    handle: "philipshaba",
     bio: "Frontend Developer | Tech Enthusiast | Lifelong Learner",
     avatar: "/assets/avatars/philip.png", // optional path or URL
     profileCompletion: 85, // new field for progress tracking
@@ -15,8 +16,9 @@ export const users = [
     id: 2,
     email: "mary@example.com",
     password: "password",
-    displayName: "Mary Segbo",
-    username: "marysegbo",
+    fullName: "Mary Segbo",
+    displayName: "mary20",
+    handle: "marysegbo",
     bio: "Virtual Assistant | Organized and Efficient",
     avatar: "/assets/avatars/mary.png",
     profileCompletion: 90,

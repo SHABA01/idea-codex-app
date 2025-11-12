@@ -7,7 +7,7 @@ const ProfileProgress = () => {
 
   const calculateProgress = () => {
     const storedProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
-    const fields = ["displayName", "username", "bio", "avatar"];
+    const fields = ["displayName", "handle", "bio", "avatar"];
     const completed = fields.filter(
       (key) => storedProfile[key] && storedProfile[key].trim() !== ""
     ).length;

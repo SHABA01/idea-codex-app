@@ -113,17 +113,17 @@
   outline: none;
 }
 
-.username-row { 
+.handle-row { 
   display:flex; 
   gap:8px; 
 }
 
-.field input, .username-row, .field .username-row input, .field textarea {
+.field input, .handle-row, .field .handle-row input, .field textarea {
   border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 8px;
 }
 
-.username-row .static { 
+.handle-row .static { 
   background: rgba(255,255,255,0.02); 
   padding: 8px 10px; 
   border-radius: 8px; 
@@ -131,7 +131,7 @@
   border:1px solid rgba(255,213,45,0.04); 
 }
 
-.field .username-row input {
+.field .handle-row input {
   border: none;
   width: 100%;
 }

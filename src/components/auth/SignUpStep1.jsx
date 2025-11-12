@@ -10,9 +10,9 @@ const SignUpStep1 = ({ onContinue }) => {
       <h3>Sign Up</h3>
       <input
         className="auth-input"
-        name="name"
-        value={formData.name}
-        onChange={(e) => updateField("name", e.target.value)}
+        name="fullName"
+        value={formData.fullName}
+        onChange={(e) => updateField("fullName", e.target.value)}
         placeholder="Full name"
       />
       <input

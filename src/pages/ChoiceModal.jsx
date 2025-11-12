@@ -13,14 +13,14 @@ import "../styles/ChoiceModal.css";
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [firstName, setFirstName] = useState("Maker");
-  const [avatar, setAvatar] = useState("/IdeaCodex_icon_yellow.png");
+  const [avatar, setAvatar] = useState("../../assets/IdeaCodex_icon_yellow.png");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const profile = JSON.parse(localStorage.getItem("userProfile"));
 
-    if (user?.name) {
-      const first = user.name.split(" ")[0];
+    if (user?.fullName) {
+      const first = user.fullName.split(" ")[0];
       setFirstName(first);
     }
     if (profile?.avatar) {
