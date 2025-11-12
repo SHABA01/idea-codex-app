@@ -1,7 +1,8 @@
 // src/components/auth/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dummySeed from "../../assets/dummydb.json";
+import { users } from "../../assets/dummydb";
+
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -11,8 +12,8 @@ const LOCAL_KEY = "dummydb_v1"; // store users here
 const loadDB = () => {
   const local = localStorage.getItem(LOCAL_KEY);
   if (local) return JSON.parse(local);
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(dummySeed));
-  return dummySeed;
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(users));
+  return users;
 };
 
 const saveDB = (data) => {
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   // ⚙️ Local “database” simulation
   const [db, setDB] = useState(loadDB());
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     saveDB(db); // persist updates
@@ -51,6 +53,33 @@ export const AuthProvider = ({ children }) => {
 
   const updateField = (field, value) => {
     setFormData((p) => ({ ...p, [field]: value }));
+  };
+
+  // 🧮 Function to calculate profile completion dynamically
+  const calculateProfileCompletion = (userData) => {
+    if (!userData) return 0;
+    const profileFields = ["displayName", "username", "bio", "location", "avatar"];
+    const filledFields = profileFields.filter(
+      (field) => userData[field] && userData[field].trim() !== ""
+    );
+    return Math.round((filledFields.length / profileFields.length) * 100);
+  };
+
+  // 🪄 Update user profile + recalc completion + persist to localStorage
+  const updateProfile = (updates) => {
+    if (!currentUser) return;
+
+    const updatedUser = { ...currentUser, ...updates };
+    updatedUser.profileCompletion = calculateProfileCompletion(updatedUser);
+
+    setCurrentUser(updatedUser);
+
+    // update DB
+    const updatedDB = db.map((u) =>
+      u.email === currentUser.email ? updatedUser : u
+    );
+    setDB(updatedDB);
+    saveDB(updatedDB);
   };
 
   // 🟡 Generate & store OTP for given user (new or existing)
@@ -131,8 +160,14 @@ export const AuthProvider = ({ children }) => {
       name: formData.name,
       email: formData.email,
       password: formData.password,
-      otp: generateOTP()
+      otp: generateOTP(),
+      displayName: "",
+      username: "",
+      bio: "",
+      avatar: "",
+      profileCompletion: 0,
     };
+
     const updated = [...db, newUser];
     setDB(updated);
     saveDB(updated);
@@ -159,6 +194,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setCurrentUser(null);
+  };
+
   const value = {
     mode,
     setMode,
@@ -173,7 +212,13 @@ export const AuthProvider = ({ children }) => {
     resendOTP,
     authMessage,
     setAuthMessage,
-    verified
+    verified,
+    // 🧠 added below:
+    currentUser,
+    setCurrentUser,
+    updateProfile,
+    calculateProfileCompletion,
+    logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

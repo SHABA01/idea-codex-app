@@ -94,9 +94,6 @@
   cursor: pointer;
 }
 
-
-
-
 .field { 
   display:flex; 
   flex-direction:column; 
@@ -141,7 +138,7 @@
 
 .field textarea {
   resize: vertical;
-  max-height: 150px;
+  max-height: 70px;
   min-height: 50px;
 }
 

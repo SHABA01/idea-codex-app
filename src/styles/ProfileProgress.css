@@ -2,10 +2,15 @@
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(255, 213, 45, 0.1);
+  background: var(--card-bg);
   border: 1px solid rgba(255, 213, 45, 0.3);
   color: var(--accent-gold);
   font-size: 0.9rem;
   font-weight:600;
   transition: all 0.3s ease;
+}
+
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] .profile-completion .progress-pill {
+  border: 1px solid var(--card-border);
 }

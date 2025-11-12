@@ -7,33 +7,29 @@ const ProfileProgress = () => {
 
   const calculateProgress = () => {
     const storedProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
-    const totalFields = 5; // displayName, username, bio, location, avatar
-    let completed = 0;
+    const fields = ["displayName", "username", "bio", "avatar"];
+    const completed = fields.filter(
+      (key) => storedProfile[key] && storedProfile[key].trim() !== ""
+    ).length;
 
-    ["displayName", "username", "bio", "location", "avatar"].forEach((key) => {
-      if (storedProfile[key] && storedProfile[key].trim() !== "") {
-        completed++;
-      }
-    });
-
-    setProgress(Math.round((completed / totalFields) * 100));
+    const percentage = Math.round((completed / fields.length) * 100);
+    setProgress(percentage);
   };
 
   useEffect(() => {
     calculateProgress();
 
-    // Listen for profile changes via localStorage or custom event
+    const handleProfileUpdated = () => calculateProgress();
     const handleStorage = (e) => {
       if (e.key === "userProfile") calculateProgress();
     };
-    const handleProfileUpdated = () => calculateProgress();
 
-    window.addEventListener("storage", handleStorage);
     window.addEventListener("profileUpdated", handleProfileUpdated);
+    window.addEventListener("storage", handleStorage);
 
     return () => {
-      window.removeEventListener("storage", handleStorage);
       window.removeEventListener("profileUpdated", handleProfileUpdated);
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 

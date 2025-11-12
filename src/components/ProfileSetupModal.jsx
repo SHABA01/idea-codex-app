@@ -74,11 +74,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
 
           {/* Skip Profile button */}
           <button type="button" className="btn-skip" onClick={onClose}>
-            {isTablet || isMobile ? (
-              <>Skip</> // Tablet & Mobile
-            ) : (
-              <>Skip for now</> // Desktop
-            )}
+            {isTablet || isMobile ? "Skip" : "Skip for now"}
           </button>        
         </header>
 
