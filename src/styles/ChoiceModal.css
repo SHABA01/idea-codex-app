@@ -281,15 +281,90 @@
   opacity: 0.5; 
 }
 
-/* ========================= TABLET (601px - 1024px) ========================= */
-@media (max-width: 1024px) and (min-width: 831px) {
+/* ========================= TABLET & MOBILE (<= 1045px) ========================= */
+@media (max-width: 1045px) {
+  .choice-sub { 
+    text-align: center; 
+  }
+
+  .btn-profile-choice {
+    background: var(--accent-gold);
+    color: #000;
+  }
+
+  .btn-profile-choice:hover {
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    color: var(--accent-gold);
+  }
+
+  .btn-dashboard-choice {
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    color: var(--accent-gold);
+  }
+
+  .btn-dashboard-choice:hover {
+    background: var(--accent-gold);
+    color: #000;
+  }
+
+  .btn-profile-choice small {
+    color: var(--bg-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-profile-choice:hover small {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .btn-dashboard-choice small {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-dashboard-choice:hover small {
+    color: var(--bg-primary);
+    font-weight: 500;
+  }
+
+  .choice-footer {
+    justify-content: center;
+  }
+
+  [data-theme="dark"] .btn-profile-choice {
+    color: #000;
+    background: var(--border-gold);
+  }
+
+  [data-theme="dark"] .btn-profile-choice:hover {
+    color: var(--border-gold);
+    background: transparent;
+  }
+
+  [data-theme="dark"] .btn-dashboard-choice {
+    color: var(--border-gold);
+    background: transparent;
+  }
+
+  [data-theme="dark"] .btn-dashboard-choice:hover {
+    color: #000;
+    background: var(--border-gold);
+  }
+}
+
+/* ========================= TABLET (831px - 1045px) ========================= */
+@media (max-width: 1045px) and (min-width: 831px) {
   .choice-modal { width: min(900px, 94vw); max-height: 88vh; }
   .choice-left { min-width: 300px; padding: 28px; }
   .choice-right { padding: 22px; }
   .action-grid { grid-template-columns: 1fr; } /* stack actions for easier tap */
 }
 
-/* ========================= MOBILE (<= 600px) ========================= */
+/* ========================= MOBILE (<= 830px) ========================= */
 @media (max-width: 830px) {
   .choice-modal {
     width: min(96vw, 520px);
@@ -299,9 +374,7 @@
   }
 
   .choice-left {
-    padding: 18px;
-    min-width: auto;
-    order: 0;
+    display: none;
   }
 
   .choice-right {
@@ -315,4 +388,11 @@
   .left-title { font-size: 1.2rem; }
   .left-lead { font-size: 0.95rem; }
   .choice-logo { width:36px; height:36px;}
+
+  .btn-studio-choice:hover,
+  .btn-dashboard-choice:hover,
+  .btn-community-choice:hover,
+  .btn-profile-choice:hover {
+    transform: scale(0.9);
+  }
 }
