@@ -116,8 +116,8 @@
 }
 
 .choice-logo {
-  width: 64px;
-  height: 64px;
+  width: 43px;
+  height: 43px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent-gold);
@@ -383,12 +383,11 @@
   }
 
   /* compact grid */
-  .action-grid { grid-template-columns: 1fr; gap: 10px; }
-
-  .left-title { font-size: 1.2rem; }
-  .left-lead { font-size: 0.95rem; }
-  .choice-logo { width:36px; height:36px;}
-
+  .action-grid { 
+    grid-template-columns: 1fr; 
+    gap: 10px; 
+  }
+  
   .btn-studio-choice:hover,
   .btn-dashboard-choice:hover,
   .btn-community-choice:hover,

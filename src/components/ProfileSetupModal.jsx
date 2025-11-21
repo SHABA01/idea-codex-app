@@ -1,49 +1,51 @@
+// src/components/ProfileSetupModal.jsx
 import React, { useEffect, useState } from "react";
 import "../styles/ProfileSetupModal.css";
 
-/**
- * ProfileSetupModal component
- * Props:
- * - onClose() : function when user dismisses the modal
- *
- * Minimal client-side validation for demo / MVP.
- */
 const ProfileSetupModal = ({ onClose = () => {} }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-   const handleResize = () => setWindowWidth(window.innerWidth);
-   window.addEventListener("resize", handleResize);
-   return () => window.removeEventListener("resize", handleResize);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const isTablet = windowWidth < 1025;
   const isMobile = windowWidth < 601;
 
+  // Load user from unified storage
+  const storedUser =
+    JSON.parse(localStorage.getItem("ideaCodexUser")) || {};
+
   const [formData, setForm] = useState({
-    fullName: "",
-    displayName: "",
-    handle: "",
-    bio: "",
-    avatar: "",
+    fullName: storedUser.fullName || "",
+    displayName: storedUser.displayName || "",
+    handle: storedUser.handle || "",
+    bio: storedUser.bio || "",
+    avatar: storedUser.avatar || "",
   });
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const update = (k, v) => setForm((p) => ({ ...p, [k]: v }));
+  const update = (k, v) =>
+    setForm((prev) => ({ ...prev, [k]: v }));
 
+  /** Avatar upload handler */
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => update("avatar", reader.result);
-      reader.readAsDataURL(file);
-    }
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => update("avatar", reader.result);
+    reader.readAsDataURL(file);
   };
 
-  const handleSave = async (e) => {
+  /** Save + write back into ideaCodexUser */
+  const handleSave = (e) => {
     e.preventDefault();
-    // Basic validation: require FullName or handle
+
     if (!formData.fullName && !formData.handle) {
       setError("Please provide your Full name or handle.");
       return;
@@ -52,77 +54,137 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
     setError("");
     setSaving(true);
 
-    // Simulate saving
     setTimeout(() => {
-      localStorage.setItem("userProfile", JSON.stringify(formData));
+      const updatedUser = {
+        ...storedUser,
+        ...formData,
+        profileCompletion: calculateProfileCompletion(formData),
+      };
 
-       // ✅ Dispatch custom event so ProfileProgress updates instantly
-       window.dispatchEvent(new Event("profileUpdated"));
+      localStorage.setItem(
+        "ideaCodexUser",
+        JSON.stringify(updatedUser)
+      );
 
-       setSaving(false);
-      console.log("Profile saved:", formData);
+      // Let ProfileProgress & ChoiceModal update
+      window.dispatchEvent(new Event("profileUpdated"));
+
+      setSaving(false);
       onClose();
-    }, 800);
+    }, 600);
+  };
+
+  /** Automatically calculate profile completion */
+  const calculateProfileCompletion = (data) => {
+    const fields = ["fullName", "displayName", "handle", "bio", "avatar"];
+    const filled = fields.filter((f) => data[f] && data[f] !== "").length;
+
+    return Math.round((filled / fields.length) * 100);
   };
 
   return (
-    <div className="profile-overlay" role="dialog" aria-modal="true" aria-label="Complete your profile">
+    <div
+      className="profile-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Complete your profile"
+    >
       <div className="profile-card">
         <header className="profile-head">
           <h2>Complete your profile</h2>
-          {/*<button className="btn-close" onClick={onClose} aria-label="Close profile setup">✕</button>*/}
 
-          {/* Skip Profile button */}
           <button type="button" className="btn-skip" onClick={onClose}>
             {isTablet || isMobile ? "Skip" : "Skip for now"}
-          </button>        
+          </button>
         </header>
 
         <form className="profile-form" onSubmit={handleSave}>
-          {/* Avatar Upload */}
+          {/* Avatar */}
           <div className="avatar-upload">
             {formData.avatar ? (
-              <img src={formData.avatar} alt="Avatar" className="avatar-preview" />
+              <img
+                src={formData.avatar}
+                alt="Avatar"
+                className="avatar-preview"
+              />
             ) : (
               <div className="avatar-placeholder">No Image</div>
             )}
+
             <label className="avatar-btn">
               Change Picture
-              <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleImageChange}
+              />
             </label>
           </div>
 
+          {/* Full Name */}
           <label className="field">
             <span className="label">Full name *</span>
-            <input value={formData.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="e.g. Philip Shaba" required />
-            <small className="hint">Shown on invoices</small>
+            <input
+              value={formData.fullName}
+              onChange={(e) => update("fullName", e.target.value)}
+              placeholder="e.g. Philip Shaba"
+              required
+            />
           </label>
 
+          {/* Display Name */}
           <label className="field">
             <span className="label">Display name (optional)</span>
-            <input value={formData.displayName} onChange={(e) => update("displayName", e.target.value)} placeholder="MACHOpes" />
-            <small className="hint">How people will see you</small>
+            <input
+              value={formData.displayName}
+              onChange={(e) => update("displayName", e.target.value)}
+              placeholder="MACHOpes"
+            />
           </label>
 
+          {/* Handle */}
           <label className="field">
             <span className="label">Handle *</span>
             <div className="handle-row">
               <span className="static">@</span>
-              <input value={formData.handle} onChange={(e) => update("handle", e.target.value.replace(/\s+/g, ""))} placeholder="philshaba_IdeaCodex" required />
+              <input
+                value={formData.handle}
+                onChange={(e) =>
+                  update(
+                    "handle",
+                    e.target.value.replace(/\s+/g, "")
+                  )
+                }
+                placeholder="philshaba_IdeaCodex"
+                required
+              />
             </div>
-            <small className="hint">Used for profile links. No spaces.</small>
           </label>
 
+          {/* Bio */}
           <label className="field">
             <span className="label">Short bio *</span>
-            <textarea value={formData.bio} onChange={(e) => update("bio", e.target.value)} placeholder="I’m a problem solver and builder passionate about turning ideas into actionable solutions. I create projects that combine technology, creativity, and data to make a real impact and help communities collaborate." rows="3" maxLength={350} /*max number of characters*/ required />
-            <small className="hint">Introduce yourself — who you are and what you’re building (350 characters max)</small>
+            <textarea
+              value={formData.bio}
+              onChange={(e) => update("bio", e.target.value)}
+              placeholder="Tell us about yourself…"
+              rows="3"
+              maxLength={350}
+              required
+            />
           </label>
 
           {error && <div className="error">{error}</div>}
 
           <div className="profile-actions">
-            <button type="submit" className="btn-save-profile" disabled={saving}>{saving ? "Saving..." : "Save profile"}</button>
+            <button
+              type="submit"
+              className="btn-save-profile"
+              disabled={saving}
+            >
+              {saving ? "Saving…" : "Save profile"}
+            </button>
           </div>
         </form>
       </div>
