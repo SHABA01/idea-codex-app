@@ -1,42 +1,69 @@
-import React, { useState, useEffect } from "react";
+// src/pages/ChoiceModal.jsx
+import React, { useEffect, useState } from "react";
 import ProfileSetupModal from "../components/ProfileSetupModal";
 import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
 import ProfileProgress from "../components/ProfileProgress";
 import "../styles/ChoiceModal.css";
+import { getSavedUser } from "../utils/storage";
+import logoSrc from "../assets/IdeaCodex_icon_yellow.png";
 
-/**
- * ChoiceModal page. Shows the choice modal after sign-in.
- * Desktop: wide split panel (left visual / right choices)
- * Tablet: compressed split
- * Mobile: stacked / compact
- */
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
-  const [firstName, setFirstName] = useState("IdeaCodex");
-  const [handle, setHandle] = useState("IdeaCodex");
-  const [avatar, setAvatar] = useState("../../assets/IdeaCodex_icon_yellow.png");
+  const [displayName, setDisplayName] = useState("IdeaCodex");
+  const [handle, setHandle] = useState("ideacodex");
+  const [avatar, setAvatar] = useState(logoSrc);
+
+  const applySaved = (saved) => {
+    if (!saved) {
+      setDisplayName("IdeaCodex");
+      setHandle("ideacodex");
+      setAvatar(logoSrc);
+      return;
+    }
+
+    // displayName precedence: displayName -> first token of fullName -> "IdeaCodex"
+    const nameToShow = saved.displayName && saved.displayName.trim() !== ""
+      ? saved.displayName
+      : (saved.fullName ? saved.fullName.split(" ")[0] : "IdeaCodex");
+
+    setDisplayName(nameToShow);
+
+    setHandle(saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex");
+
+    setAvatar(saved.avatar && saved.avatar.trim() !== "" ? saved.avatar : logoSrc);
+  };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    const profile = JSON.parse(localStorage.getItem("userProfile"));
+    const saved = getSavedUser();
+    applySaved(saved);
 
-    if (user?.fullName) {
-      const first = user.fullName.split(" ")[0];
-      setFirstName(first);
-    }
-    if (profile?.avatar) {
-      setAvatar(profile.avatar);
-    }
+    const onCustom = (ev) => {
+      applySaved(ev.detail);
+    };
+    const onStorage = (e) => {
+      if (e.key === "ideaCodexUser") {
+        try {
+          applySaved(JSON.parse(e.newValue));
+        } catch {
+          applySaved(null);
+        }
+      }
+    };
+
+    window.addEventListener("ideaCodexUserUpdated", onCustom);
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      window.removeEventListener("ideaCodexUserUpdated", onCustom);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   return (
     <div className="choice-page">
-      {/* The dynamic background */}
       <NeuralNetworkBackground withSpiral={false} nodeCount={40} />
 
-      {/* The choice modal */}
       <div className="choice-modal" role="dialog" aria-modal="true" aria-labelledby="choice-title">
-        {/* Left visual / hero column */}
         <aside className="choice-left" aria-hidden>
           <div className="choice-left-inner">
             <h2 className="left-eyebrow">Welcome back</h2>
@@ -51,13 +78,12 @@ const ChoiceModal = () => {
           </div>
         </aside>
 
-        {/* Right actions column */}
         <main className="choice-right">
           <header className="choice-header">
             <div className="choice-brand">
               <img src={avatar} alt="Profile" className="choice-logo" />
               <div className="choice-name">
-                <strong className="firstName">{firstName}</strong>
+                <strong className="firstName">{displayName}</strong>
                 <small className="muted">@{handle}</small>
               </div>
             </div>
@@ -66,9 +92,7 @@ const ChoiceModal = () => {
           </header>
 
           <section className="choice-actions">
-            <p className="choice-sub">
-              Where would you like to go next?
-            </p>
+            <p className="choice-sub">Where would you like to go next?</p>
 
             <div className="action-grid">
               <button className="btn-studio-choice wide" onClick={() => window.location.assign("/studio")}>
@@ -101,9 +125,7 @@ const ChoiceModal = () => {
         </main>
       </div>
 
-      {/* Profile setup modal (overlay) */}
       {profileOpen && <ProfileSetupModal onClose={() => setProfileOpen(false)} />}
-
     </div>
   );
 };

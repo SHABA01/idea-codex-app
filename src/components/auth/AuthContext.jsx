@@ -1,19 +1,19 @@
 // src/components/auth/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { users } from "../../assets/dummydb";
-
+import { users as seedUsers } from "../../assets/dummydb"; // your existing dummydb import
+import { getSavedUser, saveUser } from "../../utils/storage";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
-const LOCAL_KEY = "dummydb_v1"; // store users here
+const LOCAL_KEY = "dummydb_v1"; // keep your DB key for the users array
 
 const loadDB = () => {
   const local = localStorage.getItem(LOCAL_KEY);
   if (local) return JSON.parse(local);
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(users));
-  return users;
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(seedUsers));
+  return seedUsers;
 };
 
 const saveDB = (data) => {
@@ -37,15 +37,13 @@ export const AuthProvider = ({ children }) => {
   const [verified, setVerified] = useState(false);
   const navigate = useNavigate();
 
-  // ⚙️ Local “database” simulation
+  // Local DB and currentUser (from DB OR unified ideaCodexUser storage)
   const [db, setDB] = useState(loadDB());
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(getSavedUser());
 
-  useEffect(() => {
-    saveDB(db); // persist updates
-  }, [db]);
+  useEffect(() => saveDB(db), [db]);
 
-  // Auto-calculate progress
+  // progress for auth steps
   useEffect(() => {
     const totalSteps = mode === "signup" ? 3 : 2;
     setProgress(Math.round((step / totalSteps) * 100));
@@ -55,47 +53,55 @@ export const AuthProvider = ({ children }) => {
     setFormData((p) => ({ ...p, [field]: value }));
   };
 
-  // 🧮 Function to calculate profile completion dynamically
+  // calculate profile completion based on five fields
   const calculateProfileCompletion = (userData) => {
     if (!userData) return 0;
-    const profileFields = ["fullName", "handle", "bio", "avatar"];
-    const filledFields = profileFields.filter(
-      (field) => userData[field] && userData[field].trim() !== ""
-    );
-    return Math.round((filledFields.length / profileFields.length) * 100);
+    const profileFields = ["fullName", "displayName", "handle", "bio", "avatar"];
+    const filled = profileFields.filter((f) => userData[f] && userData[f].toString().trim() !== "");
+    return Math.round((filled.length / profileFields.length) * 100);
   };
 
-  // 🪄 Update user profile + recalc completion + persist to localStorage
+  // update profile (called by ProfileSetupModal) -> updates DB and ideaCodexUser
   const updateProfile = (updates) => {
     if (!currentUser) return;
-
     const updatedUser = { ...currentUser, ...updates };
     updatedUser.profileCompletion = calculateProfileCompletion(updatedUser);
 
+    // update current in memory & unified storage
     setCurrentUser(updatedUser);
+    saveUserToUnified(updatedUser);
 
-    // update DB
-    const updatedDB = db.map((u) =>
-      u.email === currentUser.email ? updatedUser : u
-    );
+    // update DB (if present)
+    const updatedDB = db.map((u) => (u.email === updatedUser.email ? updatedUser : u));
     setDB(updatedDB);
     saveDB(updatedDB);
   };
 
-  // 🟡 Generate & store OTP for given user (new or existing)
+  // helper to save into ideaCodexUser unified localStorage
+  const saveUserToUnified = (userObj) => {
+    try {
+      saveUser(userObj);
+    } catch (err) {
+      console.error("Error saving unified user:", err);
+    }
+  };
+
+  // OTP helpers (store otp in DB to simulate)
   const triggerOTP = (email) => {
     const otp = generateOTP();
-    const updated = db.map((u) =>
-      u.email === email ? { ...u, otp } : u
-    );
+    const updated = db.map((u) => (u.email === email ? { ...u, otp } : u));
     setDB(updated);
     saveDB(updated);
+    // if unified user is the same email, update its otp too (so OTPVerification reads it)
+    const savedUnified = getSavedUser();
+    if (savedUnified?.email === email) {
+      saveUser({ ...savedUnified, otp });
+    }
     console.log(`📩 OTP for ${email}: ${otp}`);
     setAuthMessage(`OTP sent to ${email} (simulated, check console/localStorage)`);
     return otp;
   };
 
-  // 🔁 Resend OTP — just calls triggerOTP again
   const resendOTP = () => {
     if (!formData.email) {
       setAuthMessage("Enter your email to resend OTP.");
@@ -104,38 +110,39 @@ export const AuthProvider = ({ children }) => {
     triggerOTP(formData.email);
   };
 
-  // ✅ OTP Verification
+  // verify OTP
   const verifyOTP = () => {
-    const user = db.find((u) => u.email === formData.email);
+    const user = db.find((u) => u.email === formData.email) || getSavedUser();
     if (user && formData.otp === user.otp) {
       setVerified(true);
       setAuthMessage("✅ Verification successful!");
 
+      // Mark user verified and persist in both DB & unified storage
+      const updatedUser = { ...user, verified: true, otp: "" };
+      setCurrentUser(updatedUser);
+      saveUserToUnified(updatedUser);
+
+      const updatedDB = db.map((u) => (u.email === updatedUser.email ? updatedUser : u));
+      setDB(updatedDB);
+      saveDB(updatedDB);
+
       setTimeout(() => {
         if (mode === "signup") {
-          // After signup verification → go to sign-in
           setMode("signin");
           setStep(1);
-          setFormData({
-            fullName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            otp: ""
-          });
+          setFormData({ fullName: "", email: "", password: "", confirmPassword: "", otp: "" });
         } else {
-          // After sign-in verification → go to choice page
           setAuthMessage("✅ Signed in successfully! Redirecting...");
           setTimeout(() => navigate("/choice"), 800);
         }
         setVerified(false);
-      }, 1200);
+      }, 900);
     } else {
       setAuthMessage("❌ Incorrect OTP, please try again.");
     }
   };
 
-  // 🧩 Sign-up handler — adds new user to DB, triggers OTP
+  // sign-up (adds to DB and saves to unified user so next OTP step can read)
   const handleSignUp = () => {
     setAuthMessage("");
 
@@ -154,7 +161,6 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    // Add new user
     const newUser = {
       id: db.length + 1,
       fullName: formData.fullName,
@@ -164,28 +170,35 @@ export const AuthProvider = ({ children }) => {
       displayName: "",
       handle: "",
       bio: "",
-      avatar: "",
+      avatar: "/IdeaCodex_icon_yellow.png",
       profileCompletion: 0,
+      verified: false
     };
 
     const updated = [...db, newUser];
     setDB(updated);
     saveDB(updated);
 
+    // persist as unified current user so auth flow can pick it up
+    setCurrentUser(newUser);
+    saveUserToUnified(newUser);
+
     console.log("🧾 New user added:", newUser);
     setAuthMessage(`OTP generated for ${formData.email}. Proceed to verification.`);
     setStep(3);
   };
 
-  // 🔐 Sign-in handler
+  // sign-in (check DB -> then create/refresh unified user)
   const handleSignIn = () => {
     setAuthMessage("");
 
-    const user = db.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    );
+    const user = db.find((u) => u.email === formData.email && u.password === formData.password);
 
     if (user) {
+      // store user to unified storage for the rest of the app
+      setCurrentUser(user);
+      saveUserToUnified(user);
+
       setAuthMessage("Proceeding to OTP verification...");
       setStep(2);
       triggerOTP(user.email);
@@ -196,6 +209,13 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setCurrentUser(null);
+    // optionally clear unified storage if you want
+    try {
+      localStorage.removeItem("ideaCodexUser");
+      window.dispatchEvent(new CustomEvent("ideaCodexUserUpdated", { detail: null }));
+    } catch (e) {
+      // noop
+    }
   };
 
   const value = {
@@ -213,12 +233,11 @@ export const AuthProvider = ({ children }) => {
     authMessage,
     setAuthMessage,
     verified,
-    // 🧠 added below:
     currentUser,
     setCurrentUser,
     updateProfile,
     calculateProfileCompletion,
-    logout,
+    logout
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

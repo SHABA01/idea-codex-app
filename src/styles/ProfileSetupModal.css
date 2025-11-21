@@ -92,6 +92,7 @@
   color: var(--accent-gold);
   font-size: 0.85rem;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .avatar-upload .avatar-btn:hover {

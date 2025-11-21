@@ -129,6 +129,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
               value={formData.fullName}
               onChange={(e) => update("fullName", e.target.value)}
               placeholder="e.g. Philip Shaba"
+              maxLength={20}
               required
             />
           </label>
@@ -140,6 +141,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
               value={formData.displayName}
               onChange={(e) => update("displayName", e.target.value)}
               placeholder="MACHOpes"
+              maxLength={20}
             />
           </label>
 
@@ -157,6 +159,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
                   )
                 }
                 placeholder="philshaba_IdeaCodex"
+                maxLength={20}
                 required
               />
             </div>
