@@ -62,7 +62,7 @@
 /* ================== RESPONSIVE LAYOUT ================== */
 
 /* 🟢 Tablet & Larger: shrink left (50%) / right (50%) */
-@media (min-width: 601px) {
+@media (min-width: 831px) {
   .auth-left {
     display: flex; /* ✅ make sure it reappears */
     flex: 1;
@@ -76,8 +76,8 @@
   }
 }
 
-/* 🔵 Mobile: hide left completely */
-@media (max-width: 600px) {
+/* ========================= MOBILE (<= 830px) ========================= */
+@media (max-width: 830px) {
   .auth-left {
     display: none;
   }

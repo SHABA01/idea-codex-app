@@ -42,10 +42,13 @@ const ChoiceModal = () => {
       saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex"
     );
 
-    // avatar fallback
-    setAvatar(
-      saved.avatar && saved.avatar.trim() !== "" ? saved.avatar : logoSrc
-    );
+    // avatar fallback (strict)
+    const safeAvatar =
+      saved.avatar && typeof saved.avatar === "string" && saved.avatar.trim() !== ""
+        ? saved.avatar
+        : logoSrc;
+
+    setAvatar(safeAvatar);
   };
 
   useEffect(() => {
