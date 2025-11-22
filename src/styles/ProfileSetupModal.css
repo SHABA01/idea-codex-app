@@ -209,10 +209,9 @@
   background: transparent;
 }
 
-/* ================== RESPONSIVE LAYOUT ================== */
-
-/* 🟢 Tablet: maintain equal vertical spacing (centered look) */
-@media (max-width: 1024px) and (min-width: 601px) {
+/* ========================= TABLET (831px - 1045px) ========================= */
+/* Maintain equal vertical spacing (centered look) */
+@media (max-width: 1045px) and (min-width: 831px) {
   .profile-card {
     margin: 0; /* ✅ remove vertical margins */
     padding: 1.6rem;
@@ -220,12 +219,13 @@
   }
 }
 
-/* 🔵 Mobile: keep same vertical margins, no scroll behaviour */
-@media (max-width: 600px) {
+/* ========================= MOBILE (<= 830px) ========================= */
+/*keep same vertical margins, no scroll behaviour */
+@media (max-width: 830px) {
   .profile-card {
     margin: 0; /* ✅ remove top/bottom margins */
     padding: 1.4rem;
     width: 92%;
-    max-width: 340px;
+    max-width: 400px;
   }
 }

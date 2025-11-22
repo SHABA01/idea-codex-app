@@ -11,8 +11,8 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const isTablet = windowWidth < 1025;
-  const isMobile = windowWidth < 601;
+  const isTablet = windowWidth < 1046;
+  const isMobile = windowWidth < 831;
 
   // Load user from unified storage
   const storedUser =

@@ -75,6 +75,9 @@ export const AuthProvider = ({ children }) => {
     const updatedDB = db.map((u) => (u.email === updatedUser.email ? updatedUser : u));
     setDB(updatedDB);
     saveDB(updatedDB);
+
+    // 🔥 notify UI instantly
+    window.dispatchEvent(new CustomEvent("ideaCodexUserUpdated", { detail: updatedUser }));
   };
 
   // helper to save into ideaCodexUser unified localStorage

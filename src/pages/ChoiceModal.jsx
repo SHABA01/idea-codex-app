@@ -9,37 +9,56 @@ import logoSrc from "../assets/IdeaCodex_icon_yellow.png";
 
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
+
+  // Display values shown in the UI
   const [displayName, setDisplayName] = useState("IdeaCodex");
   const [handle, setHandle] = useState("ideacodex");
   const [avatar, setAvatar] = useState(logoSrc);
 
   const applySaved = (saved) => {
     if (!saved) {
+      // fallback defaults
       setDisplayName("IdeaCodex");
       setHandle("ideacodex");
       setAvatar(logoSrc);
       return;
     }
 
-    // displayName precedence: displayName -> first token of fullName -> "IdeaCodex"
-    const nameToShow = saved.displayName && saved.displayName.trim() !== ""
-      ? saved.displayName
-      : (saved.fullName ? saved.fullName.split(" ")[0] : "IdeaCodex");
+    // displayName precedence:
+    // 1 displayName
+    // 2 first token of fullName
+    // 3 default
+    const nameToShow =
+      saved.displayName && saved.displayName.trim() !== ""
+        ? saved.displayName
+        : saved.fullName
+        ? saved.fullName.split(" ")[0]
+        : "IdeaCodex";
 
     setDisplayName(nameToShow);
 
-    setHandle(saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex");
+    // handle fallback
+    setHandle(
+      saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex"
+    );
 
-    setAvatar(saved.avatar && saved.avatar.trim() !== "" ? saved.avatar : logoSrc);
+    // avatar fallback
+    setAvatar(
+      saved.avatar && saved.avatar.trim() !== "" ? saved.avatar : logoSrc
+    );
   };
 
   useEffect(() => {
+    // Initial load
     const saved = getSavedUser();
     applySaved(saved);
 
+    // Listener for local updates (ProfileSetupModal → ChoiceModal)
     const onCustom = (ev) => {
       applySaved(ev.detail);
     };
+
+    // Listener for updates caused by other tabs or view reloads
     const onStorage = (e) => {
       if (e.key === "ideaCodexUser") {
         try {
@@ -63,17 +82,26 @@ const ChoiceModal = () => {
     <div className="choice-page">
       <NeuralNetworkBackground withSpiral={false} nodeCount={40} />
 
-      <div className="choice-modal" role="dialog" aria-modal="true" aria-labelledby="choice-title">
+      <div
+        className="choice-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="choice-title"
+      >
         <aside className="choice-left" aria-hidden>
           <div className="choice-left-inner">
             <h2 className="left-eyebrow">Welcome back</h2>
-            <h1 id="choice-title" className="left-title">Turn your concept into reality</h1>
+            <h1 id="choice-title" className="left-title">
+              Turn your concept into reality
+            </h1>
             <p className="left-lead">
-              You can jump straight into the Idea Studio to start building, explore the community feed,
-              or complete your profile for a better personalized experience.
+              You can jump straight into the Idea Studio to start building,
+              explore the community feed, or complete your profile for a better
+              personalized experience.
             </p>
             <div className="left-cta-hint">
-              <span className="dot" /> Profile completion increases discovery and credibility.
+              <span className="dot" /> Profile completion increases discovery
+              and credibility.
             </div>
           </div>
         </aside>
@@ -95,22 +123,34 @@ const ChoiceModal = () => {
             <p className="choice-sub">Where would you like to go next?</p>
 
             <div className="action-grid">
-              <button className="btn-studio-choice wide" onClick={() => window.location.assign("/studio")}>
+              <button
+                className="btn-studio-choice wide"
+                onClick={() => window.location.assign("/studio")}
+              >
                 Go to Idea Studio
                 <small className="muted">Start creating ideas</small>
               </button>
 
-              <button className="btn-community-choice wide" onClick={() => window.location.assign("/community")}>
+              <button
+                className="btn-community-choice wide"
+                onClick={() => window.location.assign("/community")}
+              >
                 Open Community Feed
                 <small className="muted">Catch up with posts & ideas</small>
               </button>
 
-              <button className="btn-profile-choice wide" onClick={() => setProfileOpen(true)}>
+              <button
+                className="btn-profile-choice wide"
+                onClick={() => setProfileOpen(true)}
+              >
                 Complete Profile
                 <small className="muted">Add a display name, bio & avatar</small>
               </button>
 
-              <button className="btn-dashboard-choice wide" onClick={() => window.location.assign("/dashboard")}>
+              <button
+                className="btn-dashboard-choice wide"
+                onClick={() => window.location.assign("/dashboard")}
+              >
                 Maybe Later
                 <small className="muted">Take me to Dashboard</small>
               </button>
