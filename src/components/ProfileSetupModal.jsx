@@ -67,7 +67,9 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
       );
 
       // Let ProfileProgress & ChoiceModal update
-      window.dispatchEvent(new Event("profileUpdated"));
+      window.dispatchEvent(
+        new CustomEvent("ideaCodexUserUpdated", { detail: updatedUser })
+      );
 
       setSaving(false);
       onClose();
