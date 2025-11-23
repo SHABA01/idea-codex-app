@@ -121,6 +121,12 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent-gold);
+  opacity: 0;
+  transition: opacity 1.0s ease-in-out;
+}
+
+.choice-logo.loaded {
+  opacity: 1;
 }
 
 .choice-name {

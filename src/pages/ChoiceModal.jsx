@@ -10,6 +10,8 @@ import logoSrc from "../assets/IdeaCodex_icon_yellow.png";
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   // Display values shown in the UI
   const [displayName, setDisplayName] = useState("IdeaCodex");
   const [handle, setHandle] = useState("ideacodex");
@@ -44,7 +46,11 @@ const ChoiceModal = () => {
 
     // avatar fallback (strict)
     const safeAvatar =
-      saved.avatar && typeof saved.avatar === "string" && saved.avatar.trim() !== ""
+      saved.avatar?.startsWith("blob:")
+        ? saved.avatar
+        : saved.avatar?.startsWith("data:")
+        ? saved.avatar
+        : saved.avatar && saved.avatar.trim() !== ""
         ? saved.avatar
         : logoSrc;
 
@@ -115,7 +121,8 @@ const ChoiceModal = () => {
               <img
                 src={avatar || logoSrc}
                 alt="Profile"
-                className="choice-logo"
+                className={`choice-logo ${imgLoaded ? "loaded" : ""}`}
+                onLoad={() => setImgLoaded(true)}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = logoSrc;
