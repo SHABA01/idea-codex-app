@@ -112,7 +112,16 @@ const ChoiceModal = () => {
         <main className="choice-right">
           <header className="choice-header">
             <div className="choice-brand">
-              <img src={avatar} alt="Profile" className="choice-logo" />
+              <img
+                src={avatar || logoSrc}
+                alt="Profile"
+                className="choice-logo"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = logoSrc;
+                }}
+              />
+
               <div className="choice-name">
                 <strong className="firstName">{displayName}</strong>
                 <small className="muted">@{handle}</small>
