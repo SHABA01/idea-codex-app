@@ -150,7 +150,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
             <AvatarDisplay
               avatar={formData.avatar}
               name={formData.displayName || formData.fullName}
-              size={64}
+              size={60}
               className="avatar-preview"
               placeholderMode="profileModal"
             />

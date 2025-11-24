@@ -110,8 +110,8 @@ const ChoiceModal = () => {
               <AvatarDisplay
                 avatar={avatar}
                 name={displayName}
-                size={43}
-                className={`choice-logo ${imgLoaded ? "loaded" : ""}`}
+                size={60}
+                className="choice-logo"
                 placeholderMode="choiceModal"
               />
 

@@ -65,16 +65,16 @@
 }
 
 .avatar-preview {
-  width: 43px;
-  height: 43px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent-gold);
 }
 
 .avatar-placeholder {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: rgba(255,255,255,0.05);
   display: flex;

@@ -116,17 +116,11 @@
 }
 
 .choice-logo {
-  width: 43px;
-  height: 43px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent-gold);
-  opacity: 0.5;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.choice-logo.loaded {
-  opacity: 1;
 }
 
 .choice-name {
