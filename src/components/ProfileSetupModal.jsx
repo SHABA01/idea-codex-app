@@ -1,7 +1,13 @@
 // src/components/ProfileSetupModal.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../styles/ProfileSetupModal.css";
+import AvatarDisplay from "./AvatarDisplay";
 
+/**
+ * ProfileSetupModal
+ * - Uses AvatarDisplay for showing avatar preview (placeholder or image)
+ * - Keeps upload button and saves avatar as data: URL into ideaCodexUser
+ */
 const ProfileSetupModal = ({ onClose = () => {} }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -15,8 +21,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
   const isMobile = windowWidth < 831;
 
   // Load user from unified storage
-  const storedUser =
-    JSON.parse(localStorage.getItem("ideaCodexUser")) || {};
+  const storedUser = JSON.parse(localStorage.getItem("ideaCodexUser")) || {};
 
   const [formData, setForm] = useState({
     fullName: storedUser.fullName || "",
@@ -26,19 +31,48 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
     avatar: storedUser.avatar || "",
   });
 
+  // Keep a transient preview object URL (not persisted). We keep it separate so we can show stable image immediately.
+  const previewRef = useRef(null);
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const update = (k, v) =>
-    setForm((prev) => ({ ...prev, [k]: v }));
+  const update = (k, v) => setForm((prev) => ({ ...prev, [k]: v }));
 
   /** Avatar upload handler */
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // 1) Create a stable object URL for immediate preview (fast and stable)
+    if (previewRef.current) {
+      try {
+        URL.revokeObjectURL(previewRef.current);
+      } catch (err) {}
+      previewRef.current = null;
+    }
+    const objUrl = URL.createObjectURL(file);
+    previewRef.current = objUrl;
+    // set preview as blob URL first for instant stable display
+    update("avatar", objUrl);
+
+    // 2) Read file as data URL to persist into localStorage (so it's available after reload)
     const reader = new FileReader();
-    reader.onloadend = () => update("avatar", reader.result);
+    reader.onloadend = () => {
+      // reader.result is the data: URL
+      update("avatar", reader.result);
+      // Note: we keep objUrl for immediate preview (AvatarDisplay will convert data: -> blob for display)
+      // revoke the object URL after a short while, but keep it until React re-renders with data URL.
+      // We'll revoke on unmount or next upload to avoid leaks.
+      setTimeout(() => {
+        if (previewRef.current && previewRef.current === objUrl) {
+          try {
+            URL.revokeObjectURL(objUrl);
+          } catch (e) {}
+          previewRef.current = null;
+        }
+      }, 2000);
+    };
     reader.readAsDataURL(file);
   };
 
@@ -61,10 +95,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
         profileCompletion: calculateProfileCompletion(formData),
       };
 
-      localStorage.setItem(
-        "ideaCodexUser",
-        JSON.stringify(updatedUser)
-      );
+      localStorage.setItem("ideaCodexUser", JSON.stringify(updatedUser));
 
       // Let ProfileProgress & ChoiceModal update
       window.dispatchEvent(
@@ -83,6 +114,18 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
 
     return Math.round((filled / fields.length) * 100);
   };
+
+  // cleanup object URL if any on unmount
+  useEffect(() => {
+    return () => {
+      if (previewRef.current) {
+        try {
+          URL.revokeObjectURL(previewRef.current);
+        } catch (e) {}
+        previewRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -103,15 +146,14 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
         <form className="profile-form" onSubmit={handleSave}>
           {/* Avatar */}
           <div className="avatar-upload">
-            {formData.avatar ? (
-              <img
-                src={formData.avatar}
-                alt="Avatar"
-                className="avatar-preview"
-              />
-            ) : (
-              <div className="avatar-placeholder">No Image</div>
-            )}
+            {/* AvatarDisplay: placeholderMode="profileModal" shows "No Image" when no avatar */}
+            <AvatarDisplay
+              avatar={formData.avatar}
+              name={formData.displayName || formData.fullName}
+              size={64}
+              className="avatar-preview"
+              placeholderMode="profileModal"
+            />
 
             <label className="avatar-btn">
               Change Picture
@@ -155,10 +197,7 @@ const ProfileSetupModal = ({ onClose = () => {} }) => {
               <input
                 value={formData.handle}
                 onChange={(e) =>
-                  update(
-                    "handle",
-                    e.target.value.replace(/\s+/g, "")
-                  )
+                  update("handle", e.target.value.replace(/\s+/g, ""))
                 }
                 placeholder="philshaba_IdeaCodex"
                 maxLength={20}

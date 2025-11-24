@@ -6,30 +6,28 @@ import ProfileProgress from "../components/ProfileProgress";
 import "../styles/ChoiceModal.css";
 import { getSavedUser } from "../utils/storage";
 import logoSrc from "../assets/IdeaCodex_icon_yellow.png";
+import AvatarDisplay from "../components/AvatarDisplay";
 
 const ChoiceModal = () => {
   const [profileOpen, setProfileOpen] = useState(false);
-
   const [imgLoaded, setImgLoaded] = useState(false);
 
   // Display values shown in the UI
   const [displayName, setDisplayName] = useState("IdeaCodex");
   const [handle, setHandle] = useState("ideacodex");
-  const [avatar, setAvatar] = useState(logoSrc);
+  const [avatar, setAvatar] = useState(""); // keep empty when no custom avatar; fallback handled by AvatarDisplay
 
   const applySaved = (saved) => {
     if (!saved) {
       // fallback defaults
       setDisplayName("IdeaCodex");
       setHandle("ideacodex");
-      setAvatar(logoSrc);
+      setAvatar("");
+      setImgLoaded(false);
       return;
     }
 
-    // displayName precedence:
-    // 1 displayName
-    // 2 first token of fullName
-    // 3 default
+    // displayName precedence: displayName -> first token of fullName -> default
     const nameToShow =
       saved.displayName && saved.displayName.trim() !== ""
         ? saved.displayName
@@ -40,21 +38,11 @@ const ChoiceModal = () => {
     setDisplayName(nameToShow);
 
     // handle fallback
-    setHandle(
-      saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex"
-    );
+    setHandle(saved.handle && saved.handle.trim() !== "" ? saved.handle : "ideacodex");
 
-    // avatar fallback (strict)
-    const safeAvatar =
-      saved.avatar?.startsWith("blob:")
-        ? saved.avatar
-        : saved.avatar?.startsWith("data:")
-        ? saved.avatar
-        : saved.avatar && saved.avatar.trim() !== ""
-        ? saved.avatar
-        : logoSrc;
-
-    setAvatar(safeAvatar);
+    // Only accept avatar if it's a non-empty string; AvatarDisplay will decide whether it's data/blob/remote
+    setAvatar(saved.avatar && saved.avatar.trim() !== "" ? saved.avatar : "");
+    setImgLoaded(false);
   };
 
   useEffect(() => {
@@ -118,15 +106,13 @@ const ChoiceModal = () => {
         <main className="choice-right">
           <header className="choice-header">
             <div className="choice-brand">
-              <img
-                src={avatar || logoSrc}
-                alt="Profile"
+              {/* AvatarDisplay: when avatar empty -> show initials; when avatar present -> show image */}
+              <AvatarDisplay
+                avatar={avatar}
+                name={displayName}
+                size={43}
                 className={`choice-logo ${imgLoaded ? "loaded" : ""}`}
-                onLoad={() => setImgLoaded(true)}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = logoSrc;
-                }}
+                placeholderMode="choiceModal"
               />
 
               <div className="choice-name">
