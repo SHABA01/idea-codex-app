@@ -5,6 +5,12 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import ChoiceModal from "./pages/ChoiceModal";
 import { LoaderProvider } from "./contexts/LoaderContext";
+import AppLayout from "./layouts/AppLayout";
+import StudioPage from "./pages/Studio";
+import MarketPlace from "./pages/MarketPlace";
+import Dashboard from "./pages/Dashboard";
+import Community from "./pages/Community";
+import PageNotFound from "./pages/PageNotFound";
 import ProcessLoader from "./components/loaders/ProcessLoader";
 import SplashRouteWrapper from "./routes/SplashRouteWrapper";
 
@@ -18,9 +24,18 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/auth/:mode" element={<AuthPage />} />
             <Route path="/choice" element={<ChoiceModal />} />
-            {/* add other routes here */}
+            {/* All internal pages wrapped with AppLayout */}
+            <Route element={<AppLayout />}>
+              <Route path="/studio" element={<StudioPage />} />
+              <Route path="/market" element={<MarketPlace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/community" element={<Community />} />
+              {/* add other internal routes here */}
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />   
           </Routes>
-        {/*</SplashRouteWrapper>./}
+        {/*</SplashRouteWrapper>*/}
 
         {/* Global process loader (renders above everything when active) */}
         {/*<ProcessLoader />*/}

@@ -1,0 +1,35 @@
+/* AppLayout.css */
+.app-layout {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--bg-primary);
+}
+
+/* main column sits to the right of the sidebar */
+.main-col {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  display:flex;
+  flex-direction:column;
+  min-height: 100dvh;
+}
+
+.sidebar.collapsed + .main-col {
+  margin-left: 72px;
+  width: calc(100% - 72px);
+}
+
+/* app content area */
+.app-content {
+  padding: 20px;
+  flex: 1;
+  overflow: auto;
+}
+
+/* responsive */
+@media (max-width: 830px) {
+  .main-col {
+    margin-left: 0;
+    width: 100%;
+  }
+}
