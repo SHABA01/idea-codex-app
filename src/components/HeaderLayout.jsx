@@ -28,12 +28,7 @@ const HeaderLayout = ({ onOpenMobile = () => {} }) => {
           <i className="fa-solid fa-bars"></i>
         </button>
 
-        {/* Logo + Breadcrumbs */}
-        <div className="header-brand" onClick={() => navigate("/")}>
-          <img src={logo} alt="IdeaCodex" className="header-logo" />
-        </div>
-
-        {/* New Breadcrumb Component */}
+        {/* Breadcrumb Component */}
         <Breadcrumbs />
       </div>
 

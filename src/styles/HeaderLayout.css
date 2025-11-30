@@ -25,14 +25,6 @@
   font-size: 1.05rem;
 }
 
-.header-logo {
-  width: 36px;
-  height: 36px;
-  margin-right: 8px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
 .breadcrumb-wrap {
   display:flex;
   gap:10px;

@@ -32,22 +32,23 @@
 
 .brand {
   display:flex;
-  gap:10px;
   align-items:center;
 }
 
 .brand-logo {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 2px solid var(--accent-gold);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  /*object-fit: cover;
+  border: 2px solid var(--accent-gold);*/
 }
 
-.brand-text {
-  font-size: 1.05rem;
-  margin:0;
-  color: var(--text-primary);
+.brand:hover {
+  
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
 }
 
 /* collapse button */
@@ -192,7 +193,6 @@
 
 /* small tweaks for collapsed mode (hide text labels) */
 .sidebar.collapsed .nav-item span,
-.sidebar.collapsed .brand-text,
 .sidebar.collapsed .nav-section-title,
 .sidebar.collapsed .sidebar-footer > *:not(.collapse-btn) {
   display: none;

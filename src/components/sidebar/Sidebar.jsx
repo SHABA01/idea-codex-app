@@ -1,6 +1,6 @@
 // src/components/sidebar/Sidebar.jsx
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../components/ThemeToggle";
 import "../../styles/Sidebar.css";
 import logo from "../../assets/IdeaCodex_icon_yellow.png";
@@ -16,6 +16,7 @@ import sidebarConfig from "./sidebarConfig";
  * If mobileOpen is not provided, the component manages its own mobile state.
  */
 const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   // support controlled/uncontrolled mobile open
@@ -65,9 +66,8 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
       {/* === Desktop Sidebar === */}
       <aside className={`sidebar ${collapsed ? "collapsed" : ""}`} aria-hidden={false}>
         <div className="sidebar-header">
-          <div className="brand">
+          <div className="brand" onClick={() => navigate("/")}>
             <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
-            {!collapsed && <h1 className="brand-text">IdeaCodex</h1>}
           </div>
 
           <button

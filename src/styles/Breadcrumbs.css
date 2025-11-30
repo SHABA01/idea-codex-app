@@ -1,22 +1,57 @@
-.breadcrumbs {
+/* Breadcrumbs.css */
+
+/* Container */
+.ic-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 0.9rem;
-  color: var(--text-secondary);
-  padding: 4px 0;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(255, 213, 45, 0.06); /* faint gold tint */
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 213, 45, 0.12);
+  width: fit-content;
 }
 
-.breadcrumbs .crumb a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.2s ease;
+/* Each crumb wrapper */
+.ic-crumb-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.breadcrumbs .crumb a:hover {
+/* Crumb text */
+.ic-crumb {
   color: var(--accent-gold);
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-.breadcrumbs .separator {
-  opacity: 0.5;
+.ic-crumb:hover {
+  opacity: 0.75;
+}
+
+/* Active crumb (current page) */
+.ic-crumb.active {
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: default;
+  opacity: 1;
+}
+
+/* separator */
+.ic-separator {
+  color: var(--accent-gold);
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* responsive tweak */
+@media (max-width: 600px) {
+  .ic-breadcrumbs {
+    font-size: 0.82rem;
+    padding: 4px 10px;
+  }
 }
