@@ -1,0 +1,22 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 4px 0;
+}
+
+.breadcrumbs .crumb a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs .crumb a:hover {
+  color: var(--accent-gold);
+}
+
+.breadcrumbs .separator {
+  opacity: 0.5;
+}

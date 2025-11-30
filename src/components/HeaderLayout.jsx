@@ -1,17 +1,15 @@
 // src/components/HeaderLayout.jsx
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { buildBreadcrumbs } from "../utils/breadcrumbs";
+import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import Breadcrumbs from "./Breadcrumbs";
 import "../styles/HeaderLayout.css";
 import logo from "../assets/IdeaCodex_icon_yellow.png";
 import { getSavedUser } from "../utils/storage";
 
 const HeaderLayout = ({ onOpenMobile = () => {} }) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const crumbs = buildBreadcrumbs(location.pathname);
-  const user = getSavedUser(); // your util — returns unified ideaCodexUser object or null
+  const user = getSavedUser();
 
   const initials = (() => {
     const name = (user?.displayName || user?.fullName || "IdeaCodex").trim();
@@ -21,32 +19,39 @@ const HeaderLayout = ({ onOpenMobile = () => {} }) => {
   return (
     <header className="app-header">
       <div className="app-header-left">
-        <button className="mobile-open" onClick={onOpenMobile} aria-label="Open menu">
+        {/* Mobile menu button */}
+        <button
+          className="mobile-open"
+          onClick={onOpenMobile}
+          aria-label="Open menu"
+        >
           <i className="fa-solid fa-bars"></i>
         </button>
 
-        <div className="breadcrumb-wrap" onClick={() => navigate("/")}>
+        {/* Logo + Breadcrumbs */}
+        <div className="header-brand" onClick={() => navigate("/")}>
           <img src={logo} alt="IdeaCodex" className="header-logo" />
-          <nav className="breadcrumbs" aria-label="Breadcrumbs">
-            {crumbs.length === 0 ? (
-              <span className="crumb">Home</span>
-            ) : (
-              crumbs.map((c, i) => (
-                <span key={c.path} className="crumb" onClick={() => navigate(c.path)}>
-                  {c.label} {i < crumbs.length - 1 && <span className="sep">›</span>}
-                </span>
-              ))
-            )}
-          </nav>
         </div>
+
+        {/* New Breadcrumb Component */}
+        <Breadcrumbs />
       </div>
 
       <div className="app-header-right">
         <ThemeToggle />
-        {/* small avatar/initials */}
-        <div className="header-avatar" title={user?.displayName || user?.fullName || "IdeaCodex"}>
+
+        {/* Avatar */}
+        <div
+          className="header-avatar"
+          title={user?.displayName || user?.fullName || "IdeaCodex"}
+        >
           {user?.avatar ? (
-            <img src={user.avatar} alt="avatar" className="header-avatar-img" onError={(e) => (e.target.src = logo)} />
+            <img
+              src={user.avatar}
+              alt="avatar"
+              className="header-avatar-img"
+              onError={(e) => (e.target.src = logo)}
+            />
           ) : (
             <div className="avatar-initials">{initials}</div>
           )}
