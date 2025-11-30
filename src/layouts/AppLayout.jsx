@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
-import MobileSidebar from "../components/sidebar/MobileSidebar";
 import HeaderLayout from "../components/HeaderLayout";
 import "../styles/AppLayout.css";
 
@@ -11,9 +10,12 @@ const AppLayout = () => {
 
   return (
     <div className="app-layout">
-      <Sidebar />
-      <MobileSidebar open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      {/* Sidebar now handles both desktop + mobile drawer.
+          We pass mobileOpen & onCloseMobile so header can open it. */}
+      <Sidebar mobileOpen={mobileOpen} onCloseMobile={() => setMobileOpen(false)} />
+
       <div className="main-col">
+        {/* HeaderLayout should still call onOpenMobile prop to open mobile menu */}
         <HeaderLayout onOpenMobile={() => setMobileOpen(true)} />
         <main className="app-content">
           <Outlet />

@@ -1,4 +1,4 @@
-/* Sidebar.css - desktop + mobile shared */
+/* Sidebar.css - desktop + mobile shared (patched) */
 
 /* Basic layout */
 .sidebar {
@@ -109,15 +109,41 @@
   gap:8px;
 }
 
-/* mobile drawer */
+/* ========================= MOBILE DRAWER (patched) ========================= */
+
+/* mobile wrapper hidden by default */
 .mobile-drawer {
   position: fixed;
   inset: 0;
-  pointer-events:none;
   z-index: 2000;
+  pointer-events: none;
+  visibility: hidden;
 }
 
-.mobile-drawer .mobile-inner {
+/* visible when open */
+.mobile-drawer.open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* BACKDROP — starts invisible */
+.mobile-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* BACKDROP ACTIVE */
+.mobile-drawer.open .mobile-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* DRAWER CONTENT */
+.mobile-inner {
   width: 300px;
   max-width: 86vw;
   background: var(--card-bg);
@@ -125,19 +151,34 @@
   transform: translateX(-100%);
   transition: transform 0.25s ease;
   padding: 16px;
-  position: relative;
-  pointer-events:auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: auto;
 }
 
+/* DRAWER ACTIVE */
 .mobile-drawer.open .mobile-inner {
   transform: translateX(0);
+  pointer-events: auto;
 }
 
-.mobile-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  pointer-events:auto;
+/* mobile nav items visually match desktop */
+.mobile-nav .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav .nav-item.active {
+  background: linear-gradient(90deg, rgba(255,213,45,0.06), rgba(255,213,45,0.02));
+  color: var(--accent-gold);
 }
 
 /* mobile close button */
@@ -157,7 +198,7 @@
   display: none;
 }
 
-/* responsive — hide sidebar on small screens */
+/* responsive — hide desktop sidebar on small screens */
 @media (max-width: 830px) {
   .sidebar { display: none; }
 }
