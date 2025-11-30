@@ -1,7 +1,6 @@
 // src/components/HeaderLayout.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
 import Breadcrumbs from "./Breadcrumbs";
 import "../styles/HeaderLayout.css";
 import logo from "../assets/IdeaCodex_icon_yellow.png";
@@ -33,8 +32,6 @@ const HeaderLayout = ({ onOpenMobile = () => {} }) => {
       </div>
 
       <div className="app-header-right">
-        <ThemeToggle />
-
         {/* Avatar */}
         <div
           className="header-avatar"

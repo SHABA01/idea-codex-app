@@ -9,7 +9,6 @@
   color: var(--text-primary);
   font-weight: 700;
   font-size: 1.05rem;
-  border: 2px solid var(--accent-gold);
   box-sizing: border-box;
 }
 
