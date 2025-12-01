@@ -3,16 +3,16 @@
 
 const sidebarConfig = [
   {
-    id: "studio",
-    label: "Idea Studio",
-    icon: "fa-solid fa-pen-nib",
-    path: "/studio"
-  },
-  {
     id: "dashboard",
     label: "Dashboard",
     icon: "fa-solid fa-chart-line",
     path: "/dashboard"
+  },
+  {
+    id: "studio",
+    label: "Idea Studio",
+    icon: "fa-solid fa-pen-nib",
+    path: "/studio"
   },
   {
     id: "community",

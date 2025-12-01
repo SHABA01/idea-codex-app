@@ -18,6 +18,8 @@ import sidebarConfig from "./sidebarConfig";
 const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [showExpand, setShowExpand] = useState(false);
+
 
   // support controlled/uncontrolled mobile open
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
@@ -65,19 +67,39 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
     <>
       {/* === Desktop Sidebar === */}
       <aside className={`sidebar ${collapsed ? "collapsed" : ""}`} aria-hidden={false}>
-        <div className="sidebar-header">
-          <div className="brand" onClick={() => navigate("/")}>
-            <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
-          </div>
+        <div
+          className="sidebar-header"
+          onMouseEnter={() => collapsed && setShowExpand(true)}
+          onMouseLeave={() => collapsed && setShowExpand(false)}
+        >
+          {/* LOGO (visible only when NOT collapsed OR when not hovered) */}
+          {(!collapsed || !showExpand) && (
+            <div className="brand" onClick={() => navigate("/")}>
+              <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
+            </div>
+          )}
 
-          <button
-            className="collapse-btn"
-            onClick={() => setCollapsed((p) => !p)}
-            aria-label="Toggle sidebar"
-            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            <i className="fa-solid fa-bars" />
-          </button>
+          {/* EXPAND ICON (visible only when collapsed AND hovered) */}
+          {collapsed && showExpand && (
+            <button
+              className="collapse-btn expand-btn"
+              onClick={() => setCollapsed(false)}
+              title="Expand sidebar"
+            >
+              <i className="fa-solid fa-angles-right"></i>
+            </button>
+          )}
+
+          {/* COLLAPSE ICON (visible only when expanded) */}
+          {!collapsed && (
+            <button
+              className="collapse-btn"
+              onClick={() => setCollapsed(true)}
+              title="Collapse sidebar"
+            >
+              <i className="fa-solid fa-bars"></i>
+            </button>
+          )}
         </div>
 
         <nav className="sidebar-nav" aria-label="Primary">
