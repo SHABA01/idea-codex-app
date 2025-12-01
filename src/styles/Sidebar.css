@@ -128,13 +128,6 @@
   padding-right:8px;
 }
 
-.nav-section-title {
-  color: var(--text-secondary);
-  font-weight: 600;
-  margin: 8px 0 6px;
-  display:block;
-}
-
 /* nav-item */
 .nav-item {
   display:flex;
@@ -251,7 +244,6 @@
 
 /* small tweaks for collapsed mode (hide text labels) */
 .sidebar.collapsed .nav-item span,
-.sidebar.collapsed .nav-section-title,
 .sidebar.collapsed .sidebar-footer > *:not(.collapse-btn) {
   display: none;
 }

@@ -103,8 +103,6 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
         </div>
 
         <nav className="sidebar-nav" aria-label="Primary">
-          <h3 className="nav-section-title">{!collapsed && "Navigation"}</h3>
-
           {sidebarConfig.filter((i) => !i.section).map((it) => (
             <React.Fragment key={it.id}>{renderItem(it)}</React.Fragment>
           ))}
