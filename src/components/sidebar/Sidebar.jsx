@@ -133,12 +133,9 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
 
         <div className="sidebar-footer">
           {/* SIDEBAR THEME TOGGLE (styled like nav-item) */}
-          <button
-            className={`nav-item sidebar-theme-toggle`}
-            onClick={() => {}}
-          >
+          <div className="nav-item sidebar-theme-toggle">
             <ThemeToggle sidebarMode collapsed={collapsed} />
-          </button>
+          </div>
           
           <NavLink to="/settings" className="nav-item settings">
             <i className="fa-solid fa-gear" />

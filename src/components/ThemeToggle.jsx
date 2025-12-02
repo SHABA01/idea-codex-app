@@ -18,18 +18,10 @@ const ThemeToggle = ({ sidebarMode = false, collapsed = false }) => {
   // 🟡 SIDEBAR MODE (styled like nav-item)
   if (sidebarMode) {
     return (
-      <>
+      <div className="sidebar-theme-wrapper" onClick={toggleTheme}>
         <i className={`fa-solid ${theme === "light" ? "fa-moon" : "fa-sun"}`} />
-
         {!collapsed && <span>Theme</span>}
-
-        {/* Hidden button to handle toggle */}
-        <button
-          onClick={toggleTheme}
-          className="sidebar-theme-hidden-btn"
-          aria-label="Toggle theme"
-        />
-      </>
+      </div>
     );
   }
 

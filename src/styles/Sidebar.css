@@ -257,6 +257,47 @@
   display: none;
 }
 
+/* ========================= SIDEBAR THEME TOGGLE ========================= */
+
+/* Make the wrapper button behave like a nav-item */
+.sidebar-theme-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  text-align: left;
+}
+
+.sidebar-theme-toggle:hover {
+  color: var(--accent-gold);
+  transform: scale(0.9);
+}
+
+/* match icon size of other items */
+.sidebar-theme-toggle i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Hidden button that only captures direct clicks, not hovers */
+.sidebar-theme-hidden-btn {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+
+  /* 🧠 KEY FIX — do NOT block hover/click on other elements */
+  pointer-events: none;
+}
+
 /* responsive — hide desktop sidebar on small screens */
 @media (max-width: 830px) {
   .sidebar { display: none; }
