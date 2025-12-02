@@ -72,25 +72,31 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
           onMouseEnter={() => collapsed && setShowExpand(true)}
           onMouseLeave={() => collapsed && setShowExpand(false)}
         >
-          {/* LOGO (visible only when NOT collapsed OR when not hovered) */}
-          {(!collapsed || !showExpand) && (
-            <div className="brand" onClick={() => navigate("/")}>
-              <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
-            </div>
-          )}
-
-          {/* EXPAND ICON (visible only when collapsed AND hovered) */}
-          {collapsed && showExpand && (
-            <button
-              className="collapse-btn expand-btn"
-              onClick={() => setCollapsed(false)}
-              title="Expand sidebar"
-            >
-              <i className="fa-solid fa-angles-right"></i>
-            </button>
-          )}
-
-          {/* COLLAPSE ICON (visible only when expanded) */}
+          
+          {/* FIXED CONTAINER FOR ICON SWAPPING */}
+          <div className="header-toggle-area">
+          
+            {/* LOGO */}
+            {(!collapsed || !showExpand) && (
+              <div className="brand" onClick={() => navigate("/")}>
+                <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
+              </div>
+            )}
+        
+            {/* EXPAND ICON */}
+            {collapsed && showExpand && (
+              <button
+                className="collapse-btn expand-btn"
+                onClick={() => setCollapsed(false)}
+                title="Expand sidebar"
+              >
+                <i className="fa-solid fa-angles-right"></i>
+              </button>
+            )}
+        
+          </div>
+          
+          {/* COLLAPSE ICON (RIGHT SIDE, behaves exactly same) */}
           {!collapsed && (
             <button
               className="collapse-btn"
@@ -101,6 +107,7 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
             </button>
           )}
         </div>
+        
 
         <nav className="sidebar-nav" aria-label="Primary">
           {sidebarConfig.filter((i) => !i.section).map((it) => (
