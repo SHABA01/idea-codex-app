@@ -103,7 +103,7 @@ const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
               onClick={() => setCollapsed(true)}
               title="Collapse sidebar"
             >
-              <i className="fa-solid fa-bars"></i>
+              ✕
             </button>
           )}
         </div>
