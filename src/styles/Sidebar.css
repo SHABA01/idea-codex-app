@@ -298,6 +298,13 @@
   pointer-events: none;
 }
 
+.sidebar-theme-wrapper {
+  display: flex;          /* REQUIRED for gap to work */
+  align-items: center;    /* match nav-items */
+  gap: 12px;              /* same spacing as nav-items */
+  width: 100%;            /* full row like nav-item */
+}
+
 /* responsive — hide desktop sidebar on small screens */
 @media (max-width: 830px) {
   .sidebar { display: none; }
