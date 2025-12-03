@@ -8,7 +8,7 @@ export default function PageNotFound() {
 
   return (
     <div className="pnf">
-      <NeuralNetworkBackground withSpiral={false} nodeCount={40} />
+      <NeuralNetworkBackground withSpiral={true} nodeCount={40} />
 
       <div className="pnf-content">
         <h1>404</h1>
