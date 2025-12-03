@@ -7,16 +7,14 @@ export default function PageNotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="pnf-container">
+    <div className="pnf">
       <NeuralNetworkBackground withSpiral={false} nodeCount={40} />
 
-      <div className="pnf-foreground">
-        <h1 className="pnf-title">404</h1>
-        <h2 className="pnf-subtitle">Page Not Found</h2>
-        <p className="pnf-text">
-          Looks like you’re off the grid.  
-          Let’s guide you back to the right path.
-        </p>
+      <div className="pnf-content">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>Looks like you’re off the grid.</p>  
+        <p>Let’s guide you back to the right path.</p>
 
         <button className="pnf-btn" onClick={() => navigate("/")}>
           Go Home
