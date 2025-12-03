@@ -1,0 +1,84 @@
+.pnf-container {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.pnf-foreground {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+  text-align: center;
+
+  /* Transparent + blur like ChoiceModal */
+  background: rgba(0, 0, 0, 0.0);
+  backdrop-filter: blur(6px);
+
+  z-index: 10;
+  animation: fadeIn 0.6s ease;
+}
+
+/* Main text */
+.pnf-title {
+  font-size: 6rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.pnf-subtitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pnf-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+}
+
+/* Button */
+.pnf-btn {
+  margin-top: 14px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+
+  background: var(--accent-gold);
+  color: #000;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.pnf-btn:hover {
+  transform: scale(1.05);
+}
+
+/* fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* subtle floating animation for 404 */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
