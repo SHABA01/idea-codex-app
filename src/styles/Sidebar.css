@@ -125,12 +125,15 @@
 
 /* nav */
 .sidebar-nav {
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  overflow:auto;
-  padding-right:8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;              /* makes nav take all remaining vertical space */
+  overflow-y: auto;     /* scroll ONLY this section */
+  padding-right: 8px;
+  min-height: 0;        /* critical for Firefox + Chrome flex scroll */
 }
+
 
 /* nav-item */
 .nav-item {
@@ -165,9 +168,11 @@
 /* footer */
 .sidebar-footer {
   margin-top: auto;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+  padding-bottom: 6px; /* optional breathing space */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;      /* prevent footer from compressing nav */
 }
 
 /* ========================= MOBILE DRAWER (patched) ========================= */
