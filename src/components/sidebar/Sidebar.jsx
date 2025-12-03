@@ -15,48 +15,40 @@ import sidebarConfig from "./sidebarConfig";
  *
  * If mobileOpen is not provided, the component manages its own mobile state.
  */
-const Sidebar = ({ mobileOpen: controlledMobileOpen, onCloseMobile }) => {
+const Sidebar = ({
+  collapsed,
+  setCollapsed,
+  mobileOpen: controlledMobileOpen,
+  onCloseMobile
+}) => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
 
-
-  // support controlled/uncontrolled mobile open
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
-  const mobileOpen = typeof controlledMobileOpen === "boolean" ? controlledMobileOpen : internalMobileOpen;
+  const mobileOpen =
+    typeof controlledMobileOpen === "boolean"
+      ? controlledMobileOpen
+      : internalMobileOpen;
+
   const setMobileOpen = (v) => {
     if (typeof controlledMobileOpen === "boolean") {
-      // controlled: call onCloseMobile when trying to close
       if (!v && typeof onCloseMobile === "function") onCloseMobile();
-      // else parent will open/close
     } else {
       setInternalMobileOpen(v);
     }
   };
 
   useEffect(() => {
-    // When mobile drawer opens, prevent body scroll
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [mobileOpen]);
 
-  const renderItem = (item, onClickClose) => (
+  const renderItem = (item) => (
     <NavLink
       to={item.path}
       key={item.id}
       className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-      onClick={() => {
-        // close mobile drawer on navigation
-        if (mobileOpen) setMobileOpen(false);
-        if (typeof onClickClose === "function") onClickClose();
-      }}
+      onClick={() => mobileOpen && setMobileOpen(false)}
     >
       <i className={item.icon} aria-hidden />
       {!collapsed && <span>{item.label}</span>}

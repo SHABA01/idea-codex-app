@@ -1,35 +1,31 @@
 /* AppLayout.css */
+
 .app-layout {
   display: flex;
   min-height: 100dvh;
   background: var(--bg-primary);
 }
 
-/* main column sits to the right of the sidebar */
+/* default (expanded) */
 .main-col {
   margin-left: 260px;
-  width: calc(100% - 260px);
-  display:flex;
-  flex-direction:column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   min-height: 100dvh;
+  transition: margin-left 0.2s ease, width 0.2s ease;
 }
 
-.sidebar.collapsed + .main-col {
-  margin-left: 72px;
-  width: calc(100% - 72px);
-}
-
-/* app content area */
-.app-content {
-  padding: 20px;
-  flex: 1;
-  overflow: auto;
+/* collapsed mode */
+.app-layout.sidebar-collapsed .main-col {
+  margin-left: 70px;
+  width: 100%;
 }
 
 /* responsive */
 @media (max-width: 830px) {
   .main-col {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 }
