@@ -153,7 +153,8 @@
   text-align:center;
 }
 
-.nav-item:hover {
+.nav-item:hover,
+.mobile-nav .nav-item:hover {
   color: var(--accent-gold);
   transform: scale(0.9);
 }
@@ -210,7 +211,7 @@
 
 /* DRAWER CONTENT */
 .mobile-inner {
-  width: 300px;
+  width: 250px;
   max-width: 86vw;
   background: var(--card-bg);
   height: 100%;
@@ -248,12 +249,27 @@
 }
 
 /* mobile close button */
+.mobile-inner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .mobile-inner .btn-close {
   background: transparent;
   border: none;
   font-size: 1.4rem;
-  color: var(--text-secondary);
+  color: var(--accent-gold);
   margin-bottom: 10px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  font-style: bold;
+}
+
+.mobile-inner .btn-close:hover {
+  transform: scale(1.1);
 }
 
 /* small tweaks for collapsed mode (hide text labels) */

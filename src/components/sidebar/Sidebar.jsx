@@ -157,9 +157,14 @@ const Sidebar = ({
 
         {/* drawer content */}
         <div className="mobile-inner" role="dialog" aria-modal="true">
-          <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
-            ✕
-          </button>
+          <div className="mobile-inner-header">
+            <div className="brand" onClick={() => navigate("/")}>
+              <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
+            </div>
+            <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+              ✕
+            </button>
+          </div>
 
           <nav className="mobile-nav" aria-label="Mobile primary">
             {sidebarConfig.filter((i) => !i.section).map((item) => (
