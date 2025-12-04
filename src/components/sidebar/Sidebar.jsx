@@ -186,6 +186,23 @@ const Sidebar = ({
               </div>
             ))}
           </nav>
+
+          <div className="mobile-footer">
+            {/* SIDEBAR THEME TOGGLE (styled like nav-item) */}
+            <div className="nav-item sidebar-theme-toggle">
+              <ThemeToggle sidebarMode />
+            </div>
+          
+            <NavLink to="/settings" className="nav-item settings">
+             <i className="fa-solid fa-gear" />
+             <span>Settings</span>
+            </NavLink>
+
+            <NavLink to="/auth/logout" className="nav-item logout">
+              <i className="fa-solid fa-right-from-bracket" />
+              <span>Log Out</span>
+            </NavLink>
+          </div>
         </div>
       </div>
     </>

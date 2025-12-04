@@ -124,7 +124,7 @@
 }
 
 /* nav */
-.sidebar-nav {
+.sidebar-nav, .mobile-nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -211,6 +211,8 @@
 
 /* DRAWER CONTENT */
 .mobile-inner {
+  display: flex;
+  flex-direction: column;
   width: 250px;
   max-width: 86vw;
   background: var(--card-bg);
@@ -228,6 +230,12 @@
 .mobile-drawer.open .mobile-inner {
   transform: translateX(0);
   pointer-events: auto;
+}
+
+.mobile-nav {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0; /* IMPORTANT for proper scroll */
 }
 
 /* mobile nav items visually match desktop */
@@ -260,6 +268,7 @@
   background: transparent;
   border: none;
   font-size: 1.4rem;
+  padding: 0.3em 0.7em;
   color: var(--accent-gold);
   margin-bottom: 10px;
   cursor: pointer;
@@ -270,6 +279,14 @@
 
 .mobile-inner .btn-close:hover {
   transform: scale(1.1);
+}
+
+.mobile-footer {
+  margin-top: auto; /* pushes it to the bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
 }
 
 /* small tweaks for collapsed mode (hide text labels) */

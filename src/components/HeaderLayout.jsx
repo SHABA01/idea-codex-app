@@ -6,7 +6,7 @@ import "../styles/HeaderLayout.css";
 import logo from "../assets/IdeaCodex_icon_yellow.png";
 import { getSavedUser } from "../utils/storage";
 
-const HeaderLayout = ({ onOpenMobile = () => {} }) => {
+const HeaderLayout = ({ onOpenMobile = () => {}, mobileOpen = false }) => {
   const navigate = useNavigate();
   const user = getSavedUser();
 
@@ -20,7 +20,7 @@ const HeaderLayout = ({ onOpenMobile = () => {} }) => {
       <div className="app-header-left">
         {/* Mobile menu button */}
         <button
-          className="mobile-open"
+          className={`mobile-open ${mobileOpen ? "open" : ""}`}
           onClick={onOpenMobile}
           aria-label="Open menu"
         >

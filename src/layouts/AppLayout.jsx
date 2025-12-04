@@ -21,7 +21,18 @@ const AppLayout = () => {
       />
 
       <div className="main-col">
-        <HeaderLayout onOpenMobile={() => setMobileOpen(true)} />
+        <HeaderLayout 
+          onOpenMobile={() => setMobileOpen(true)}
+          mobileOpen={mobileOpen}
+        />
+
+        <Sidebar 
+           mobileOpen={mobileOpen}
+           onCloseMobile={() => setMobileOpen(false)}
+           collapsed={collapsed}
+           setCollapsed={setCollapsed}
+        />
+
         <main className="app-content">
           <Outlet />
         </main>
