@@ -1,5 +1,5 @@
 // src/layouts/AppLayout.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
 import HeaderLayout from "../components/HeaderLayout";
@@ -10,6 +10,17 @@ const AppLayout = () => {
 
   // ⭐ NEW: shared collapse state
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const handler = () => {
+      if (window.innerWidth >= 830) {
+        setMobileOpen(false);
+     }
+    };
+
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []); 
 
   return (
     <div className={`app-layout ${collapsed ? "sidebar-collapsed" : ""}`}>
