@@ -48,8 +48,8 @@
   font-size: 0.9rem;
 }
 
-/* responsive tweak */
-@media (max-width: 600px) {
+/* ========================= TABLET & MOBILE (<= 1045px) ========================= */
+@media (max-width: 1045px) {
   .ic-breadcrumbs {
     font-size: 0.82rem;
     padding: 4px 10px;

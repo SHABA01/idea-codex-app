@@ -221,7 +221,7 @@
   max-height: 100dvh;    /* Prevent overflow beyond screen */
   transform: translateX(0);
   transition: transform 0.25s ease;
-  padding: 16px;
+  padding: 5px 2px 5px 18px;
   position: absolute;
   left: 0;
   top: 0;
@@ -345,8 +345,8 @@
   width: 100%;            /* full row like nav-item */
 }
 
-/* responsive — hide desktop sidebar on small screens */
-@media (max-width: 830px) {
+/* ========================= TABLET & MOBILE (<= 1045px) ========================= */
+@media (max-width: 1045px) {
   .sidebar {
     display: none !important;  /* 🔥 fix ghost overlay */
   }

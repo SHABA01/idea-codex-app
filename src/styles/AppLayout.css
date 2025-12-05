@@ -26,8 +26,8 @@
     padding: 0;
 }
 
-/* responsive */
-@media (max-width: 830px) {
+/* ========================= TABLET & MOBILE (<= 1045px) ========================= */
+@media (max-width: 1045px) {
   .main-col {
     margin-left: 0 !important;
     width: 100% !important;

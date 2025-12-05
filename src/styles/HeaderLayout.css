@@ -91,8 +91,8 @@
   background: transparent;
 }
 
-/* responsive - show mobile open */
-@media (max-width: 830px) {
+/* ========================= TABLET & MOBILE (<= 1045px) ========================= */
+@media (max-width: 1045px) {
   .mobile-open { display:inline-block; }
 
   .app-header {
