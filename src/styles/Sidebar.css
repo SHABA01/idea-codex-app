@@ -180,17 +180,18 @@
 
 /* mobile wrapper hidden by default */
 .mobile-drawer {
-  position: fixed;
+  /*position: fixed;
   inset: 0;
-  z-index: 2000;
-  pointer-events: none;
-  visibility: hidden;
+  z-index: 2000;*/
+  display: none;
 }
 
 /* visible when open */
 .mobile-drawer.open {
-  pointer-events: auto;
-  visibility: visible;
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
 }
 
 /* BACKDROP — starts invisible */
@@ -217,13 +218,13 @@
   max-width: 86vw;
   background: var(--card-bg);
   height: 100%;
-  transform: translateX(-100%);
+  transform: translateX(0);
   transition: transform 0.25s ease;
   padding: 16px;
   position: absolute;
   left: 0;
   top: 0;
-  pointer-events: auto;
+  z-index: 2100; /* ensure it's above the aside */
 }
 
 /* DRAWER ACTIVE */
@@ -345,5 +346,7 @@
 
 /* responsive — hide desktop sidebar on small screens */
 @media (max-width: 830px) {
-  .sidebar { display: none; }
+  .sidebar {
+    display: none !important;  /* 🔥 fix ghost overlay */
+  }
 }

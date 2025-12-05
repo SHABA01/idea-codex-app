@@ -26,13 +26,6 @@ const AppLayout = () => {
           mobileOpen={mobileOpen}
         />
 
-        <Sidebar 
-           mobileOpen={mobileOpen}
-           onCloseMobile={() => setMobileOpen(false)}
-           collapsed={collapsed}
-           setCollapsed={setCollapsed}
-        />
-
         <main className="app-content">
           <Outlet />
         </main>

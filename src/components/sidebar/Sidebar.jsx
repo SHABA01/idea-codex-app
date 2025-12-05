@@ -141,70 +141,71 @@ const Sidebar = ({
         </div>
       </aside>
 
-      {/* === Mobile Drawer (same structure, slides in) === */}
-      <div className={`mobile-drawer ${mobileOpen ? "open" : ""}`} aria-hidden={!mobileOpen}>
-        {/* backdrop */}
-        <div
-          className="mobile-backdrop"
-          role="button"
-          aria-label="Close menu"
-          onClick={() => setMobileOpen(false)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") setMobileOpen(false);
-          }}
-          tabIndex={mobileOpen ? 0 : -1}
-        />
+      {/* === Mobile Drawer (only mounted when open) === */}
+      {mobileOpen && (
+        <div className="mobile-drawer open" aria-hidden={!mobileOpen}>
+          {/* backdrop */}
+          <div
+            className="mobile-backdrop"
+            role="button"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setMobileOpen(false);
+            }}
+            tabIndex={0}
+          />
 
-        {/* drawer content */}
-        <div className="mobile-inner" role="dialog" aria-modal="true">
-          <div className="mobile-inner-header">
-            <div className="brand" onClick={() => navigate("/")}>
-              <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
-            </div>
-            <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
-              ✕
-            </button>
-          </div>
-
-          <nav className="mobile-nav" aria-label="Mobile primary">
-            {sidebarConfig.filter((i) => !i.section).map((item) => (
-              <NavLink key={item.id} to={item.path} className="nav-item" onClick={() => setMobileOpen(false)}>
-                <i className={item.icon} />
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
-
-            {sidebarConfig.filter((i) => i.section).map((section) => (
-              <div key={section.section} className="mobile-section">
-                <div className="mobile-section-title">{section.title}</div>
-                {section.children.map((c) => (
-                  <NavLink key={c.id} to={c.path} className="nav-item" onClick={() => setMobileOpen(false)}>
-                    <i className={c.icon} />
-                    <span>{c.label}</span>
-                  </NavLink>
-                ))}
+          {/* drawer content */}
+          <div className="mobile-inner" role="dialog" aria-modal="true">
+            <div className="mobile-inner-header">
+              <div className="brand" onClick={() => { setMobileOpen(false); navigate("/"); }}>
+                <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
               </div>
-            ))}
-          </nav>
-
-          <div className="mobile-footer">
-            {/* SIDEBAR THEME TOGGLE (styled like nav-item) */}
-            <div className="nav-item sidebar-theme-toggle">
-              <ThemeToggle sidebarMode />
+              <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+                ✕
+              </button>
             </div>
           
-            <NavLink to="/settings" className="nav-item settings">
-             <i className="fa-solid fa-gear" />
-             <span>Settings</span>
-            </NavLink>
+            <nav className="mobile-nav" aria-label="Mobile primary">
+              {sidebarConfig.filter((i) => !i.section).map((item) => (
+                <NavLink key={item.id} to={item.path} className="nav-item" onClick={() => setMobileOpen(false)}>
+                  <i className={item.icon} />
+                  <span>{item.label}</span>
+                </NavLink>
+              ))}
 
-            <NavLink to="/auth/logout" className="nav-item logout">
-              <i className="fa-solid fa-right-from-bracket" />
-              <span>Log Out</span>
-            </NavLink>
+              {sidebarConfig.filter((i) => i.section).map((section) => (
+                <div key={section.section} className="mobile-section">
+                  <div className="mobile-section-title">{section.title}</div>
+                  {section.children.map((c) => (
+                    <NavLink key={c.id} to={c.path} className="nav-item" onClick={() => setMobileOpen(false)}>
+                      <i className={c.icon} />
+                      <span>{c.label}</span>
+                    </NavLink>
+                  ))}
+                </div>
+              ))}
+            </nav>
+            
+            <div className="mobile-footer">
+              <div className="nav-item sidebar-theme-toggle">
+                <ThemeToggle sidebarMode />
+              </div>
+            
+              <NavLink to="/settings" className="nav-item settings">
+                <i className="fa-solid fa-gear" />
+                <span>Settings</span>
+              </NavLink>
+            
+              <NavLink to="/auth/logout" className="nav-item logout">
+                <i className="fa-solid fa-right-from-bracket" />
+                <span>Log Out</span>
+              </NavLink>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
