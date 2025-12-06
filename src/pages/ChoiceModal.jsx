@@ -130,7 +130,7 @@ const ChoiceModal = () => {
             <div className="action-grid">
               <button
                 className="btn-studio-choice wide"
-                onClick={() => window.location.assign("/studio")}
+                onClick={() => window.location.assign("/studio?mode=live")}
               >
                 Go to Idea Studio
                 <small className="muted">Start creating ideas</small>

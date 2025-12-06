@@ -16,8 +16,8 @@ const Hero = () => {
         <h1>Turning Concepts Into Reality</h1>
         <p>AI-powered platform for creators, innovators, and dreamers.</p>
         <div className="hero-buttons">
-          <button className="btn-start" onClick={() => navigate("/studio")}>Start Creating</button>
-          <button className="btn-explore" onClick={() => navigate("/market")}>Explore Marketplace</button>
+          <button className="btn-start" onClick={() => navigate("/studio?mode=demo")}>Start Creating</button>
+          <button className="btn-explore" onClick={() => navigate("/market?mode=demo")}>Explore Marketplace</button>
         </div>
       </div>
     </section>

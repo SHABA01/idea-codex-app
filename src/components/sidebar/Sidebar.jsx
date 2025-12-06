@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../components/ThemeToggle";
 import "../../styles/Sidebar.css";
 import logo from "../../assets/IdeaCodex_icon_yellow.png";
+import { useStudioAccess } from "../../contexts/StudioAccessContext";
 import sidebarConfig from "./sidebarConfig";
 
 /**
@@ -23,6 +24,7 @@ const Sidebar = ({
 }) => {
   const navigate = useNavigate();
   const [showExpand, setShowExpand] = useState(false);
+  const { mode } = useStudioAccess();
 
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const mobileOpen =
@@ -85,8 +87,14 @@ const Sidebar = ({
                 <i className="fa-solid fa-angles-right"></i>
               </button>
             )}
-        
           </div>
+
+          {/* USER ACCESS MODE LABEL */}
+          {!collapsed && (
+            <div className="sidebar-mode">
+              {mode === "demo" ? "DEMO MODE" : "LIVE MODE"}
+            </div>
+          )}
           
           {/* COLLAPSE ICON (RIGHT SIDE, behaves exactly same) */}
           {!collapsed && (
@@ -161,6 +169,10 @@ const Sidebar = ({
             <div className="mobile-inner-header">
               <div className="brand" onClick={() => { setMobileOpen(false); navigate("/"); }}>
                 <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
+              </div>
+              {/* USER ACCESS MODE LABEL */}
+              <div className="mobile-drawer-mode">
+                {mode === "demo" ? "DEMO MODE" : "LIVE MODE"}
               </div>
               <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
                 ✕
