@@ -44,7 +44,7 @@
   gap: 1rem;
 }
 
-.btn-explore {
+.btn-explore-market {
   background: transparent;
   border: 1px solid var(--border-gold);
   color: var(--accent-gold);
@@ -53,13 +53,13 @@
   transition: all 0.3s ease;
 }
 
-.btn-explore:hover {
+.btn-explore-market:hover {
   transform: scale(1.1);
   background: var(--accent-gold);
   color: #000;
 }
 
-.btn-start {
+.btn-explore-studio {
   background: var(--accent-gold);
   color: #000;
   border: none;
@@ -69,7 +69,7 @@
   transition: all 0.3s ease;
 }
 
-.btn-start:hover {
+.btn-explore-studio:hover {
   transform: scale(1.1);
   background: transparent;
   border: 1px solid var(--border-gold);
@@ -77,21 +77,21 @@
 }
 
 /* 🌙 Dark Mode Overrides */
-[data-theme="dark"] .btn-explore {
+[data-theme="dark"] .btn-explore-market {
   color: var(--text-primary);
 }
 
-[data-theme="dark"] .btn-explore:hover {
+[data-theme="dark"] .btn-explore-market:hover {
   color: #000;
   background: var(--border-gold);
 }
 
-[data-theme="dark"] .btn-start {
+[data-theme="dark"] .btn-explore-studio {
   color: #000;
   background: var(--border-gold);
 }
 
-[data-theme="dark"] .btn-start:hover {
+[data-theme="dark"] .btn-explore-studio:hover {
   color: var(--text-primary);
   background: transparent;
 }

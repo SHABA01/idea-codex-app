@@ -30,11 +30,11 @@ const Hero = () => {
         <p>AI-powered platform for creators, innovators, and dreamers.</p>
 
         <div className="hero-buttons">
-          <button className="btn-start" onClick={handleStudioDemo}>
-            Start Creating
+          <button className="btn-explore-studio" onClick={handleStudioDemo}>
+            Explore Studio
           </button>
 
-          <button className="btn-explore" onClick={handleMarketDemo}>
+          <button className="btn-explore-market" onClick={handleMarketDemo}>
             Explore Marketplace
           </button>
         </div>
