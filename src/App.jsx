@@ -21,7 +21,6 @@ import Dashboard from "./pages/Dashboard";
 import Community from "./pages/Community";
 import Collab from "./pages/Collaborations";
 import Profile from "./pages/Profile";
-import Tools from "./pages/Templates";
 import Settings from "./pages/Settings";
 
 import PageNotFound from "./pages/PageNotFound";
@@ -53,7 +52,6 @@ const App = () => {
               <Route path="/community" element={<Community />} />
               <Route path="/collab" element={<Collab />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/tools" element={<Tools />} />
               <Route path="/settings" element={<Settings />} />
             </Route>
 
