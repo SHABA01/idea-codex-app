@@ -11,12 +11,17 @@ import { StudioAccessProvider } from "./contexts/StudioAccessContext";
 
 import AppLayout from "./layouts/AppLayout";
 import StudioPage from "./pages/Studio";
-import MarketPlace from "./pages/MarketPlace";
+import Gallery from "./pages/Gallery";
+import Recommended from "./pages/Recommended";
+import Trending from "./pages/Trending";
+import Templates from "./pages/Templates";
+import Extensions from "./pages/Extensions";
+import AITools from "./pages/AITools";
 import Dashboard from "./pages/Dashboard";
 import Community from "./pages/Community";
 import Collab from "./pages/Collaborations";
 import Profile from "./pages/Profile";
-import Tools from "./pages/Tools";
+import Tools from "./pages/Templates";
 import Settings from "./pages/Settings";
 
 import PageNotFound from "./pages/PageNotFound";
@@ -38,7 +43,12 @@ const App = () => {
             {/* Internal app pages */}
             <Route element={<AppLayout />}>
               <Route path="/studio" element={<StudioPage />} />
-              <Route path="/market" element={<MarketPlace />} />
+              <Route path="/market/gallery" element={<Gallery />} />
+              <Route path="/market/recommended" element={<Recommended />} />
+              <Route path="/market/trending" element={<Trending />} />
+              <Route path="/tools/templates" element={<Templates />} />
+              <Route path="/tools/extensions" element={<Extensions />} />
+              <Route path="/tools/ai_tools" element={<AITools />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/community" element={<Community />} />
               <Route path="/collab" element={<Collab />} />
