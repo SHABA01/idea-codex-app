@@ -345,6 +345,14 @@
   width: 100%;            /* full row like nav-item */
 }
 
+.sidebar-mode, .mobile-drawer-mode {
+  padding: 0;
+  opacity: 1;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+}
+
 /* ========================= TABLET & MOBILE (<= 1045px) ========================= */
 @media (max-width: 1045px) {
   .sidebar {

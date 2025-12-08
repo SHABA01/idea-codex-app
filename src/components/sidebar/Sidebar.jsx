@@ -92,7 +92,7 @@ const Sidebar = ({
           {/* USER ACCESS MODE LABEL */}
           {!collapsed && (
             <div className="sidebar-mode">
-              {mode === "demo" ? "DEMO MODE" : "LIVE MODE"}
+              {mode === "demo" ? "DEMO" : "LIVE"}
             </div>
           )}
           
@@ -172,7 +172,7 @@ const Sidebar = ({
               </div>
               {/* USER ACCESS MODE LABEL */}
               <div className="mobile-drawer-mode">
-                {mode === "demo" ? "DEMO MODE" : "LIVE MODE"}
+                {mode === "demo" ? "DEMO" : "LIVE"}
               </div>
               <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
                 ✕

@@ -4,7 +4,7 @@
     this file only contains initials fallback and minor glue to avoid styling breaks.)
 */
 
-.avatar-initials {
+.avatar-display-initials {
   background: linear-gradient(90deg, rgba(255,213,45,0.08), transparent);
   color: var(--text-primary);
   font-weight: 700;
@@ -12,7 +12,7 @@
   box-sizing: border-box;
 }
 
-.avatar-initials::selection {
+.avatar-display-initials::selection {
   background: none;
 }
 

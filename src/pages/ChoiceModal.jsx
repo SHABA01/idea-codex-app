@@ -1,11 +1,12 @@
 // src/pages/ChoiceModal.jsx
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useStudioAccess } from "../contexts/StudioAccessContext";
 import ProfileSetupModal from "../components/ProfileSetupModal";
 import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
 import ProfileProgress from "../components/ProfileProgress";
 import "../styles/ChoiceModal.css";
 import { getSavedUser } from "../utils/storage";
-import logoSrc from "../assets/IdeaCodex_icon_yellow.png";
 import AvatarDisplay from "../components/AvatarDisplay";
 
 const ChoiceModal = () => {
@@ -16,6 +17,24 @@ const ChoiceModal = () => {
   const [displayName, setDisplayName] = useState("IdeaCodex");
   const [handle, setHandle] = useState("ideacodex");
   const [avatar, setAvatar] = useState(""); // keep empty when no custom avatar; fallback handled by AvatarDisplay
+
+  const navigate = useNavigate();
+  const { switchMode } = useStudioAccess();
+
+  const handleStudioLive = () => {
+    switchMode("live");
+    navigate("/studio");
+  };
+
+  const handleCommunityLive = () => {
+    switchMode("live");
+    navigate("/community");
+  };
+
+  const handleDashboardLive = () => {
+    switchMode("live");
+    navigate("/dashboard");
+  };
 
   const applySaved = (saved) => {
     if (!saved) {
@@ -130,7 +149,7 @@ const ChoiceModal = () => {
             <div className="action-grid">
               <button
                 className="btn-studio-choice wide"
-                onClick={() => window.location.assign("/studio?mode=live")}
+                onClick={handleStudioLive}
               >
                 Go to Idea Studio
                 <small className="muted">Start creating ideas</small>
@@ -138,7 +157,7 @@ const ChoiceModal = () => {
 
               <button
                 className="btn-community-choice wide"
-                onClick={() => window.location.assign("/community")}
+                onClick={handleCommunityLive}
               >
                 Open Community Feed
                 <small className="muted">Catch up with posts & ideas</small>
@@ -154,7 +173,7 @@ const ChoiceModal = () => {
 
               <button
                 className="btn-dashboard-choice wide"
-                onClick={() => window.location.assign("/dashboard")}
+                onClick={handleDashboardLive}
               >
                 Maybe Later
                 <small className="muted">Take me to Dashboard</small>

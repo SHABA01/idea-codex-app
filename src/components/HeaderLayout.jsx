@@ -2,13 +2,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
+import { useStudioAccess } from "../contexts/StudioAccessContext";
+import AvatarDisplay from "./AvatarDisplay";
 import "../styles/HeaderLayout.css";
-import logo from "../assets/IdeaCodex_icon_yellow.png";
 import { getSavedUser } from "../utils/storage";
 
 const HeaderLayout = ({ onOpenMobile = () => {}, mobileOpen = false }) => {
   const navigate = useNavigate();
   const user = getSavedUser();
+
+  const { mode } = useStudioAccess();
 
   const initials = (() => {
     const name = (user?.displayName || user?.fullName || "IdeaCodex").trim();
@@ -32,22 +35,17 @@ const HeaderLayout = ({ onOpenMobile = () => {}, mobileOpen = false }) => {
       </div>
 
       <div className="app-header-right">
-        {/* Avatar */}
-        <div
-          className="header-avatar"
-          title={user?.displayName || user?.fullName || "IdeaCodex"}
-        >
-          {user?.avatar ? (
-            <img
-              src={user.avatar}
-              alt="avatar"
-              className="header-avatar-img"
-              onError={(e) => (e.target.src = logo)}
-            />
-          ) : (
-            <div className="avatar-initials">{initials}</div>
-          )}
-        </div>
+        {/* Avatar (UNIVERSAL) */}
+        <AvatarDisplay
+          avatar={user?.avatar || ""}
+          name={user?.displayName || user?.fullName || "IdeaCodex"}
+          variant="header"
+          placeholderMode="choiceModal"
+          onClickLive={() => {
+            // navigate to profile only in LIVE mode
+            navigate("/profile");
+          }}
+        />
       </div>
     </header>
   );

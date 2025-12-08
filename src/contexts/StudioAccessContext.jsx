@@ -1,24 +1,30 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-const StudioAccessContext = createContext(null);
+const StudioAccessContext = createContext();
 
 export const StudioAccessProvider = ({ children }) => {
-  const [mode, setMode] = useState("guest"); 
-  // "guest" | "demo" | "live"
+  const [mode, setMode] = useState("demo"); 
+  // “demo” | “live”
 
-  // persists mode across reloads
+  // Auto-detect from storage or default to “demo”
   useEffect(() => {
-    const saved = localStorage.getItem("ic_access_mode");
-    if (saved) setMode(saved);
+    try {
+      const saved = localStorage.getItem("studio-access-mode");
+      if (saved === "live" || saved === "demo") {
+        setMode(saved);
+      }
+    } catch (_) {}
   }, []);
 
-  const setAccessMode = (value) => {
-    setMode(value);
-    localStorage.setItem("ic_access_mode", value);
+  const switchMode = (next) => {
+    setMode(next);
+    try {
+      localStorage.setItem("studio-access-mode", next);
+    } catch (_) {}
   };
 
   return (
-    <StudioAccessContext.Provider value={{ mode, setAccessMode }}>
+    <StudioAccessContext.Provider value={{ mode, switchMode }}>
       {children}
     </StudioAccessContext.Provider>
   );
