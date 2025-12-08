@@ -14,6 +14,10 @@ import StudioPage from "./pages/Studio";
 import MarketPlace from "./pages/MarketPlace";
 import Dashboard from "./pages/Dashboard";
 import Community from "./pages/Community";
+import Collab from "./pages/Collaborations";
+import Profile from "./pages/Profile";
+import Tools from "./pages/Tools";
+import Settings from "./pages/Settings";
 
 import PageNotFound from "./pages/PageNotFound";
 // import ProcessLoader from "./components/loaders/ProcessLoader";
@@ -37,6 +41,10 @@ const App = () => {
               <Route path="/market" element={<MarketPlace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/collab" element={<Collab />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
 
             {/* Fallback */}

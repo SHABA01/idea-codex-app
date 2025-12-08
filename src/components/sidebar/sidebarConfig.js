@@ -64,9 +64,9 @@ const sidebarConfig = [
     section: "tools",
     title: "Tools",
     children: [
-      { id: "tools-templates", label: "Templates", icon: "fa-solid fa-layer-group", path: "/templates" },
-      { id: "tools-extensions", label: "Extensions", icon: "fa-solid fa-puzzle-piece", path: "/extensions" },
-      { id: "tools-ai", label: "AI tools", icon: "fa-solid fa-robot", path: "/ai" }
+      { id: "tools-templates", label: "Templates", icon: "fa-solid fa-layer-group", path: "/tools/templates" },
+      { id: "tools-extensions", label: "Extensions", icon: "fa-solid fa-puzzle-piece", path: "/tools/extensions" },
+      { id: "tools-ai", label: "AI tools", icon: "fa-solid fa-robot", path: "/tools/ai_tools" }
     ]
   },
 
