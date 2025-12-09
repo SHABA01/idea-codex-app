@@ -3,11 +3,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Hero.css";
 import NeuralNetworkBackground from "./NeuralNetworkBackground";
-import { useStudioAccess } from "../contexts/StudioAccessContext";
+import { useAppAccess } from "../contexts/AppAccessContext";
 
 const Hero = () => {
   const navigate = useNavigate();
-  const { switchMode } = useStudioAccess();
+  const { switchMode } = useAppAccess();
 
   const handleStudioDemo = () => {
     switchMode("demo");

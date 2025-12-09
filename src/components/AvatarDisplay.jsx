@@ -1,6 +1,6 @@
 // src/components/AvatarDisplay.jsx
 import React, { useEffect, useState } from "react";
-import { useStudioAccess } from "../contexts/StudioAccessContext";
+import { useAppAccess } from "../contexts/AppAccessContext";
 import "../styles/AvatarDisplay.css";
 
 /**
@@ -28,7 +28,7 @@ const AvatarDisplay = ({
   placeholderMode = "choiceModal",
   onClickLive = () => {},
 }) => {
-  const { mode } = useStudioAccess();
+  const { isDemo } = useAppAccess();
   const [src, setSrc] = useState("");
   const [isBlob, setIsBlob] = useState(false);
 
@@ -97,16 +97,15 @@ const AvatarDisplay = ({
   /* ----------------------------
       TOOLTIP & CLICK BEHAVIOR
   ---------------------------- */
-  const tooltip =
-    mode === "demo"
-      ? "Demo User (profile editing disabled)"
-      : name || "Profile";
+  const tooltip = isDemo
+    ? "Demo user (profile editing disabled)"
+    : name || "Profile";
 
   const handleClick = () => {
-    if (mode === "live") onClickLive();
+    if (!isDemo) onClickLive();
   };
 
-  const cursorStyle = mode === "live" ? "pointer" : "default";
+  const cursorStyle = !isDemo ? "pointer" : "default";
 
 
   /* ----------------------------

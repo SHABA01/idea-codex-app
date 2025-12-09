@@ -1,7 +1,7 @@
 // src/pages/ChoiceModal.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStudioAccess } from "../contexts/StudioAccessContext";
+import { useAppAccess } from "../contexts/AppAccessContext";
 import ProfileSetupModal from "../components/ProfileSetupModal";
 import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
 import ProfileProgress from "../components/ProfileProgress";
@@ -19,7 +19,7 @@ const ChoiceModal = () => {
   const [avatar, setAvatar] = useState(""); // keep empty when no custom avatar; fallback handled by AvatarDisplay
 
   const navigate = useNavigate();
-  const { switchMode } = useStudioAccess();
+  const { switchMode } = useAppAccess();
 
   const handleStudioLive = () => {
     switchMode("live");

@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import ThemeToggle from "../../components/ThemeToggle";
 import "../../styles/Sidebar.css";
 import logo from "../../assets/IdeaCodex_icon_yellow.png";
-import { useStudioAccess } from "../../contexts/StudioAccessContext";
+import { useAppAccess } from "../../contexts/AppAccessContext";
 import sidebarConfig from "./sidebarConfig";
 
 /**
@@ -23,8 +23,10 @@ const Sidebar = ({
   onCloseMobile
 }) => {
   const navigate = useNavigate();
+  const { subscription } = useAppAccess(); // NEW
+  const tierLabel = subscription?.toUpperCase() || "UNKNOWN";
+
   const [showExpand, setShowExpand] = useState(false);
-  const { mode } = useStudioAccess();
 
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const mobileOpen =
@@ -92,7 +94,7 @@ const Sidebar = ({
           {/* USER ACCESS MODE LABEL */}
           {!collapsed && (
             <div className="sidebar-mode">
-              {mode === "demo" ? "DEMO" : "LIVE"}
+              {tierLabel}
             </div>
           )}
           

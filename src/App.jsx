@@ -7,7 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import ChoiceModal from "./pages/ChoiceModal";
 
 import { LoaderProvider } from "./contexts/LoaderContext";
-import { StudioAccessProvider } from "./contexts/StudioAccessContext";
+import { AppAccessProvider } from "./contexts/AppAccessContext";
 
 import AppLayout from "./layouts/AppLayout";
 import StudioPage from "./pages/Studio";
@@ -30,7 +30,7 @@ import PageNotFound from "./pages/PageNotFound";
 const App = () => {
   return (
     <LoaderProvider>
-      <StudioAccessProvider>
+      <AppAccessProvider>
         <Router>
 
           <Routes>
@@ -61,7 +61,7 @@ const App = () => {
 
           {/* <ProcessLoader /> */}
         </Router>
-      </StudioAccessProvider>
+      </AppAccessProvider>
     </LoaderProvider>
   );
 };

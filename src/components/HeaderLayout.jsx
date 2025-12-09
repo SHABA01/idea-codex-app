@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
-import { useStudioAccess } from "../contexts/StudioAccessContext";
+import { useAppAccess } from "../contexts/AppAccessContext";
 import AvatarDisplay from "./AvatarDisplay";
 import "../styles/HeaderLayout.css";
 import { getSavedUser } from "../utils/storage";
@@ -10,8 +10,7 @@ import { getSavedUser } from "../utils/storage";
 const HeaderLayout = ({ onOpenMobile = () => {}, mobileOpen = false }) => {
   const navigate = useNavigate();
   const user = getSavedUser();
-
-  const { mode } = useStudioAccess();
+  const { isDemo } = useAppAccess();
 
   const initials = (() => {
     const name = (user?.displayName || user?.fullName || "IdeaCodex").trim();
@@ -42,8 +41,7 @@ const HeaderLayout = ({ onOpenMobile = () => {}, mobileOpen = false }) => {
           variant="header"
           placeholderMode="choiceModal"
           onClickLive={() => {
-            // navigate to profile only in LIVE mode
-            navigate("/profile");
+            if (!isDemo) navigate("/profile");
           }}
         />
       </div>

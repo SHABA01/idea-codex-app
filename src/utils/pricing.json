@@ -1,0 +1,41 @@
+{
+  "plans": [
+    {
+      "id": "demo",
+      "name": "Demo",
+      "price_monthly": 0,
+      "currency": "NGN",
+      "features": ["basic_preview"],
+      "storage_gb": 0.2
+    },
+    {
+      "id": "live",
+      "name": "Live",
+      "price_monthly": 0,
+      "currency": "NGN",
+      "local_price": { "NGN": 0, "USD": 0 },
+      "features": ["studio_basic","marketplace_basic","community_basic"],
+      "storage_gb": 10
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "price_monthly": 22500,
+      "currency": "NGN",
+      "usd_price": 24.99,
+      "features": ["studio_pro","marketplace_pro","ai_extended"],
+      "storage_gb": 100,
+      "api_credits": 1000
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "price_monthly": 100000,
+      "currency": "NGN",
+      "usd_price": 104.99,
+      "features": ["enterprise_suite"],
+      "storage_gb": 1000,
+      "api_credits": 10000
+    }
+  ]
+}
