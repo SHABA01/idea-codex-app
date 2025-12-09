@@ -16,7 +16,7 @@ const Hero = () => {
 
   const handleMarketDemo = () => {
     switchMode("demo");
-    navigate("/market");
+    navigate("/market/gallery");
   };
 
   return (
