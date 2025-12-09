@@ -1,7 +1,7 @@
 // src/components/studio/ToolPanel.jsx
 import React from "react";
 import toolRegistry from "./ToolRegistry";
-import { useStudioAccess } from "../../contexts/StudioAccessContext";
+import { useAppAccess } from "../../contexts/AppAccessContext";
 import "../../styles/Studio.css";
 
 const ToolListItem = ({ tool, onOpen }) => {
@@ -15,7 +15,7 @@ const ToolListItem = ({ tool, onOpen }) => {
 };
 
 export default function ToolPanel({ onOpenTool }) {
-  const { isDemo } = useStudioAccess();
+  const { isDemo } = useAppAccess();
 
   return (
     <aside className="studio-toolpanel">
@@ -27,8 +27,8 @@ export default function ToolPanel({ onOpenTool }) {
               tool={t}
               onOpen={(tool) => {
                 if (tool.premium && isDemo) {
-                  // you can show a modal or toast here
-                  alert("This tool is premium — sign in for access.");
+                  // You can replace this with your UpgradeModal
+                  alert("This tool is premium — upgrade to unlock.");
                   return;
                 }
                 onOpenTool(tool);

@@ -3,13 +3,13 @@ import React, { useRef, useState } from "react";
 import ToolPanel from "../components/studio/ToolPanel";
 import StudioCanvas from "../components/studio/StudioCanvas";
 import AIBar from "../components/studio/AIBar";
-import { StudioAccessProvider, useStudioAccess } from "../contexts/StudioAccessContext";
+import { useAppAccess } from "../contexts/AppAccessContext";
 import "../styles/Studio.css";
 
 function StudioInner() {
   const [openTool, setOpenTool] = useState(null);
   const canvasRef = useRef();
-  const { isDemo } = useStudioAccess();
+  const { isDemo } = useAppAccess();
 
   const handleOpenTool = (tool) => setOpenTool(tool);
 
@@ -50,10 +50,5 @@ function StudioInner() {
 }
 
 export default function StudioPageWrapper() {
-  // wrap with access provider: you may instead do this globally at AppLayout
-  return (
-    <StudioAccessProvider>
-      <StudioInner />
-    </StudioAccessProvider>
-  );
+  return <StudioInner />;
 }

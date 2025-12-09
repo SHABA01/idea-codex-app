@@ -174,7 +174,7 @@ const Sidebar = ({
               </div>
               {/* USER ACCESS MODE LABEL */}
               <div className="mobile-drawer-mode">
-                {mode === "demo" ? "DEMO" : "LIVE"}
+                {tierLabel}
               </div>
               <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
                 ✕
