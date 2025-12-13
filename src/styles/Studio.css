@@ -48,8 +48,7 @@
 .tool-flyout-inner {
   background: var(--card-bg); border: 1px solid var(--card-border);
   padding: 12px; border-radius: 8px;
-  transform: translateX(12px);
-  transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 200ms ease;
+  transition: cubic-bezier(.2,.8,.2,1), opacity 200ms ease;
 }
 .tool-flyout-empty { color: var(--text-secondary); padding: 12px; text-align:center; }
 

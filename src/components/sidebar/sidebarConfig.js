@@ -1,76 +1,118 @@
 // src/config/sidebarConfig.js
-// Canonical sidebar config used by Sidebar, MobileSidebar and breadcrumb util.
 
 const sidebarConfig = [
   {
     id: "dashboard",
     label: "Dashboard",
     icon: "fa-solid fa-chart-line",
-    path: "/dashboard"
+    path: "/dashboard",
+    access: ["demo", "live"],
+    premium: false
   },
+
   {
     id: "studio",
     label: "Idea Studio",
     icon: "fa-solid fa-pen-nib",
-    path: "/studio"
+    path: "/studio",
+    access: ["demo", "live"],
+    premium: false
   },
+
   {
     id: "community",
     label: "Community",
     icon: "fa-solid fa-users",
-    path: "/community"
+    path: "/community",
+    access: ["live"],        // 🔒 live-only example
+    premium: true            // premium page
   },
+
   {
     id: "collab",
     label: "Collaborations",
     icon: "fa-solid fa-user-group",
-    path: "/collab"
+    path: "/collab",
+    access: ["live"],
+    premium: true
   },
+
   {
     id: "profile",
     label: "Profile",
     icon: "fa-solid fa-id-badge",
-    path: "/profile"
+    path: "/profile",
+    access: ["demo", "live"],
+    premium: false
   },
 
-  // Marketplace section (as you requested)
+  // Marketplace Section
   {
     section: "marketplace",
     title: "Marketplace",
+    access: ["live"],     // sample: marketplace is live-mode only
+    premium: true,
     children: [
       {
         id: "market-gallery",
         label: "Gallery",
         icon: "fa-solid fa-store",
-        path: "/market/gallery"
+        path: "/market/gallery",
+        access: ["live"],
+        premium: true
       },
       {
         id: "market-for-you",
         label: "For You",
         icon: "fa-solid fa-wand-magic-sparkles",
-        path: "/market/recommended"
+        path: "/market/recommended",
+        access: ["live"],
+        premium: true
       },
       {
         id: "market-trending",
         label: "Trending",
         icon: "fa-solid fa-fire",
-        path: "/market/trending"
+        path: "/market/trending",
+        access: ["live"],
+        premium: true
       }
     ]
   },
 
-  // utilities / admin
+  // Tools Section
   {
     section: "tools",
     title: "Tools",
+    access: ["demo", "live"],  // visible to both
+    premium: false,             // but children determine locking
     children: [
-      { id: "tools-templates", label: "Templates", icon: "fa-solid fa-layer-group", path: "/tools/templates" },
-      { id: "tools-extensions", label: "Extensions", icon: "fa-solid fa-puzzle-piece", path: "/tools/extensions" },
-      { id: "tools-ai", label: "AI tools", icon: "fa-solid fa-robot", path: "/tools/ai_tools" }
+      {
+        id: "tools-templates",
+        label: "Templates",
+        icon: "fa-solid fa-layer-group",
+        path: "/tools/templates",
+        access: ["demo", "live"],
+        premium: false
+      },
+      {
+        id: "tools-extensions",
+        label: "Extensions",
+        icon: "fa-solid fa-puzzle-piece",
+        path: "/tools/extensions",
+        access: ["live"],
+        premium: true
+      },
+      {
+        id: "tools-ai",
+        label: "AI tools",
+        icon: "fa-solid fa-robot",
+        path: "/tools/ai_tools",
+        access: ["live"],
+        premium: true
+      }
     ]
-  },
-
-  // settings & auth area handled separately in footer
+  }
 ];
 
 export default sidebarConfig;
