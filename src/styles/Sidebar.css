@@ -353,6 +353,56 @@
   text-transform: uppercase;
 }
 
+/* ================= LOCK STATES ================= */
+
+.nav-item.locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nav-item.locked:hover {
+  transform: none;
+  color: var(--text-secondary);
+}
+
+.nav-item.locked.active {
+  background: none;
+}
+
+.lock-icon {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+}
+
+/* ================= DROPDOWN ================= */
+
+.section-toggle {
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+}
+
+.section-toggle i {
+  font-size: 0.7rem;
+}
+
+/* ================= SCROLLBAR HOVER ================= */
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 6px;
+}
+
+.sidebar-nav:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 213, 45, 0.35);
+}
+
 /* ========================= TABLET & MOBILE (<= 1045px) ========================= */
 @media (max-width: 1045px) {
   .sidebar {

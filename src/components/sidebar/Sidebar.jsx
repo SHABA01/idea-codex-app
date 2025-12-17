@@ -7,15 +7,6 @@ import logo from "../../assets/IdeaCodex_icon_yellow.png";
 import { useAppAccess } from "../../contexts/AppAccessContext";
 import sidebarConfig from "./sidebarConfig";
 
-/**
- * Sidebar (merged desktop + mobile drawer)
- *
- * Props:
- * - mobileOpen (bool) optional: controlled from parent (AppLayout)
- * - onCloseMobile (fn) optional: callback when mobile drawer closes
- *
- * If mobileOpen is not provided, the component manages its own mobile state.
- */
 const Sidebar = ({
   collapsed,
   setCollapsed,
@@ -23,12 +14,12 @@ const Sidebar = ({
   onCloseMobile
 }) => {
   const navigate = useNavigate();
-  const { subscription } = useAppAccess(); // NEW
-  const tierLabel = subscription?.toUpperCase() || "UNKNOWN";
+  const { tier } = useAppAccess();
+  const tierLabel = tier?.toUpperCase() || "demo";
 
   const [showExpand, setShowExpand] = useState(false);
-
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
+
   const mobileOpen =
     typeof controlledMobileOpen === "boolean"
       ? controlledMobileOpen
@@ -36,7 +27,7 @@ const Sidebar = ({
 
   const setMobileOpen = (v) => {
     if (typeof controlledMobileOpen === "boolean") {
-      if (!v && typeof onCloseMobile === "function") onCloseMobile();
+      if (!v && onCloseMobile) onCloseMobile();
     } else {
       setInternalMobileOpen(v);
     }
@@ -47,58 +38,81 @@ const Sidebar = ({
     return () => (document.body.style.overflow = "auto");
   }, [mobileOpen]);
 
-  const renderItem = (item) => (
-    <NavLink
-      to={item.path}
-      key={item.id}
-      className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-      onClick={() => mobileOpen && setMobileOpen(false)}
-    >
-      <i className={item.icon} aria-hidden />
-      {!collapsed && <span>{item.label}</span>}
-    </NavLink>
-  );
+  /* =========================
+     ACCESS LOGIC (FIXED)
+  ========================= */
+
+  // Item is visible to tier
+  const hasAccess = (item) =>
+    !item.access || item.access.includes(tier);
+
+  // Item is visible but locked
+  const isLocked = (item) =>
+    item.premium && !item.access?.includes(tier);
+
+  const handleLockedClick = (e) => {
+    e.preventDefault();
+    alert("Upgrade your plan to unlock this feature.");
+  };
+
+  const renderNavItem = (item, closeMobile = false) => {
+    if (!hasAccess(item)) return null;
+
+    const locked = isLocked(item);
+
+    return (
+      <NavLink
+        key={item.id}
+        to={locked ? "#" : item.path}
+        className={({ isActive }) =>
+          `nav-item ${isActive ? "active" : ""} ${locked ? "locked" : ""}`
+        }
+        onClick={(e) => {
+          if (locked) return handleLockedClick(e);
+          if (closeMobile) setMobileOpen(false);
+        }}
+      >
+        <i className={item.icon} aria-hidden />
+        {!collapsed && <span>{item.label}</span>}
+        {locked && !collapsed && (
+          <i className="fa-solid fa-lock lock-icon" />
+        )}
+      </NavLink>
+    );
+  };
+
+  /* =========================
+     DESKTOP SIDEBAR
+  ========================= */
 
   return (
     <>
-      {/* === Desktop Sidebar === */}
-      <aside className={`sidebar ${collapsed ? "collapsed" : ""}`} aria-hidden={false}>
+      <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
         <div
           className="sidebar-header"
           onMouseEnter={() => collapsed && setShowExpand(true)}
           onMouseLeave={() => collapsed && setShowExpand(false)}
         >
-          
-          {/* FIXED CONTAINER FOR ICON SWAPPING */}
           <div className="header-toggle-area">
-          
-            {/* LOGO */}
             {(!collapsed || !showExpand) && (
               <div className="brand" onClick={() => navigate("/")}>
                 <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
               </div>
             )}
-        
-            {/* EXPAND ICON */}
+
             {collapsed && showExpand && (
               <button
                 className="collapse-btn expand-btn"
                 onClick={() => setCollapsed(false)}
                 title="Expand sidebar"
               >
-                <i className="fa-solid fa-angles-right"></i>
+                <i className="fa-solid fa-angles-right" />
               </button>
             )}
           </div>
 
-          {/* USER ACCESS MODE LABEL */}
-          {!collapsed && (
-            <div className="sidebar-mode">
-              {tierLabel}
-            </div>
-          )}
-          
-          {/* COLLAPSE ICON (RIGHT SIDE, behaves exactly same) */}
+          {!collapsed && <div className="sidebar-mode">{tierLabel}</div>}
+
           {!collapsed && (
             <button
               className="collapse-btn"
@@ -109,36 +123,42 @@ const Sidebar = ({
             </button>
           )}
         </div>
-        
 
         <nav className="sidebar-nav" aria-label="Primary">
-          {sidebarConfig.filter((i) => !i.section).map((it) => (
-            <React.Fragment key={it.id}>{renderItem(it)}</React.Fragment>
-          ))}
+          {sidebarConfig
+            .filter((i) => !i.section)
+            .map((item) => renderNavItem(item))}
 
-          {sidebarConfig.filter((i) => i.section).map((section) => (
-            <div key={section.section} className="sidebar-section">
-              {!collapsed && <h4 className="nav-section-title">{section.title}</h4>}
-              {section.children.map((c) => (
-                <NavLink
-                  key={c.id}
-                  to={c.path}
-                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-                >
-                  <i className={c.icon} aria-hidden />
-                  {!collapsed && <span>{c.label}</span>}
-                </NavLink>
-              ))}
-            </div>
-          ))}
+          {sidebarConfig
+            .filter((i) => i.section)
+            .map((section) => {
+              if (!hasAccess(section)) return null;
+
+              const visibleChildren =
+                section.children.filter(hasAccess);
+
+              if (!visibleChildren.length) return null;
+
+              return (
+                <div key={section.section} className="sidebar-section">
+                  {!collapsed && (
+                    <h4 className="nav-section-title">
+                      {section.title}
+                    </h4>
+                  )}
+                  {visibleChildren.map((child) =>
+                    renderNavItem(child)
+                  )}
+                </div>
+              );
+            })}
         </nav>
 
         <div className="sidebar-footer">
-          {/* SIDEBAR THEME TOGGLE (styled like nav-item) */}
           <div className="nav-item sidebar-theme-toggle">
             <ThemeToggle sidebarMode collapsed={collapsed} />
           </div>
-          
+
           <NavLink to="/settings" className="nav-item settings">
             <i className="fa-solid fa-gear" />
             {!collapsed && <span>Settings</span>}
@@ -151,68 +171,92 @@ const Sidebar = ({
         </div>
       </aside>
 
-      {/* === Mobile Drawer (only mounted when open) === */}
+      {/* =========================
+          MOBILE DRAWER
+      ========================= */}
+
       {mobileOpen && (
-        <div className="mobile-drawer open" aria-hidden={!mobileOpen}>
-          {/* backdrop */}
+        <div className="mobile-drawer open">
           <div
             className="mobile-backdrop"
             role="button"
-            aria-label="Close menu"
-            onClick={() => setMobileOpen(false)}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") setMobileOpen(false);
-            }}
             tabIndex={0}
+            onClick={() => setMobileOpen(false)}
+            onKeyDown={(e) =>
+              e.key === "Escape" && setMobileOpen(false)
+            }
           />
 
-          {/* drawer content */}
           <div className="mobile-inner" role="dialog" aria-modal="true">
             <div className="mobile-inner-header">
-              <div className="brand" onClick={() => { setMobileOpen(false); navigate("/"); }}>
+              <div
+                className="brand"
+                onClick={() => {
+                  setMobileOpen(false);
+                  navigate("/");
+                }}
+              >
                 <img src={logo} alt="IdeaCodex Logo" className="brand-logo" />
               </div>
-              {/* USER ACCESS MODE LABEL */}
-              <div className="mobile-drawer-mode">
-                {tierLabel}
-              </div>
-              <button className="btn-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+
+              <div className="mobile-drawer-mode">{tierLabel}</div>
+
+              <button
+                className="btn-close"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+              >
                 ✕
               </button>
             </div>
-          
-            <nav className="mobile-nav" aria-label="Mobile primary">
-              {sidebarConfig.filter((i) => !i.section).map((item) => (
-                <NavLink key={item.id} to={item.path} className="nav-item" onClick={() => setMobileOpen(false)}>
-                  <i className={item.icon} />
-                  <span>{item.label}</span>
-                </NavLink>
-              ))}
 
-              {sidebarConfig.filter((i) => i.section).map((section) => (
-                <div key={section.section} className="mobile-section">
-                  <div className="mobile-section-title">{section.title}</div>
-                  {section.children.map((c) => (
-                    <NavLink key={c.id} to={c.path} className="nav-item" onClick={() => setMobileOpen(false)}>
-                      <i className={c.icon} />
-                      <span>{c.label}</span>
-                    </NavLink>
-                  ))}
-                </div>
-              ))}
+            <nav className="mobile-nav" aria-label="Mobile primary">
+              {sidebarConfig
+                .filter((i) => !i.section)
+                .map((item) => renderNavItem(item, true))}
+
+              {sidebarConfig
+                .filter((i) => i.section)
+                .map((section) => {
+                  if (!hasAccess(section)) return null;
+
+                  const visibleChildren =
+                    section.children.filter(hasAccess);
+
+                  if (!visibleChildren.length) return null;
+
+                  return (
+                    <div key={section.section} className="mobile-section">
+                      <div className="mobile-section-title">
+                        {section.title}
+                      </div>
+                      {visibleChildren.map((child) =>
+                        renderNavItem(child, true)
+                      )}
+                    </div>
+                  );
+                })}
             </nav>
-            
+
             <div className="mobile-footer">
               <div className="nav-item sidebar-theme-toggle">
                 <ThemeToggle sidebarMode />
               </div>
-            
-              <NavLink to="/settings" className="nav-item settings">
+
+              <NavLink
+                to="/settings"
+                className="nav-item settings"
+                onClick={() => setMobileOpen(false)}
+              >
                 <i className="fa-solid fa-gear" />
                 <span>Settings</span>
               </NavLink>
-            
-              <NavLink to="/auth/logout" className="nav-item logout">
+
+              <NavLink
+                to="/auth/logout"
+                className="nav-item logout"
+                onClick={() => setMobileOpen(false)}
+              >
                 <i className="fa-solid fa-right-from-bracket" />
                 <span>Log Out</span>
               </NavLink>

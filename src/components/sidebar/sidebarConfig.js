@@ -1,6 +1,7 @@
-// src/config/sidebarConfig.js
+// src/components/sidebar/sidebarConfig.js
 
 const sidebarConfig = [
+  // ================= CORE =================
   {
     id: "dashboard",
     label: "Dashboard",
@@ -9,7 +10,6 @@ const sidebarConfig = [
     access: ["demo", "live"],
     premium: false
   },
-
   {
     id: "studio",
     label: "Idea Studio",
@@ -18,16 +18,14 @@ const sidebarConfig = [
     access: ["demo", "live"],
     premium: false
   },
-
   {
     id: "community",
     label: "Community",
     icon: "fa-solid fa-users",
     path: "/community",
-    access: ["live"],        // 🔒 live-only example
-    premium: true            // premium page
+    access: ["live"],
+    premium: true
   },
-
   {
     id: "collab",
     label: "Collaborations",
@@ -36,7 +34,6 @@ const sidebarConfig = [
     access: ["live"],
     premium: true
   },
-
   {
     id: "profile",
     label: "Profile",
@@ -46,12 +43,13 @@ const sidebarConfig = [
     premium: false
   },
 
-  // Marketplace Section
+  // ================= MARKETPLACE =================
   {
     section: "marketplace",
     title: "Marketplace",
-    access: ["live"],     // sample: marketplace is live-mode only
+    access: ["live"],
     premium: true,
+    dropdown: true,
     children: [
       {
         id: "market-gallery",
@@ -80,12 +78,13 @@ const sidebarConfig = [
     ]
   },
 
-  // Tools Section
+  // ================= TOOLS =================
   {
     section: "tools",
-    title: "Tools",
-    access: ["demo", "live"],  // visible to both
-    premium: false,             // but children determine locking
+    title: "Tools Hub",
+    access: ["demo", "live"],
+    premium: false,
+    dropdown: true,
     children: [
       {
         id: "tools-templates",
@@ -105,7 +104,7 @@ const sidebarConfig = [
       },
       {
         id: "tools-ai",
-        label: "AI tools",
+        label: "AI Tools",
         icon: "fa-solid fa-robot",
         path: "/tools/ai_tools",
         access: ["live"],
