@@ -6,6 +6,7 @@ import "../../styles/Sidebar.css";
 import logo from "../../assets/IdeaCodex_icon_yellow.png";
 import { useAppAccess } from "../../contexts/AppAccessContext";
 import sidebarConfig from "./sidebarConfig";
+import { resolveSidebarItemState } from "./sidebarRules"; // ✅ NEW (minimal addition)
 
 const Sidebar = ({
   collapsed,
@@ -19,6 +20,7 @@ const Sidebar = ({
 
   const [showExpand, setShowExpand] = useState(false);
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
+  const [openSections, setOpenSections] = useState({});
 
   const mobileOpen =
     typeof controlledMobileOpen === "boolean"
@@ -39,42 +41,57 @@ const Sidebar = ({
   }, [mobileOpen]);
 
   /* =========================
-     ACCESS LOGIC (FIXED)
+     ACCESS LOGIC (MORPHING)
+     (MINIMAL CHANGE)
   ========================= */
-
-  // Item is visible to tier
-  const hasAccess = (item) =>
-    !item.access || item.access.includes(tier);
-
-  // Item is visible but locked
-  const isLocked = (item) =>
-    item.premium && !item.access?.includes(tier);
 
   const handleLockedClick = (e) => {
     e.preventDefault();
     alert("Upgrade your plan to unlock this feature.");
   };
 
-  const renderNavItem = (item, closeMobile = false) => {
-    if (!hasAccess(item)) return null;
+  const toggleSection = (key) =>
+  setOpenSections((p) => ({ ...p, [key]: !p[key] }));
 
-    const locked = isLocked(item);
+const renderBadges = (item, locked) =>
+  item.badges?.map((b) => (
+    <span
+      key={b}
+      className={`badge badge-${b.toLowerCase()} ${
+        locked ? "badge-locked" : ""
+      }`}
+      title={locked ? "Upgrade required" : b}
+    >
+      {b === "LOCKED" ? "🔒" : b}
+    </span>
+  ));
+
+  const renderNavItem = (item, closeMobile = false) => {
+    const state = resolveSidebarItemState(item, tier);
+
+    if (!state.visible) return null;
 
     return (
       <NavLink
         key={item.id}
-        to={locked ? "#" : item.path}
+        to={state.locked ? "#" : item.path}
         className={({ isActive }) =>
-          `nav-item ${isActive ? "active" : ""} ${locked ? "locked" : ""}`
+          `nav-item ${isActive ? "active" : ""} ${
+            state.locked ? "locked" : ""
+          }`
         }
         onClick={(e) => {
-          if (locked) return handleLockedClick(e);
+          if (state.locked) return handleLockedClick(e);
           if (closeMobile) setMobileOpen(false);
         }}
+        aria-disabled={state.locked}
       >
         <i className={item.icon} aria-hidden />
         {!collapsed && <span>{item.label}</span>}
-        {locked && !collapsed && (
+
+        {!collapsed && renderBadges(item, state.locked)}
+
+        {state.locked && !collapsed && (
           <i className="fa-solid fa-lock lock-icon" />
         )}
       </NavLink>
@@ -100,6 +117,7 @@ const Sidebar = ({
               </div>
             )}
 
+            {/* ✅ EXPAND BUTTON — PRESERVED EXACTLY */}
             {collapsed && showExpand && (
               <button
                 className="collapse-btn expand-btn"
@@ -132,26 +150,43 @@ const Sidebar = ({
           {sidebarConfig
             .filter((i) => i.section)
             .map((section) => {
-              if (!hasAccess(section)) return null;
-
-              const visibleChildren =
-                section.children.filter(hasAccess);
+              const sectionState = resolveSidebarItemState(section, tier);
+              if (!sectionState.visible) return null;
+            
+              const visibleChildren = section.children.filter(
+                (child) =>
+                  resolveSidebarItemState(child, tier).visible
+              );
 
               if (!visibleChildren.length) return null;
-
+            
+              const isOpen = openSections[section.section];
+            
               return (
                 <div key={section.section} className="sidebar-section">
                   {!collapsed && (
-                    <h4 className="nav-section-title">
-                      {section.title}
-                    </h4>
-                  )}
-                  {visibleChildren.map((child) =>
-                    renderNavItem(child)
-                  )}
+                    <button
+                      className="nav-section-title section-toggle"
+                      onClick={() => toggleSection(section.section)}
+                      aria-expanded={!!isOpen}
+                    >
+                      <span>{section.title}</span>
+                      <i
+                        className={`fa-solid fa-chevron-${
+                          isOpen ? "down" : "right"
+                        }`}
+                     />
+                    </button>
+                 )}
+
+                  {/* ✅ THIS replaces the “return null” idea */}
+                  {isOpen &&
+                    visibleChildren.map((child) =>
+                      renderNavItem(child)
+                    )}
                 </div>
               );
-            })}
+          })}
         </nav>
 
         <div className="sidebar-footer">
@@ -218,24 +253,43 @@ const Sidebar = ({
               {sidebarConfig
                 .filter((i) => i.section)
                 .map((section) => {
-                  if (!hasAccess(section)) return null;
-
-                  const visibleChildren =
-                    section.children.filter(hasAccess);
-
+                  const sectionState = resolveSidebarItemState(section, tier);
+                  if (!sectionState.visible) return null;
+                
+                  const visibleChildren = section.children.filter(
+                    (child) =>
+                      resolveSidebarItemState(child, tier).visible
+                  );
+                
                   if (!visibleChildren.length) return null;
-
+                
+                  const isOpen = openSections[section.section];
+                
                   return (
-                    <div key={section.section} className="mobile-section">
-                      <div className="mobile-section-title">
-                        {section.title}
-                      </div>
-                      {visibleChildren.map((child) =>
-                        renderNavItem(child, true)
-                      )}
+                    <div key={section.section} className="sidebar-section">
+                      {!collapsed && (
+                        <button
+                          className="nav-section-title section-toggle"
+                          onClick={() => toggleSection(section.section)}
+                          aria-expanded={!!isOpen}
+                        >
+                          <span>{section.title}</span>
+                          <i
+                            className={`fa-solid fa-chevron-${
+                              isOpen ? "down" : "right"
+                            }`}
+                         />
+                        </button>
+                     )}
+    
+                      {/* ✅ THIS replaces the “return null” idea */}
+                      {isOpen &&
+                        visibleChildren.map((child) =>
+                          renderNavItem(child)
+                        )}
                     </div>
                   );
-                })}
+              })}
             </nav>
 
             <div className="mobile-footer">

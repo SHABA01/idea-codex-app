@@ -375,10 +375,33 @@
   color: var(--accent-gold);
 }
 
+/* ================= BADGES ================= */
+
+.badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.badge-limited {
+  background: #facc15;
+  color: #422006;
+}
+
+.badge-enterprise {
+  background: #6366f1;
+  color: #eef2ff;
+}
+
 /* ================= DROPDOWN ================= */
 
 .section-toggle {
   justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
   background: transparent;
   border: none;
@@ -390,17 +413,20 @@
 
 /* ================= SCROLLBAR HOVER ================= */
 
-.sidebar-nav::-webkit-scrollbar {
+.sidebar-nav::-webkit-scrollbar,
+.mobile-nav::-webkit-scrollbar {
   width: 6px;
 }
 
-.sidebar-nav::-webkit-scrollbar-thumb {
-  background: transparent;
+.sidebar-nav::-webkit-scrollbar-thumb,
+.mobile-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 213, 45, 0.35);
   border-radius: 6px;
 }
 
-.sidebar-nav:hover::-webkit-scrollbar-thumb {
-  background: rgba(255, 213, 45, 0.35);
+.sidebar-nav:hover::-webkit-scrollbar-thumb,
+.mobile-nav:hover::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
 }
 
 /* ========================= TABLET & MOBILE (<= 1045px) ========================= */

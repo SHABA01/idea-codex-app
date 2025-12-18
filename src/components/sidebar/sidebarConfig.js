@@ -1,54 +1,63 @@
-// src/components/sidebar/sidebarConfig.js
-
 const sidebarConfig = [
-  // ================= CORE =================
+  /* ================= CORE ================= */
+
   {
     id: "dashboard",
     label: "Dashboard",
     icon: "fa-solid fa-chart-line",
     path: "/dashboard",
-    access: ["demo", "live"],
-    premium: false
+    feature: "dashboard",
+    visibleFor: ["demo", "live", "pro", "enterprise"]
   },
+
   {
     id: "studio",
     label: "Idea Studio",
     icon: "fa-solid fa-pen-nib",
     path: "/studio",
-    access: ["demo", "live"],
-    premium: false
+    feature: "studio",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badges: ["LIMITED"], // demo shows limited mode
+    lockedBelow: "demo"
   },
+
   {
     id: "community",
     label: "Community",
     icon: "fa-solid fa-users",
     path: "/community",
-    access: ["live"],
-    premium: true
+    feature: "community",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    lockedBelow: "live"
   },
+
   {
-    id: "collab",
+    id: "collaborations",
     label: "Collaborations",
     icon: "fa-solid fa-user-group",
     path: "/collab",
-    access: ["live"],
-    premium: true
+    feature: "collaborations",
+    visibleFor: ["live", "pro", "enterprise"],
+    lockedBelow: "live"
   },
+
   {
     id: "profile",
     label: "Profile",
     icon: "fa-solid fa-id-badge",
     path: "/profile",
-    access: ["demo", "live"],
-    premium: false
+    feature: "profile",
+    visibleFor: ["live", "pro", "enterprise"],
+    lockedBelow: "live"
   },
 
-  // ================= MARKETPLACE =================
+  /* ================= MARKETPLACE ================= */
+
   {
     section: "marketplace",
     title: "Marketplace",
-    access: ["live"],
-    premium: true,
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    lockedBelow: "live",
     dropdown: true,
     children: [
       {
@@ -56,34 +65,36 @@ const sidebarConfig = [
         label: "Gallery",
         icon: "fa-solid fa-store",
         path: "/market/gallery",
-        access: ["live"],
-        premium: true
+        feature: "marketplace.gallery",
+        visibleFor: ["demo", "live", "pro", "enterprise"]
       },
       {
         id: "market-for-you",
         label: "For You",
         icon: "fa-solid fa-wand-magic-sparkles",
         path: "/market/recommended",
-        access: ["live"],
-        premium: true
+        feature: "marketplace.forYou",
+        visibleFor: ["live", "pro", "enterprise"],
+        lockedBelow: "live"
       },
       {
         id: "market-trending",
         label: "Trending",
         icon: "fa-solid fa-fire",
         path: "/market/trending",
-        access: ["live"],
-        premium: true
+        feature: "marketplace.trending",
+        visibleFor: ["live", "pro", "enterprise"],
+        lockedBelow: "live"
       }
     ]
   },
 
-  // ================= TOOLS =================
+  /* ================= TOOLS HUB ================= */
+
   {
     section: "tools",
     title: "Tools Hub",
-    access: ["demo", "live"],
-    premium: false,
+    visibleFor: ["demo", "live", "pro", "enterprise"],
     dropdown: true,
     children: [
       {
@@ -91,24 +102,28 @@ const sidebarConfig = [
         label: "Templates",
         icon: "fa-solid fa-layer-group",
         path: "/tools/templates",
-        access: ["demo", "live"],
-        premium: false
+        feature: "tools.templates",
+        visibleFor: ["live", "pro", "enterprise"],
+        lockedBelow: "live"
       },
       {
         id: "tools-extensions",
         label: "Extensions",
         icon: "fa-solid fa-puzzle-piece",
         path: "/tools/extensions",
-        access: ["live"],
-        premium: true
+        feature: "tools.extensions",
+        visibleFor: ["live", "pro", "enterprise"],
+        lockedBelow: "live",
+        badges: ["LIMITED"]
       },
       {
         id: "tools-ai",
         label: "AI Tools",
         icon: "fa-solid fa-robot",
         path: "/tools/ai_tools",
-        access: ["live"],
-        premium: true
+        feature: "tools.ai",
+        visibleFor: ["live", "pro", "enterprise"],
+        lockedBelow: "live"
       }
     ]
   }
