@@ -112,6 +112,16 @@ const sidebarConfig = [
   },
 
   {
+    id: "settings",
+    label: "Settings",
+    icon: "fa-solid fa-gear",
+    path: "/settings",
+    feature: "settings",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    lockedBelow: "live"
+  },
+
+  {
     id: "support",
     label: "Support",
     icon: "fa-solid fa-headset",

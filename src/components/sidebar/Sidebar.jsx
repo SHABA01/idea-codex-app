@@ -203,11 +203,6 @@ const Sidebar = ({
             <ThemeToggle sidebarMode collapsed={collapsed} />
           </div>
 
-          <NavLink to="/settings" className="nav-item settings">
-            <i className="fa-solid fa-gear" />
-            {!collapsed && <span>Settings</span>}
-          </NavLink>
-
           <NavLink to="/auth/logout" className="nav-item logout">
             <i className="fa-solid fa-right-from-bracket" />
             {!collapsed && <span>Log Out</span>}
@@ -305,15 +300,6 @@ const Sidebar = ({
               <div className="nav-item sidebar-theme-toggle">
                 <ThemeToggle sidebarMode />
               </div>
-
-              <NavLink
-                to="/settings"
-                className="nav-item settings"
-                onClick={() => setMobileOpen(false)}
-              >
-                <i className="fa-solid fa-gear" />
-                <span>Settings</span>
-              </NavLink>
 
               <NavLink
                 to="/auth/logout"
