@@ -22,6 +22,11 @@ export const isLocked = (item, tier) => {
   );
 };
 
+export const resolveBadge = (item, tier) => {
+  if (!item.badgesByTier) return null;
+  return item.badgesByTier[tier] ?? null;
+};
+
 /**
  * Unified sidebar rule resolver
  * Returns visibility + lock state
@@ -29,9 +34,11 @@ export const isLocked = (item, tier) => {
 export const resolveSidebarItemState = (item, tier) => {
   const visible = isVisible(item, tier);
   const locked = isLocked(item, tier);
+  const badge = resolveBadge(item, tier);
 
   return {
     visible,
-    locked
+    locked,
+    badge
   };
 };

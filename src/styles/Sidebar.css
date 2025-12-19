@@ -360,15 +360,6 @@
   cursor: not-allowed;
 }
 
-.nav-item.locked:hover {
-  transform: none;
-  color: var(--text-secondary);
-}
-
-.nav-item.locked.active {
-  background: none;
-}
-
 .lock-icon {
   margin-left: auto;
   font-size: 0.8rem;
@@ -385,15 +376,15 @@
   font-weight: 700;
 }
 
-.badge-limited {
+.badge-limited, .badge-basic {
   background: #facc15;
   color: #422006;
 }
 
-.badge-enterprise {
+/*.badge-enterprise {
   background: #6366f1;
   color: #eef2ff;
-}
+}*/
 
 /* ================= DROPDOWN ================= */
 
@@ -401,7 +392,7 @@
   justify-content: space-between;
   display: flex;
   align-items: center;
-  gap: 12px;
+  padding: 10px 12px;
   width: 100%;
   background: transparent;
   border: none;

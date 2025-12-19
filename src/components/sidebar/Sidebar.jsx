@@ -53,18 +53,31 @@ const Sidebar = ({
   const toggleSection = (key) =>
   setOpenSections((p) => ({ ...p, [key]: !p[key] }));
 
-const renderBadges = (item, locked) =>
-  item.badges?.map((b) => (
-    <span
-      key={b}
-      className={`badge badge-${b.toLowerCase()} ${
-        locked ? "badge-locked" : ""
-      }`}
-      title={locked ? "Upgrade required" : b}
-    >
-      {b === "LOCKED" ? "🔒" : b}
-    </span>
-  ));
+  const renderBadge = (state) => {
+    // 1️⃣ Locked ALWAYS wins
+    if (state.locked) {
+      return (
+        <span className="badge badge-locked" title="Upgrade required">
+          <i className="fa-solid fa-lock lock-icon" />
+        </span>
+      );
+    }
+
+    // 2️⃣ Tier-based badge (LIMITED, BASIC, etc.)
+    if (state.badge) {
+      return (
+        <span
+          className={`badge badge-${state.badge.toLowerCase()}`}
+          title={state.badge}
+        >
+          {state.badge}
+        </span>
+      );
+    }
+
+   // 3️⃣ Nothing to show
+   return null;
+  };
 
   const renderNavItem = (item, closeMobile = false) => {
     const state = resolveSidebarItemState(item, tier);
@@ -89,11 +102,7 @@ const renderBadges = (item, locked) =>
         <i className={item.icon} aria-hidden />
         {!collapsed && <span>{item.label}</span>}
 
-        {!collapsed && renderBadges(item, state.locked)}
-
-        {state.locked && !collapsed && (
-          <i className="fa-solid fa-lock lock-icon" />
-        )}
+        {!collapsed && renderBadge(state)}
       </NavLink>
     );
   };

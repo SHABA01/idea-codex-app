@@ -7,7 +7,13 @@ const sidebarConfig = [
     icon: "fa-solid fa-chart-line",
     path: "/dashboard",
     feature: "dashboard",
-    visibleFor: ["demo", "live", "pro", "enterprise"]
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: "LIMITED",
+      live: "BASIC",
+      pro: null,
+      enterprise: null
+    }
   },
 
   {
@@ -17,8 +23,28 @@ const sidebarConfig = [
     path: "/studio",
     feature: "studio",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    badges: ["LIMITED"], // demo shows limited mode
-    lockedBelow: "demo"
+    badgesByTier: {
+      demo: "LIMITED",
+      live: "BASIC",
+      pro: null,
+      enterprise: null
+    }
+  },
+
+  {
+    id: "workspace",
+    label: "Workspace",
+    icon: "fa-solid fa-briefcase",
+    path: "/workspace",
+    feature: "workspace",
+    visibleFor: ["pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: null,
+      pro: null,
+      enterprise: null
+    },
+    lockedBelow: "enterprise"
   },
 
   {
@@ -28,6 +54,12 @@ const sidebarConfig = [
     path: "/community",
     feature: "community",
     visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: "BASIC",
+      pro: null,
+      enterprise: null
+    },
     lockedBelow: "live"
   },
 
@@ -37,7 +69,13 @@ const sidebarConfig = [
     icon: "fa-solid fa-user-group",
     path: "/collab",
     feature: "collaborations",
-    visibleFor: ["live", "pro", "enterprise"],
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: "LIMITED",
+      pro: "BASIC",
+      enterprise: null
+    },
     lockedBelow: "live"
   },
 
@@ -47,7 +85,45 @@ const sidebarConfig = [
     icon: "fa-solid fa-id-badge",
     path: "/profile",
     feature: "profile",
-    visibleFor: ["live", "pro", "enterprise"],
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: "LIMITED",
+      pro: "BASIC",
+      enterprise: null
+    },
+    lockedBelow: "live"
+  },
+
+  {
+    id: "app-builder",
+    label: "App Builder",
+    icon: "fa-solid fa-cubes",
+    path: "/app-builder",
+    feature: "app-builder",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: "LIMITED",
+      pro: "BASIC",
+      enterprise: null
+    },
+    lockedBelow: "live"
+  },
+
+  {
+    id: "support",
+    label: "Support",
+    icon: "fa-solid fa-headset",
+    path: "/support",
+    feature: "support",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    badgesByTier: {
+      demo: null,
+      live: "LIMITED",
+      pro: "BASIC",
+      enterprise: null
+    },
     lockedBelow: "live"
   },
 
@@ -57,7 +133,6 @@ const sidebarConfig = [
     section: "marketplace",
     title: "Marketplace",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    lockedBelow: "live",
     dropdown: true,
     children: [
       {
@@ -66,7 +141,14 @@ const sidebarConfig = [
         icon: "fa-solid fa-store",
         path: "/market/gallery",
         feature: "marketplace.gallery",
-        visibleFor: ["demo", "live", "pro", "enterprise"]
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: "LIMITED",
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
+        lockedBelow: null
       },
       {
         id: "market-for-you",
@@ -74,7 +156,13 @@ const sidebarConfig = [
         icon: "fa-solid fa-wand-magic-sparkles",
         path: "/market/recommended",
         feature: "marketplace.forYou",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
         lockedBelow: "live"
       },
       {
@@ -83,7 +171,13 @@ const sidebarConfig = [
         icon: "fa-solid fa-fire",
         path: "/market/trending",
         feature: "marketplace.trending",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
         lockedBelow: "live"
       }
     ]
@@ -103,7 +197,13 @@ const sidebarConfig = [
         icon: "fa-solid fa-layer-group",
         path: "/tools/templates",
         feature: "tools.templates",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
         lockedBelow: "live"
       },
       {
@@ -112,9 +212,14 @@ const sidebarConfig = [
         icon: "fa-solid fa-puzzle-piece",
         path: "/tools/extensions",
         feature: "tools.extensions",
-        visibleFor: ["live", "pro", "enterprise"],
-        lockedBelow: "live",
-        badges: ["LIMITED"]
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
+        lockedBelow: "live"
       },
       {
         id: "tools-ai",
@@ -122,7 +227,54 @@ const sidebarConfig = [
         icon: "fa-solid fa-robot",
         path: "/tools/ai_tools",
         feature: "tools.ai",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "BASIC",
+          pro: null,
+          enterprise: null
+        },
+        lockedBelow: "live"
+      }
+    ]
+  },
+
+  /* ================= MENTORS ================= */
+
+  {
+    section: "mentors",
+    title: "Mentors",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    dropdown: true,
+    children: [
+      {
+        id: "mentor-ai",
+        label: "AI",
+        icon: "fa-solid fa-brain",
+        path: "/mentors/ai",
+        feature: "mentors.ai",
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
+        lockedBelow: "live"
+      },
+      {
+        id: "mentor-human",
+        label: "Human",
+        icon: "fa-solid fa-chalkboard-user",
+        path: "/mentors/human",
+        feature: "mentors.human",
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          demo: null,
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
         lockedBelow: "live"
       }
     ]
