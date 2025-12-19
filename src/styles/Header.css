@@ -132,7 +132,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65); /* dark translucent layer */
+  backdrop-filter: blur(14px) saturate(130%);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
@@ -149,7 +150,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 70%;
+  width: 50%;
   height: 100%;
   background: var(--bg-dark);
   display: flex;
@@ -244,6 +245,6 @@
     font-size: 1.2rem;
   }
   .nav-drawer {
-    width: 70%;
+    width: 50%;
   }
 }
