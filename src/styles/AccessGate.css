@@ -1,0 +1,87 @@
+/* ================================
+   LOCKED OVERLAY
+================================ */
+
+.locked-overlay {
+  position: relative;
+  min-height: 180px;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 10, 10, 0.85),
+    rgba(0, 0, 0, 0.95)
+  );
+  border-radius: 14px;
+  padding: 1.5rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.locked-overlay i {
+  font-size: 1.75rem;
+  opacity: 0.85;
+}
+
+.locked-overlay h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.25rem 0;
+}
+
+.locked-overlay p {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  max-width: 220px;
+}
+
+.upgrade-btn {
+  margin-top: 0.75rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #facc15;
+  color: #422006;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.upgrade-btn:hover {
+  background: #eab308;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   LIMITED MASK
+================================ */
+
+.limited-mask {
+  position: relative;
+}
+
+.fade-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75)
+  );
+  pointer-events: none;
+  animation: limitedFadeIn 0.35s ease-out;
+}
+
+@keyframes limitedFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

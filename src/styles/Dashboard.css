@@ -1,3 +1,65 @@
-.dashboard {
-   padding: 0 20px;
- }
+.dashboard-root {
+  padding: 20px;
+}
+
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.dashboard-section-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+/* GRID SYSTEM */
+
+.dashboard-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.density-compact .dashboard-grid {
+  grid-template-columns: 1fr;
+}
+
+.density-comfortable .dashboard-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.density-spacious .dashboard-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* BADGES (shared with sidebar semantics) */
+
+.badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.badge-limited,
+.badge-basic {
+  background: #facc15;
+  color: #422006;
+}
+
+/* LIMITED MODE FADE */
+
+.limited-mask {
+  opacity: 0.6;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,65 @@
+/* ================================
+   DASHBOARD PANEL
+================================ */
+
+.dashboard-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(18, 18, 18, 0.9),
+    rgba(10, 10, 10, 0.95)
+  );
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 180px;
+  border: 1px solid rgba(250, 204, 21, 0.12);
+}
+
+.dashboard-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard-panel-header h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #facc15;
+}
+
+/* ================================
+   BADGES (Aligned with Sidebar)
+================================ */
+
+.panel-badge,
+.badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-limited,
+.badge-basic {
+  background: #facc15;
+  color: #422006;
+}
+
+/* FULL intentionally has no badge */
+
+/* ================================
+   PANEL BODY
+================================ */
+
+.dashboard-panel-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  opacity: 0.95;
+}

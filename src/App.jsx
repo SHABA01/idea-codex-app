@@ -17,7 +17,7 @@ import Trending from "./pages/Trending";
 import Templates from "./pages/Templates";
 import Extensions from "./pages/Extensions";
 import AITools from "./pages/AITools";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Community from "./pages/Community";
 import Collab from "./pages/Collaborations";
 import Profile from "./pages/Profile";
