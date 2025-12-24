@@ -8,13 +8,21 @@ import AccessGate from "../../components/access/AccessGate";
 import StatsWidget from "../../widgets/dashboard/StatsWidget";
 import ActivityWidget from "../../widgets/dashboard/ActivityWidget";
 import IdeaStudioWidget from "../../widgets/dashboard/IdeaStudioWidget";
+import CollaborationsWidget from "../../widgets/dashboard/CollaborationsWidget";
+import EarningsWidget from "../../widgets/dashboard/EarningsWidget";
+import InsightsWidget from "../../widgets/dashboard/InsightsWidget";
+import PerformanceWidget from "../../widgets/dashboard/PerformanceWidget";
 
 import "../../styles/dashboard.css";
 
 const widgetRegistry = {
   stats: StatsWidget,
   activity: ActivityWidget,
-  ideastudio: IdeaStudioWidget
+  ideastudio: IdeaStudioWidget,
+  collaborations: CollaborationsWidget,
+  earnings: EarningsWidget,
+  insights: InsightsWidget,
+  performance: PerformanceWidget
 };
 
 const badgeToMode = {

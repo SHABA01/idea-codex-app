@@ -1,6 +1,8 @@
 // src/pages/dashboard/dashboardConfig.js
 
 export const dashboardConfig = [
+  /* ================= OVERVIEW ================= */
+
   {
     section: "overview",
     title: "Overview",
@@ -28,7 +30,7 @@ export const dashboardConfig = [
         id: "activity",
         title: "Activity",
         component: "activity",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
         badgesByTier: {
           live: "LIMITED",
           pro: "BASIC",
@@ -38,12 +40,16 @@ export const dashboardConfig = [
       }
     ]
   },
+
+  /* ================= CREATION ================= */
+
   {
     section: "creation",
     title: "Creation",
-    visibleFor: ["live", "pro", "enterprise"],
+    visibleFor: ["demo","live", "pro", "enterprise"],
     densityByTier: {
-      live: "compact",
+      demo: "compact",
+      live: "comfortable",
       pro: "comfortable",
       enterprise: "spacious"
     },
@@ -52,7 +58,103 @@ export const dashboardConfig = [
         id: "ideastudio",
         title: "Idea Studio",
         component: "ideastudio",
-        visibleFor: ["live", "pro", "enterprise"],
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
+        lockedBelow: "live"
+      }
+    ]
+  },
+
+  /* ================= PERFORMANCE ================= */
+
+  {
+    section: "performance",
+    title: "Performance",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    densityByTier: {
+      demo: "compact",
+      live: "comfortable",
+      pro: "comfortable",
+      enterprise: "spacious"
+    },
+    widgets: [
+      {
+        id: "performance",
+        title: "Performance Trends",
+        component: "performance",
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
+        lockedBelow: "live"
+      },
+      {
+        id: "earnings",
+        title: "Earnings",
+        component: "earnings",
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
+        lockedBelow: "live"
+      }
+    ]
+  },
+
+  /* ================= COLLABORATION ================= */
+
+  {
+    section: "collaboration",
+    title: "Collaboration",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    densityByTier: {
+      demo: "compact",
+      live: "comfortable",
+      pro: "comfortable",
+      enterprise: "spacious"
+    },
+    widgets: [
+      {
+        id: "collaborations",
+        title: "Collaborations",
+        component: "collaborations",
+        visibleFor: ["demo", "live", "pro", "enterprise"],
+        badgesByTier: {
+          live: "LIMITED",
+          pro: "BASIC",
+          enterprise: null
+        },
+        lockedBelow: "live"
+      }
+    ]
+  },
+
+  /* ================= INSIGHTS ================= */
+
+  {
+    section: "insights",
+    title: "Insights",
+    visibleFor: ["demo", "live", "pro", "enterprise"],
+    densityByTier: {
+      demo: "compact",
+      live: "comfortable",
+      pro: "comfortable",
+      enterprise: "spacious"
+    },
+    widgets: [
+      {
+        id: "insights",
+        title: "AI Insights",
+        component: "insights",
+        visibleFor: ["demo","live", "pro", "enterprise"],
         badgesByTier: {
           live: "LIMITED",
           pro: "BASIC",
