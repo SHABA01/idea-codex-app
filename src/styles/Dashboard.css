@@ -51,7 +51,7 @@
 /* LIMITED MODE FADE */
 
 .limited-mask {
-  opacity: 0.6;
+  opacity: 1;
   animation: fadeIn 0.4s ease-out;
 }
 
@@ -60,6 +60,6 @@
     opacity: 0;
   }
   to {
-    opacity: 0.6;
+    opacity: 1;
   }
 }

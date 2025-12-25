@@ -3,11 +3,7 @@
 ================================ */
 
 .dashboard-panel {
-  background: linear-gradient(
-    145deg,
-    rgba(18, 18, 18, 0.9),
-    rgba(10, 10, 10, 0.95)
-  );
+  background: none;
   border-radius: 14px;
   padding: 1.25rem;
   display: flex;
@@ -17,6 +13,11 @@
   border: 1px solid rgba(250, 204, 21, 0.12);
 }
 
+.dashboard-panel:hover {
+  background: var(--card-bg);
+  border-color: var(--accent-gold);
+}
+
 .dashboard-panel-header {
   display: flex;
   align-items: center;
@@ -24,9 +25,9 @@
 }
 
 .dashboard-panel-header h3 {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #facc15;
+  color: var(--accent-gold);
 }
 
 /* ================================
@@ -62,4 +63,13 @@
   justify-content: center;
   font-size: 0.85rem;
   opacity: 0.95;
+}
+
+/* 🌙 Dark Mode Overrides */
+[data-theme="dark"] .dashboard-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(18, 18, 18, 0.9),
+    rgba(10, 10, 10, 0.95)
+  );
 }

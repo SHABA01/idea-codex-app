@@ -6,10 +6,11 @@
   position: relative;
   min-height: 180px;
   background: linear-gradient(
-    145deg,
-    rgba(10, 10, 10, 0.85),
-    rgba(0, 0, 0, 0.95)
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75)
   );
+  border: 1px solid rgba(250, 204, 21, 0.15);
   border-radius: 14px;
   padding: 1.5rem;
   color: #ffffff;
@@ -19,6 +20,17 @@
   justify-content: center;
   gap: 0.5rem;
   text-align: center;
+  transition: all 0.5s ease;
+  animation: limitedFadeIn 0.35s ease-out;
+}
+
+.locked-overlay:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(10, 10, 10, 0.85),
+    rgba(0, 0, 0, 0.95)
+  );
+  border-color: var(--accent-gold);
 }
 
 .locked-overlay i {
@@ -75,6 +87,10 @@
   );
   pointer-events: none;
   animation: limitedFadeIn 0.35s ease-out;
+}
+
+.fade-overlay:hover {
+  border-color: var(--accent-gold);
 }
 
 @keyframes limitedFadeIn {
