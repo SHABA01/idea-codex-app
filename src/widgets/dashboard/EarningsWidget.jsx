@@ -1,30 +1,21 @@
-// src/widgets/dashboard/EarningsWidget.jsx
+import LineChart from "../../components/charts/LineChart";
+import DonutChart from "../../components/charts/DonutChart";
+import ChartContainer from "../../components/charts/ChartContainer";
+import { dashboardData } from "../../utils/dashboardData";
 
 const EarningsWidget = ({ mode }) => {
-  if (mode === "limited") {
-    return (
-      <p>
-        Earnings insights are unavailable on your current plan. Upgrade to
-        unlock monetization analytics.
-      </p>
-    );
-  }
-
-  if (mode === "basic") {
-    return (
-      <div>
-        <p>Total Earnings: ₦45,000</p>
-        <p>This Month: ₦12,500</p>
-      </div>
-    );
-  }
+  if (mode === "limited") return <p>Upgrade to view earnings.</p>;
 
   return (
-    <div>
-      <p>Total Earnings: ₦125,000</p>
-      <p>This Month: ₦42,300</p>
-      <p>Top Product: AI Resume Generator</p>
-      <p>Conversion Rate: 4.8%</p>
+    <div className="chart-grid">
+      <ChartContainer title="Monthly Earnings">
+        <LineChart data={dashboardData.earnings.monthly} />
+      </ChartContainer>
+      {mode === "full" && (
+        <ChartContainer title="Revenue Sources">
+          <DonutChart data={dashboardData.earnings.sources} />
+        </ChartContainer>
+      )}
     </div>
   );
 };

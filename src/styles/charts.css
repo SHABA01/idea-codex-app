@@ -1,0 +1,35 @@
+.chart-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.chart-title {
+  color: var(--accent-gold);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.heatmap {
+  display: grid;
+  gap: 4px;
+}
+
+.heatmap-row {
+  display: flex;
+  gap: 4px;
+}
+
+.heatmap-cell {
+  width: 20px;
+  height: 20px;
+  background: var(--accent-gold);
+  border-radius: 4px;
+}

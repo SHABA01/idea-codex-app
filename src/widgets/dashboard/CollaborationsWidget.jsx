@@ -1,30 +1,22 @@
-// src/widgets/dashboard/CollaborationsWidget.jsx
+import BarChart from "../../components/charts/BarChart";
+import HeatmapChart from "../../components/charts/HeatmapChart";
+import ChartContainer from "../../components/charts/ChartContainer";
+import { dashboardData } from "../../utils/dashboardData";
 
 const CollaborationsWidget = ({ mode }) => {
-  if (mode === "limited") {
-    return (
-      <p>
-        Collaboration features are locked. Upgrade to invite and manage
-        collaborators.
-      </p>
-    );
-  }
-
-  if (mode === "basic") {
-    return (
-      <p>
-        You are collaborating on 2 projects. Upgrade to unlock real-time
-        collaboration and permissions.
-      </p>
-    );
-  }
+  if (mode === "limited") return <p>Upgrade to manage collaborators.</p>;
 
   return (
-    <ul>
-      <li>Ada — Editor</li>
-      <li>Samuel — Viewer</li>
-      <li>Mary — Commenter</li>
-    </ul>
+    <div className="chart-grid">
+      <ChartContainer title="Roles Distribution">
+        <BarChart data={dashboardData.collaborations.split} />
+      </ChartContainer>
+      {mode === "full" && (
+        <ChartContainer title="Collaboration Intensity">
+          <HeatmapChart data={dashboardData.collaborations.heatmap} />
+        </ChartContainer>
+      )}
+    </div>
   );
 };
 
