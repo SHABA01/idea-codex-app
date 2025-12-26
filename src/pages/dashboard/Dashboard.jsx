@@ -51,35 +51,37 @@ const Dashboard = () => {
               <h2>{section.title}</h2>
             </header>
 
-            <div className="dashboard-grid">
-              {section.widgets.map((widget) => {
-                const state =
-                  resolveDashboardWidgetState(widget, tier);
+            <div className="dashboard-widget-scroll">
+              <div className="dashboard-grid">
+                {section.widgets.map((widget) => {
+                  const state =
+                    resolveDashboardWidgetState(widget, tier);
 
-                if (!state.visible) return null;
+                  if (!state.visible) return null;
 
-                const WidgetComponent =
-                  widgetRegistry[widget.component];
+                  const WidgetComponent =
+                    widgetRegistry[widget.component];
 
-                if (!WidgetComponent) return null;
+                  if (!WidgetComponent) return null;
 
-                const mode = badgeToMode[state.badge];
+                  const mode = badgeToMode[state.badge];
 
-                return (
-                  <AccessGate
-                    key={widget.id}
-                    state={state}
-                    label={widget.title}
-                  >
-                    <DashboardPanel
-                      title={widget.title}
-                      badge={state.badge}
+                  return (
+                    <AccessGate
+                      key={widget.id}
+                      state={state}
+                      label={widget.title}
                     >
-                      <WidgetComponent mode={mode} />
-                    </DashboardPanel>
-                  </AccessGate>
-                );
-              })}
+                      <DashboardPanel
+                        title={widget.title}
+                        badge={state.badge}
+                      >
+                        <WidgetComponent mode={mode} />
+                      </DashboardPanel>
+                    </AccessGate>
+                  );
+                })}
+              </div>
             </div>
           </section>
         );

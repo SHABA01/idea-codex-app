@@ -18,8 +18,11 @@
 .dashboard-grid {
   display: grid;
   gap: 16px;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
+/* Demo & Live — normal grid */
 .density-compact .dashboard-grid {
   grid-template-columns: 1fr;
 }
@@ -30,6 +33,45 @@
 
 .density-spacious .dashboard-grid {
   grid-template-columns: repeat(3, 1fr);
+}
+
+/*
+
+.density-comfortable .dashboard-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Pro & Enterprise — horizontal carousel
+.density-spacious .dashboard-grid {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(320px, 360px);
+  grid-template-columns: unset;
+}
+
+*/
+
+/* ===============================
+   WIDGET HORIZONTAL SCROLL
+   =============================== */
+
+.dashboard-widget-scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+}
+
+.dashboard-widget-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.dashboard-widget-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 4px;
+}
+
+.dashboard-widget-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* BADGES (shared with sidebar semantics) */
