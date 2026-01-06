@@ -1,14 +1,23 @@
-import LineChart from "../../components/charts/LineChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
+import { activityTimeline } from "../../utils/dashboardChartData";
 
 const ActivityWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade for activity history.</p>;
+  if (mode === "limited") {
+    return <p>Upgrade for activity history.</p>;
+  }
 
   return (
-    <ChartContainer title="Activity Timeline">
-      <LineChart data={dashboardData.activity.timeline} />
-    </ChartContainer>
+    <BaseChart
+      type="line"
+      data={activityTimeline}
+      options={{
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { ticks: { precision: 0 } }
+        }
+      }}
+    />
   );
 };
 

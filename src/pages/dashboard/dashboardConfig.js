@@ -7,12 +7,6 @@ export const dashboardConfig = [
     section: "overview",
     title: "Overview",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    densityByTier: {
-      demo: "compact",
-      live: "comfortable",
-      pro: "comfortable",
-      enterprise: "spacious"
-    },
     widgets: [
       {
         id: "stats",
@@ -47,12 +41,6 @@ export const dashboardConfig = [
     section: "creation",
     title: "Creation",
     visibleFor: ["demo","live", "pro", "enterprise"],
-    densityByTier: {
-      demo: "compact",
-      live: "comfortable",
-      pro: "comfortable",
-      enterprise: "spacious"
-    },
     widgets: [
       {
         id: "ideastudio",
@@ -75,12 +63,6 @@ export const dashboardConfig = [
     section: "performance",
     title: "Performance",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    densityByTier: {
-      demo: "compact",
-      live: "comfortable",
-      pro: "comfortable",
-      enterprise: "spacious"
-    },
     widgets: [
       {
         id: "performance",
@@ -115,12 +97,6 @@ export const dashboardConfig = [
     section: "collaboration",
     title: "Collaboration",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    densityByTier: {
-      demo: "compact",
-      live: "comfortable",
-      pro: "comfortable",
-      enterprise: "spacious"
-    },
     widgets: [
       {
         id: "collaborations",
@@ -143,12 +119,6 @@ export const dashboardConfig = [
     section: "insights",
     title: "Insights",
     visibleFor: ["demo", "live", "pro", "enterprise"],
-    densityByTier: {
-      demo: "compact",
-      live: "comfortable",
-      pro: "comfortable",
-      enterprise: "spacious"
-    },
     widgets: [
       {
         id: "insights",

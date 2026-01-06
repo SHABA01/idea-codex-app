@@ -1,14 +1,10 @@
-// src/pages/dashboard/dashboardRules.js
-
 import { TIER_ORDER } from "../../utils/tierOrder";
 
 export const resolveDashboardWidgetState = (widget, tier) => {
   const visible =
     !widget.visibleFor || widget.visibleFor.includes(tier);
 
-  if (!visible) {
-    return { visible: false };
-  }
+  if (!visible) return { visible: false };
 
   const locked =
     widget.lockedBelow &&

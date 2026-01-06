@@ -1,5 +1,3 @@
-// src/components/access/AccessGate.jsx
-
 import LockedOverlay from "./LockedOverlay";
 import LimitedMask from "./LimitedMask";
 

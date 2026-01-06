@@ -1,14 +1,28 @@
-import RadarChart from "../../components/charts/RadarChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
 
-const InsightsWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade for insights.</p>;
+const InsightsWidget = () => {
+  const data = {
+    labels: ["Ideas", "Validated", "Rejected"],
+    datasets: [
+      {
+        data: [12, 7, 3],
+        backgroundColor: [
+          "rgba(250,204,21,0.8)",
+          "rgba(34,197,94,0.8)",
+          "rgba(239,68,68,0.8)"
+        ]
+      }
+    ]
+  };
 
   return (
-    <ChartContainer title="Idea Strength Radar">
-      <RadarChart data={dashboardData.insights.radar} />
-    </ChartContainer>
+    <BaseChart
+      type="pie"
+      data={data}
+      options={{
+        plugins: { legend: { position: "bottom" } }
+      }}
+    />
   );
 };
 

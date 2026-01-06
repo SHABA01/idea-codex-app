@@ -1,5 +1,3 @@
-// src/components/access/LimitedMask.jsx
-
 import "../../styles/accessgate.css";
 
 const LimitedMask = ({ children }) => {

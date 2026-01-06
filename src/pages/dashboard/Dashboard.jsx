@@ -1,8 +1,9 @@
+import { useEffect, useRef, useState } from "react";
 import { useAppAccess } from "../../contexts/AppAccessContext";
 import { dashboardConfig } from "./dashboardConfig";
 import { resolveDashboardWidgetState } from "./dashboardRules";
 
-import DashboardPanel from "../../pages/dashboard/DashboardPanel";
+import DashboardPanel from "./DashboardPanel";
 import AccessGate from "../../components/access/AccessGate";
 
 import StatsWidget from "../../widgets/dashboard/StatsWidget";
@@ -25,63 +26,88 @@ const widgetRegistry = {
   performance: PerformanceWidget
 };
 
-const badgeToMode = {
-  LIMITED: "limited",
-  BASIC: "basic",
-  null: "full"
-};
-
 const Dashboard = () => {
   const { tier } = useAppAccess();
+  const scrollRefs = useRef({});
+  const [overflow, setOverflow] = useState({});
+
+  useEffect(() => {
+    const map = {};
+    Object.entries(scrollRefs.current).forEach(([key, el]) => {
+      if (!el) return;
+      map[key] = el.scrollWidth > el.clientWidth;
+    });
+    setOverflow(map);
+  }, [tier]);
+
+  const scrollBy = (key, dir) => {
+    scrollRefs.current[key]?.scrollBy({
+      left: dir * 320,
+      behavior: "smooth"
+    });
+  };
 
   return (
     <div className="dashboard-root">
       {dashboardConfig.map((section) => {
         if (!section.visibleFor.includes(tier)) return null;
 
-        const density =
-          section.densityByTier?.[tier] || "comfortable";
-
         return (
-          <section
-            key={section.section}
-            className={`dashboard-section density-${density}`}
-          >
-            <header className="dashboard-section-header">
-              <h2>{section.title}</h2>
-            </header>
+          <section key={section.section} className="dashboard-section">
+            <h2>{section.title}</h2>
 
-            <div className="dashboard-widget-scroll">
-              <div className="dashboard-grid">
-                {section.widgets.map((widget) => {
-                  const state =
-                    resolveDashboardWidgetState(widget, tier);
+            <div className="dashboard-carousel">
+              {overflow[section.section] && (
+                <button
+                  className="carousel-btn left"
+                  onClick={() => scrollBy(section.section, -1)}
+                >
+                  ‹
+                </button>
+              )}
 
-                  if (!state.visible) return null;
+              <div
+                className="dashboard-scroll"
+                ref={(el) =>
+                  (scrollRefs.current[section.section] = el)
+                }
+              >
+                <div className="dashboard-row">
+                  {section.widgets.map((widget) => {
+                    const state =
+                      resolveDashboardWidgetState(widget, tier);
+                    if (!state.visible) return null;
 
-                  const WidgetComponent =
-                    widgetRegistry[widget.component];
+                    const Widget =
+                      widgetRegistry[widget.component];
+                    if (!Widget) return null;
 
-                  if (!WidgetComponent) return null;
-
-                  const mode = badgeToMode[state.badge];
-
-                  return (
-                    <AccessGate
-                      key={widget.id}
-                      state={state}
-                      label={widget.title}
-                    >
-                      <DashboardPanel
-                        title={widget.title}
-                        badge={state.badge}
+                    return (
+                      <AccessGate
+                        key={widget.id}
+                        state={state}
+                        label={widget.title}
                       >
-                        <WidgetComponent mode={mode} />
-                      </DashboardPanel>
-                    </AccessGate>
-                  );
-                })}
+                        <DashboardPanel
+                          title={widget.title}
+                          badge={state.badge}
+                        >
+                          <Widget />
+                        </DashboardPanel>
+                      </AccessGate>
+                    );
+                  })}
+                </div>
               </div>
+
+              {overflow[section.section] && (
+                <button
+                  className="carousel-btn right"
+                  onClick={() => scrollBy(section.section, 1)}
+                >
+                  ›
+                </button>
+              )}
             </div>
           </section>
         );

@@ -3,105 +3,49 @@
 }
 
 .dashboard-section {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
-.dashboard-section-header h2 {
+.dashboard-section h2 {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 12px;
-  color: var(--text-primary);
 }
 
-/* GRID SYSTEM */
+.dashboard-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-.dashboard-grid {
-  display: grid;
+.dashboard-scroll {
+  overflow: hidden;
+  flex: 1;
+}
+
+.dashboard-row {
+  display: flex;
   gap: 16px;
-  overflow-x: auto;
-  overflow-y: visible;
 }
 
-/* Demo & Live — normal grid */
-.density-compact .dashboard-grid {
-  grid-template-columns: 1fr;
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
-.density-comfortable .dashboard-grid {
-  grid-template-columns: repeat(2, 1fr);
+.carousel-btn.left {
+  left: -12px;
 }
 
-.density-spacious .dashboard-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/*
-
-.density-comfortable .dashboard-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-/* Pro & Enterprise — horizontal carousel
-.density-spacious .dashboard-grid {
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(320px, 360px);
-  grid-template-columns: unset;
-}
-
-*/
-
-/* ===============================
-   WIDGET HORIZONTAL SCROLL
-   =============================== */
-
-.dashboard-widget-scroll {
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-}
-
-.dashboard-widget-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-
-.dashboard-widget-scroll::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
-  border-radius: 4px;
-}
-
-.dashboard-widget-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* BADGES (shared with sidebar semantics) */
-
-.badge {
-  margin-left: auto;
-  font-size: 0.65rem;
-  padding: 2px 6px;
-  border-radius: 6px;
-  font-weight: 700;
-}
-
-.badge-limited,
-.badge-basic {
-  background: #facc15;
-  color: #422006;
-}
-
-/* LIMITED MODE FADE */
-
-.limited-mask {
-  opacity: 1;
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.carousel-btn.right {
+  right: -12px;
 }

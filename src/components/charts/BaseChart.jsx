@@ -8,7 +8,6 @@ const BaseChart = ({ type, data, options }) => {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    // 🔥 DESTROY any existing chart
     if (chartRef.current) {
       chartRef.current.destroy();
     }
@@ -16,18 +15,24 @@ const BaseChart = ({ type, data, options }) => {
     chartRef.current = new Chart(canvasRef.current, {
       type,
       data,
-      options
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        ...options
+      }
     });
 
     return () => {
-      if (chartRef.current) {
-        chartRef.current.destroy();
-        chartRef.current = null;
-      }
+      chartRef.current?.destroy();
+      chartRef.current = null;
     };
   }, [type, data, options]);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div style={{ height: 220 }}>
+      <canvas ref={canvasRef} />
+    </div>
+  );
 };
 
 export default BaseChart;

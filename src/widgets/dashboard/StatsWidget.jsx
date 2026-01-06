@@ -1,20 +1,41 @@
-import LineChart from "../../components/charts/LineChart";
-import BarChart from "../../components/charts/BarChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
+import {
+  statsGrowth,
+  statsDistribution
+} from "../../utils/dashboardChartData";
+
 
 const StatsWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade to unlock analytics.</p>;
+  if (mode === "limited") {
+    return <p>Upgrade to unlock analytics.</p>;
+  }
 
   return (
-    <div className="chart-grid">
-      <ChartContainer title="Weekly Growth">
-        <LineChart data={dashboardData.stats.growth} />
-      </ChartContainer>
-      <ChartContainer title="Usage Distribution">
-        <BarChart data={dashboardData.stats.distribution} />
-      </ChartContainer>
-    </div>
+    <>
+      <BaseChart
+        type="line"
+        data={statsGrowth}
+        options={{
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { ticks: { precision: 0 } }
+          }
+        }}
+      />
+
+      <BaseChart
+        type="bar"
+        data={statsDistribution}
+        options={{
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true }
+          }
+        }}
+      />
+    </>
   );
 };
 

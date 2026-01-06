@@ -1,22 +1,15 @@
-import LineChart from "../../components/charts/LineChart";
-import DonutChart from "../../components/charts/DonutChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
+import { earningsTrend } from "../../utils/dashboardChartData";
 
-const EarningsWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade to view earnings.</p>;
-
+const EarningsWidget = () => {
   return (
-    <div className="chart-grid">
-      <ChartContainer title="Monthly Earnings">
-        <LineChart data={dashboardData.earnings.monthly} />
-      </ChartContainer>
-      {mode === "full" && (
-        <ChartContainer title="Revenue Sources">
-          <DonutChart data={dashboardData.earnings.sources} />
-        </ChartContainer>
-      )}
-    </div>
+    <BaseChart
+      type="bar"
+      data={earningsTrend}
+      options={{
+        plugins: { legend: { display: false } }
+      }}
+    />
   );
 };
 

@@ -1,22 +1,46 @@
-import BarChart from "../../components/charts/BarChart";
-import HeatmapChart from "../../components/charts/HeatmapChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
+import {
+  collaborationsSplit,
+  collaborationsHeatmap
+} from "../../utils/dashboardChartData";
+
 
 const CollaborationsWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade to manage collaborators.</p>;
+  if (mode === "limited") {
+    return <p>Upgrade to manage collaborators.</p>;
+  }
 
   return (
-    <div className="chart-grid">
-      <ChartContainer title="Roles Distribution">
-        <BarChart data={dashboardData.collaborations.split} />
-      </ChartContainer>
+    <>
+      <BaseChart
+        type="bar"
+        data={collaborationsSplit}
+        options={{
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true }
+          }
+        }}
+      />
+
       {mode === "full" && (
-        <ChartContainer title="Collaboration Intensity">
-          <HeatmapChart data={dashboardData.collaborations.heatmap} />
-        </ChartContainer>
+        <BaseChart
+          type="bar"
+          data={collaborationsHeatmap}
+          options={{
+            plugins: {
+              legend: { display: false },
+              tooltip: { enabled: true }
+            },
+            scales: {
+              x: { stacked: true },
+              y: { stacked: true, display: false }
+            }
+          }}
+        />
       )}
-    </div>
+    </>
   );
 };
 

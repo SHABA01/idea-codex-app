@@ -1,5 +1,3 @@
-// src/components/access/LockedOverlay.jsx
-
 import "../../styles/accessgate.css";
 
 const LockedOverlay = ({ label }) => {

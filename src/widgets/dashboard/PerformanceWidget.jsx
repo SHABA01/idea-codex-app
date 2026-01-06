@@ -1,21 +1,17 @@
-import LineChart from "../../components/charts/LineChart";
-import BarChart from "../../components/charts/BarChart";
-import ChartContainer from "../../components/charts/ChartContainer";
-import { dashboardData } from "../../utils/dashboardData";
+import BaseChart from "../../components/charts/BaseChart";
+import { performanceGrowth } from "../../utils/dashboardChartData";
 
-const PerformanceWidget = ({ mode }) => {
-  if (mode === "limited") return <p>Upgrade for insights.</p>;
-
+const PerformanceWidget = () => {
   return (
-    <div className="chart-grid">
-      <ChartContainer title="Performance Growth">
-        <LineChart data={dashboardData.performance.growth} />
-      </ChartContainer>
-      <ChartContainer title="Engagement">
-        <BarChart data={dashboardData.performance.engagement} />
-      </ChartContainer>
-    </div>
+    <BaseChart
+      type="line"
+      data={performanceGrowth}
+      options={{
+        plugins: { legend: { display: false } }
+      }}
+    />
   );
 };
 
 export default PerformanceWidget;
+
