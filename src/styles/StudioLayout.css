@@ -1,0 +1,146 @@
+/* ===============================
+   STUDIO LAYOUT (SKELETON)
+   =============================== */
+
+.studio-layout {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  min-height: 100vh;
+
+  gap: 12px;
+
+  padding: 12px 16px 16px;
+
+  box-sizing: border-box;
+}
+
+/* ===============================
+   TOP BAR (PROJECT META)
+   =============================== */
+
+.studio-topbar {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 10px 14px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+/* ===============================
+   BODY
+   =============================== */
+
+.studio-body {
+  flex: 1;
+  min-height: 0; /* critical for scroll containment */
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===============================
+   TOOL LAUNCHER SLOT
+   (overlay anchor, not sidebar)
+   =============================== */
+
+.studio-launcher-slot {
+  position: relative;
+  z-index: 20;
+}
+
+/* ===============================
+   WORK ROW
+   =============================== */
+
+.studio-work-row {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ===============================
+   CANVAS SLOT
+   =============================== */
+
+.studio-canvas-slot {
+  flex: 1;
+  min-width: 0; /* prevents squeeze */
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   FLYOUT SLOT
+   =============================== */
+
+.studio-flyout-slot {
+  width: 360px;
+  max-width: 420px;
+  min-width: 300px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+/* ===============================
+   AI BAR SLOT
+   =============================== */
+
+.studio-ai-slot {
+  flex-shrink: 0;
+
+  position: sticky;
+  bottom: 0;
+
+  z-index: 10;
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+   =============================== */
+
+@media (max-width: 1100px) {
+  .studio-flyout-slot {
+    width: 320px;
+  }
+}
+
+@media (max-width: 980px) {
+  .studio-flyout-slot {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .studio-layout {
+    padding: 10px;
+  }
+
+  .studio-topbar {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,106 @@
+/* ===============================
+   TOOL LAUNCHER OVERLAY
+   =============================== */
+
+.studio-tool-launcher-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: flex-start;
+
+  pointer-events: none;
+}
+
+.studio-tool-launcher {
+  margin-top: 12px;
+  margin-left: 12px;
+
+  width: 320px;
+  max-height: 80vh;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+
+  display: flex;
+  flex-direction: column;
+
+  pointer-events: all;
+  overflow: hidden;
+}
+
+/* Header */
+.launcher-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.launcher-close {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+/* Tool list */
+.launcher-list {
+  padding: 8px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.launcher-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.launcher-item:hover {
+  background: rgba(255, 213, 45, 0.06);
+}
+
+.launcher-item.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Badges */
+.tool-badge {
+  font-size: 0.7rem;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.tier-demo {
+  background: rgba(255,255,255,0.08);
+}
+
+.tier-live {
+  background: rgba(255,213,45,0.12);
+  color: var(--accent-gold);
+}
+
+.tier-pro {
+  background: rgba(140,100,255,0.12);
+  color: #8c64ff;
+}

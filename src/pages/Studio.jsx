@@ -1,54 +1,75 @@
-// src/pages/Studio.jsx
-import React, { useRef, useState } from "react";
-import ToolPanel from "../components/studio/ToolPanel";
-import StudioCanvas from "../components/studio/StudioCanvas";
-import AIBar from "../components/studio/AIBar";
-import { useAppAccess } from "../contexts/AppAccessContext";
-import "../styles/Studio.css";
+import React, { useState } from "react";
 
-function StudioInner() {
-  const [openTool, setOpenTool] = useState(null);
-  const canvasRef = useRef();
-  const { isDemo } = useAppAccess();
+import { useStudioProjects } from "../hooks/useStudioProjects";
 
-  const handleOpenTool = (tool) => setOpenTool(tool);
+import StudioLayout from "../components/studio/layout/StudioLayout";
+import StudioToolLauncher from "../components/studio/layout/StudioToolLauncher";
+import StudioTopbar from "../components/studio/layout/StudioTopbar";
+import ToolFlyout from "../components/studio/layout/ToolFlyout";
 
-  const handleInsert = (content) => {
-    // here we need to call a method on StudioCanvas - simplest: store a ref or pass handler
-    // For now we broadcast an event; better: lift state. We'll keep simple: use custom event
-    window.dispatchEvent(new CustomEvent("__studio_insert", { detail: content }));
-  };
+import StudioCanvas from "../components/studio/canvas/StudioCanvas";
 
-  // connect canvas insertion: override window.__studio_insert to call internal insert function
-  // The StudioCanvas component will also listen to this event (we'll add listening there) OR you can use a ref.
+import ToolRenderer from "../components/studio/tools/ToolRenderer";
+import AIBar from "../components/studio/assistants/AIBar";
+
+/**
+ * Studio
+ *
+ * High-level composition root for IdeaCodex Studio.
+ * Owns ONLY:
+ * - active tool selection
+ * - project lifecycle wiring
+ *
+ * All orchestration is delegated.
+ */
+export default function Studio() {
+  const { project, addBlock, saveProject } = useStudioProjects();
+
+  const [activeToolId, setActiveToolId] = useState(null);
+
+  const closeTool = () => setActiveToolId(null);
+
   return (
-    <div className="studio-wrapper">
-      <ToolPanel onOpenTool={handleOpenTool} />
-      <main className="studio-main">
-        <div className="studio-topbar">
-          <h1>Idea Studio</h1>
-          {isDemo && <div className="studio-banner">Demo Mode — some tools are locked</div>}
-        </div>
-
-        <div className="studio-workarea">
-          <StudioCanvas ref={canvasRef} />
-          <div className="tool-flyout">
-            {openTool ? (
-              <div className="tool-flyout-inner">
-                <openTool.Component onInsert={handleInsert} />
-              </div>
-            ) : (
-              <div className="tool-flyout-empty">Open a tool to begin</div>
-            )}
-          </div>
-        </div>
-
-        <AIBar onInsert={handleInsert} />
-      </main>
-    </div>
+    <StudioLayout
+      topbar={
+        <StudioTopbar
+          project={project}
+          onSave={saveProject}
+        />
+      }
+      launcher={
+        <StudioToolLauncher
+          activeToolId={activeToolId}
+          onLaunch={(toolId) => setActiveToolId(toolId)}
+        />
+      }
+      canvas={
+        <StudioCanvas blocks={project.blocks} />
+      }
+      flyout={
+        activeToolId && (
+          <ToolFlyout onClose={closeTool}>
+            <ToolRenderer
+              activeToolId={activeToolId}
+              project={project}
+              userTier={project.tier}
+              onInsertBlock={addBlock}
+              onClose={closeTool}
+            />
+          </ToolFlyout>
+        )
+      }
+      aiBar={
+        <AIBar
+          onInsert={(text) =>
+            addBlock({
+              tool: "ai",
+              title: "AI Assist",
+              content: text
+            })
+          }
+        />
+      }
+    />
   );
-}
-
-export default function StudioPageWrapper() {
-  return <StudioInner />;
 }

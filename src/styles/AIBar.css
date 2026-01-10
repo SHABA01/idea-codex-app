@@ -1,0 +1,123 @@
+/* =========================================
+   AI BAR CONTAINER
+   ========================================= */
+
+.ai-bar {
+  position: sticky;
+  bottom: 0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--card-border);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 20;
+}
+
+/* =========================================
+   RESULTS AREA
+   ========================================= */
+
+.ai-bar-results {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.ai-result {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-result pre {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: var(--text-primary);
+}
+
+/* =========================================
+   RESULT ACTIONS
+   ========================================= */
+
+.ai-result-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-result-actions button {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.ai-result-actions button:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+/* =========================================
+   INPUT ROW
+   ========================================= */
+
+.ai-input {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.ai-input input::placeholder {
+  color: var(--text-secondary);
+}
+
+.ai-input button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--accent-gold);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ai-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   FOOTER META
+   ========================================= */
+
+.ai-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.ai-bar-meta span {
+  opacity: 0.85;
+}

@@ -1,0 +1,155 @@
+/* ===============================
+   STUDIO CANVAS
+   Core workspace for Studio tools
+   =============================== */
+
+.studio-canvas {
+  position: relative;
+
+  flex: 1;
+  min-width: 0; /* CRITICAL: prevents flex overflow squeeze */
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 16px 18px 24px;
+
+  background: var(--bg-primary);
+  border-radius: 14px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+}
+
+/* ===============================
+   EMPTY STATE
+   =============================== */
+
+.canvas-empty {
+  margin: auto;
+  padding: 32px;
+
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+
+  border: 1px dashed var(--card-border);
+  border-radius: 12px;
+
+  background: linear-gradient(
+    180deg,
+    var(--card-bg),
+    rgba(255, 255, 255, 0.01)
+  );
+}
+
+/* ===============================
+   CANVAS BLOCKS
+   Each tool output
+   =============================== */
+
+.canvas-block {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+
+  padding: 14px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
+  animation: canvasFadeIn 0.25s ease-out;
+}
+
+/* Tool title */
+.canvas-block h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.02em;
+}
+
+/* Tool content */
+.canvas-block pre {
+  margin: 0;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  color: var(--text-primary);
+
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  border-radius: 10px;
+
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   SCROLLBAR (SUBTLE)
+   =============================== */
+
+.studio-canvas::-webkit-scrollbar {
+  width: 8px;
+}
+
+.studio-canvas::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 6px;
+}
+
+.studio-canvas::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.studio-canvas {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+
+/* ===============================
+   ANIMATIONS
+   =============================== */
+
+@keyframes canvasFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   RESPONSIVE SAFETY
+   =============================== */
+
+@media (max-width: 900px) {
+  .studio-canvas {
+    padding: 14px;
+  }
+
+  .canvas-block {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .studio-canvas {
+    border-radius: 10px;
+  }
+}

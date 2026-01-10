@@ -23,7 +23,7 @@
   ],
   "policy": {
     "demo": {
-      "dashboard": "none",
+      "dashboard": "limited",
       "studio": { "mode": "limited", "projects": 1, "export": false },
       "community": "read",
       "marketplace.gallery": "read",
