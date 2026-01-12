@@ -6,6 +6,8 @@
   position: sticky;
   bottom: 0;
   background: var(--card-bg);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(4px);
   border-top: 1px solid var(--card-border);
   padding: 12px;
   display: flex;
@@ -115,9 +117,10 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.7rem;
-  color: var(--text-secondary);
+  font-weight: 600;
+  color: var(--accent-gold);
 }
 
 .ai-bar-meta span {
-  opacity: 0.85;
+  opacity: 1;
 }

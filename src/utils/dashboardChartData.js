@@ -8,8 +8,8 @@ export const activityTimeline = {
     {
       label: "Activity",
       data: [12, 19, 7, 15, 22, 9, 14],
-      borderColor: "var(--accent-gold)",
-      backgroundColor: "rgba(255, 213, 45, 0.15)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      backgroundColor: "#facc15cc",
       tension: 0.4,
       fill: true
     }
@@ -26,8 +26,8 @@ export const statsGrowth = {
     {
       label: "Growth",
       data: [18, 26, 39, 52],
-      borderColor: "var(--accent-gold)",
-      backgroundColor: "rgba(255, 213, 45, 0.12)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      backgroundColor: "#facc15cc",
       tension: 0.35,
       fill: true
     }
@@ -39,11 +39,7 @@ export const statsDistribution = {
   datasets: [
     {
       data: [45, 30, 25],
-      backgroundColor: [
-        "rgba(255, 213, 45, 0.9)",
-        "rgba(255, 213, 45, 0.6)",
-        "rgba(255, 213, 45, 0.35)"
-      ]
+      backgroundColor: "#facc15cc"
     }
   ]
 };
@@ -57,7 +53,7 @@ export const collaborationsSplit = {
   datasets: [
     {
       data: [8, 14, 5],
-      backgroundColor: "rgba(255, 213, 45, 0.8)"
+      backgroundColor: "#facc15cc"
     }
   ]
 };
@@ -72,17 +68,17 @@ export const collaborationsHeatmap = {
     {
       label: "Morning",
       data: [1, 3, 2, 4, 3],
-      backgroundColor: "rgba(255, 213, 45, 0.9)"
+      backgroundColor: "#facc15cc"
     },
     {
       label: "Afternoon",
       data: [2, 4, 3, 5, 4],
-      backgroundColor: "rgba(255, 213, 45, 0.6)"
+      backgroundColor: "#facc15cc"
     },
     {
       label: "Evening",
       data: [1, 2, 1, 3, 2],
-      backgroundColor: "rgba(255, 213, 45, 0.35)"
+      backgroundColor: "#facc15cc"
     }
   ]
 };
@@ -97,8 +93,8 @@ export const performanceGrowth = {
     {
       label: "Performance Index",
       data: [10, 18, 28],
-      borderColor: "var(--accent-gold)",
-      backgroundColor: "rgba(255, 213, 45, 0.15)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      backgroundColor: "#facc15cc",
       tension: 0.4,
       fill: true
     }
@@ -115,8 +111,8 @@ export const earningsTrend = {
     {
       label: "Earnings",
       data: [12000, 18000, 42000],
-      borderColor: "var(--accent-gold)",
-      backgroundColor: "rgba(255, 213, 45, 0.2)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      backgroundColor: "#facc15cc",
       tension: 0.35,
       fill: true
     }
