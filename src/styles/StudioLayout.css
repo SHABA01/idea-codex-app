@@ -57,6 +57,7 @@
 .studio-work-row {
   flex: 1;
   min-height: 0;
+  max-height: 500px;
   overflow: hidden;
   display: flex;
   gap: 16px;
@@ -70,7 +71,6 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
-  max-height: 500px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
