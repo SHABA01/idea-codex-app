@@ -96,7 +96,7 @@ export default function AIBar({ onInsert }) {
           }
           disabled={!canSend}
         />
-        <button onClick={sendPrompt} disabled={!canSend || streaming}>
+        <button className="btn-send" onClick={sendPrompt} disabled={!canSend || streaming}>
           {streaming ? "Thinking…" : "Send"}
         </button>
       </div>
@@ -104,7 +104,7 @@ export default function AIBar({ onInsert }) {
       <div className="ai-bar-meta">
         <span>Tier: {tier.toUpperCase()}</span>
         <span>Credits left: {remaining}</span>
-        <button onClick={clearHistory}>Clear</button>
+        <button className="btn-clear" onClick={clearHistory}>Clear</button>
       </div>
     </div>
   );

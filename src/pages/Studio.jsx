@@ -1,64 +1,64 @@
 import React, { useState } from "react";
-
 import { useStudioProjects } from "../hooks/useStudioProjects";
 
 import StudioLayout from "../components/studio/layout/StudioLayout";
-import StudioToolLauncher from "../components/studio/layout/StudioToolLauncher";
 import StudioTopbar from "../components/studio/layout/StudioTopbar";
+import StudioToolLauncher from "../components/studio/layout/StudioToolLauncher";
 import ToolFlyout from "../components/studio/layout/ToolFlyout";
-
 import StudioCanvas from "../components/studio/canvas/StudioCanvas";
-
 import ToolRenderer from "../components/studio/tools/ToolRenderer";
 import AIBar from "../components/studio/assistants/AIBar";
+import toolRegistry from "../components/studio/tools/toolRegistry";
 
-/**
- * Studio
- *
- * High-level composition root for IdeaCodex Studio.
- * Owns ONLY:
- * - active tool selection
- * - project lifecycle wiring
- *
- * All orchestration is delegated.
- */
 export default function Studio() {
   const { project, addBlock, saveProject } = useStudioProjects();
 
+  const [launcherOpen, setLauncherOpen] = useState(false);
   const [activeToolId, setActiveToolId] = useState(null);
 
-  const closeTool = () => setActiveToolId(null);
+  const activeTool = toolRegistry.find(t => t.id === activeToolId);
 
   return (
     <StudioLayout
       topbar={
         <StudioTopbar
-          project={project}
-          onSave={saveProject}
+          projectName={project.name}
+          status={project.status}
+          lastSaved={project.lastSaved}
+          onOpenTools={() => setLauncherOpen(true)}
         />
       }
+
       launcher={
         <StudioToolLauncher
-          activeToolId={activeToolId}
-          onLaunch={(toolId) => setActiveToolId(toolId)}
+          isOpen={launcherOpen}
+          onClose={() => setLauncherOpen(false)}
+          onSelectTool={(tool) => {
+            setActiveToolId(tool.id);
+            setLauncherOpen(false);
+          }}
         />
       }
-      canvas={
-        <StudioCanvas blocks={project.blocks} />
-      }
+
+      canvas={<StudioCanvas blocks={project.blocks} />}
+
       flyout={
-        activeToolId && (
-          <ToolFlyout onClose={closeTool}>
+        activeTool && (
+          <ToolFlyout
+            title={activeTool.name}
+            onClose={() => setActiveToolId(null)}
+          >
             <ToolRenderer
               activeToolId={activeToolId}
               project={project}
               userTier={project.tier}
               onInsertBlock={addBlock}
-              onClose={closeTool}
+              onClose={() => setActiveToolId(null)}
             />
           </ToolFlyout>
         )
       }
+
       aiBar={
         <AIBar
           onInsert={(text) =>

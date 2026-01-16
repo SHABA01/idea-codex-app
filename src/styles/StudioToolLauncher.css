@@ -3,20 +3,19 @@
    =============================== */
 
 .studio-tool-launcher-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 50;
-
-  display: flex;
-  align-items: flex-start;
-
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.65); /* dark translucent layer */
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(4px);
   pointer-events: none;
 }
 
 .studio-tool-launcher {
-  margin-top: 12px;
-  margin-left: 12px;
-
+  position: absolute;
+  top: 72px;
+  right: 24px;
   width: 320px;
   max-height: 80vh;
 

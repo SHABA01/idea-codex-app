@@ -35,13 +35,19 @@
   color: var(--text-secondary);
 }
 
-.open-tools-btn {
+.open-launcher-btn {
   padding: 8px 12px;
   border-radius: 8px;
-  border: none;
-
   background: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
   color: #000;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.open-launcher-btn:hover {
+  background: transparent;
+  color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
 }

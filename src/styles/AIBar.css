@@ -9,6 +9,7 @@
   backdrop-filter: blur(14px) saturate(130%);
   -webkit-backdrop-filter: blur(4px);
   border-top: 1px solid var(--card-border);
+  border-radius: 14px;
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -27,6 +28,25 @@
   flex-direction: column;
   gap: 8px;
   padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+
+/* ===============================
+   SCROLLBAR (SUBTLE)
+   =============================== */
+
+.ai-bar-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ai-bar-results::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 6px;
+}
+
+.ai-bar-results::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .ai-result {
@@ -90,21 +110,34 @@
   font-size: 0.85rem;
 }
 
+.ai-input input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35);
+}
+
 .ai-input input::placeholder {
   color: var(--text-secondary);
 }
 
-.ai-input button {
+.ai-input .btn-send {
   padding: 10px 14px;
   border-radius: 8px;
   background: var(--accent-gold);
-  border: none;
+  border: 1px solid var(--accent-gold);
   color: #000;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.ai-input button:disabled {
+.ai-input .btn-send:hover {
+  background: transparent;
+  color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
+}
+
+.ai-input .btn-send:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -123,4 +156,13 @@
 
 .ai-bar-meta span {
   opacity: 1;
+}
+
+.ai-bar-meta .btn-clear {
+  background: none;
+  border: none;
+  color: var(--accent-gold);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
 }

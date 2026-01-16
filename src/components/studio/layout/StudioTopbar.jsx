@@ -26,7 +26,7 @@ export default function StudioTopbar({
         </span>
 
         <button
-          className="open-tools-btn"
+          className="open-launcher-btn"
           onClick={onOpenTools}
         >
           Tools

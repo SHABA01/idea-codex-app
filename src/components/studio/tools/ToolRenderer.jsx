@@ -1,12 +1,9 @@
-import React from "react";
 import toolRegistry from "./toolRegistry";
-import "../../../styles/ToolRenderer.css";
 
 /**
  * ToolRenderer
  *
- * Runtime orchestrator for Studio tools.
- * Decides what tool to render and how.
+ * Resolves tool configuration and renders the active tool.
  */
 export default function ToolRenderer({
   activeToolId,
@@ -15,23 +12,10 @@ export default function ToolRenderer({
   onInsertBlock,
   onClose
 }) {
-  if (!activeToolId) {
-    return (
-      <div className="tool-renderer-empty">
-        Select a tool to begin
-      </div>
-    );
-  }
+  if (!activeToolId) return null;
 
-  const tool = toolRegistry.find((t) => t.id === activeToolId);
-
-  if (!tool) {
-    return (
-      <div className="tool-renderer-error">
-        Tool not found
-      </div>
-    );
-  }
+  const tool = toolRegistry.find(t => t.id === activeToolId);
+  if (!tool) return null;
 
   /* Tier enforcement */
   const tierBlocked =
@@ -39,7 +23,7 @@ export default function ToolRenderer({
 
   if (tierBlocked) {
     return (
-      <div className="tool-renderer-locked">
+      <div style={{ padding: "16px" }}>
         <h3>{tool.name}</h3>
         <p>This tool is available on the Pro plan.</p>
         <button onClick={onClose}>Close</button>
@@ -50,18 +34,16 @@ export default function ToolRenderer({
   const ToolComponent = tool.Component;
 
   return (
-    <div className="tool-renderer">
-      <ToolComponent
-        project={project}
-        onInsert={(payload) =>
-          onInsertBlock({
-            tool: tool.id,
-            title: tool.name,
-            content: payload
-          })
-        }
-        onClose={onClose}
-      />
-    </div>
+    <ToolComponent
+      project={project}
+      onInsert={(payload) =>
+        onInsertBlock({
+          tool: tool.id,
+          title: tool.name,
+          content: payload
+        })
+      }
+      onClose={onClose}
+    />
   );
 }

@@ -4,29 +4,21 @@ import "../../../styles/ToolFlyout.css";
 /**
  * ToolFlyout
  *
- * Hosts the active Studio tool.
- * Lifecycle controlled by Studio.jsx
+ * Pure visual container.
+ * Does NOT resolve tools.
  */
-export default function ToolFlyout({
-  tool,
-  onClose,
-  onInsert
-}) {
-  if (!tool) return null;
-
-  const ToolComponent = tool.Component;
-
+export default function ToolFlyout({ title, onClose, children }) {
   return (
     <div className="tool-flyout">
       <header className="flyout-header">
-        <strong>{tool.name}</strong>
+        <strong>{title}</strong>
         <button className="flyout-close" onClick={onClose}>
           ✕
         </button>
       </header>
 
       <div className="flyout-content">
-        <ToolComponent onInsert={onInsert} />
+        {children}
       </div>
     </div>
   );

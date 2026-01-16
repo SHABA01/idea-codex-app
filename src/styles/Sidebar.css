@@ -132,8 +132,29 @@
   overflow-y: auto;     /* scroll ONLY this section */
   padding-right: 8px;
   min-height: 0;        /* critical for Firefox + Chrome flex scroll */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
 }
 
+/* ===============================
+   SCROLLBAR (SUBTLE)
+   =============================== */
+
+.sidebar-nav::-webkit-scrollbar,
+.mobile-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb,
+.mobile-nav::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track,
+.mobile-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 /* nav-item */
 .nav-item {
@@ -400,24 +421,6 @@
 
 .section-toggle i {
   font-size: 0.7rem;
-}
-
-/* ================= SCROLLBAR ================= */
-
-.sidebar-nav::-webkit-scrollbar,
-.mobile-nav::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb,
-.mobile-nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 213, 45, 0.35);
-  border-radius: 6px;
-}
-
-.sidebar-nav:hover::-webkit-scrollbar-thumb,
-.mobile-nav:hover::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
 }
 
 /* ========================= TABLET & MOBILE (<= 1045px) ========================= */

@@ -1,19 +1,6 @@
 import React from "react";
 import "../../../styles/StudioLayout.css";
 
-/**
- * StudioLayout
- *
- * Structural shell for the Studio ecosystem.
- * Does NOT own business logic.
- *
- * Slots:
- * - topbar: project meta, actions
- * - launcher: tool launcher trigger / overlay
- * - canvas: main working surface
- * - flyout: active tool panel
- * - aiBar: AI assistance bar
- */
 export default function StudioLayout({
   topbar,
   launcher,
@@ -23,27 +10,11 @@ export default function StudioLayout({
 }) {
   return (
     <div className="studio-layout">
-      {/* Top meta bar */}
-      {topbar && (
-        <header className="studio-topbar">
-          {topbar}
-        </header>
-      )}
+      {topbar && <header className="studio-topbar">{topbar}</header>}
 
-      {/* Main work area */}
       <div className="studio-body">
-        {/* Tool launcher trigger / overlay anchor */}
-        {launcher && (
-          <div className="studio-launcher-slot">
-            {launcher}
-          </div>
-        )}
-
-        {/* Core working row */}
         <div className="studio-work-row">
-          <main className="studio-canvas-slot">
-            {canvas}
-          </main>
+          <main className="studio-canvas-slot">{canvas}</main>
 
           {flyout && (
             <aside className="studio-flyout-slot">
@@ -53,12 +24,10 @@ export default function StudioLayout({
         </div>
       </div>
 
-      {/* AI bar is ALWAYS last and never overlaps */}
-      {aiBar && (
-        <footer className="studio-ai-slot">
-          {aiBar}
-        </footer>
-      )}
+      {aiBar && <footer className="studio-ai-slot">{aiBar}</footer>}
+
+      {/* IMPORTANT: launcher is rendered LAST, outside layout */}
+      {launcher}
     </div>
   );
 }
