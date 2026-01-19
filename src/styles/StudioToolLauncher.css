@@ -16,7 +16,7 @@
   position: absolute;
   top: 72px;
   right: 24px;
-  width: 320px;
+  width: 360px;
   max-height: 80vh;
 
   background: var(--card-bg);
@@ -35,17 +35,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 12px 14px;
   border-bottom: 1px solid var(--card-border);
+  font-weight: 700;
+  color: var(--accent-gold);
 }
 
 .launcher-close {
-  background: transparent;
+  width: 50px;
+  height: 50px;
   border: none;
-  font-size: 1rem;
+  background: transparent;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-style: bold;
   cursor: pointer;
-  color: var(--text-secondary);
+  opacity: 0.z;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.launcher-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 /* Tool list */
@@ -78,47 +92,59 @@
 
 .launcher-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
+  gap: 12px;
   padding: 10px 12px;
-  border-radius: 10px;
-
+  border-radius: 8px;
   background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
-
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.launcher-item i {
+  width: 20px;
+  text-align: center;
 }
 
 .launcher-item:hover {
-  background: rgba(255, 213, 45, 0.06);
+  color: var(--accent-gold);
+  transform: scale(0.9);
 }
 
 .launcher-item.locked {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-/* Badges */
-.tool-badge {
-  font-size: 0.7rem;
-  padding: 3px 6px;
+/* Push badge to the right */
+.tool-spacer {
+  margin-left: auto;
+}
+
+/* Badges — reuse sidebar sizing */
+.launcher-item .badge {
+  font-size: 0.65rem;
+  padding: 2px 6px;
   border-radius: 6px;
   font-weight: 700;
 }
 
-.tier-demo {
-  background: rgba(255,255,255,0.08);
+/* Match sidebar badge colors */
+.badge-demo,
+.badge-core,
+.badge-advanced,
+.badge-enterprise {
+  background: #facc15;
+  color: #422006;
 }
 
-.tier-live {
-  background: rgba(255,213,45,0.12);
-  color: var(--accent-gold);
+.badge-locked {
+  background: transparent;
 }
 
-.tier-pro {
-  background: rgba(140,100,255,0.12);
-  color: #8c64ff;
-}

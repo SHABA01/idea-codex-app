@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import toolRegistry from "../tools/toolRegistry";
 import { useAppAccess } from "../../../contexts/AppAccessContext";
+import { isTierAtLeast, isTierBelow } from "../../../utils/tierOrder";
 import "../../../styles/StudioToolLauncher.css";
 
 /**
  * StudioToolLauncher
  *
- * Overlay-style launcher for Studio tools.
- * Opens on demand, closes on selection or outside click.
+ * Shows tool availability based on user tier.
+ * Does NOT show runtime state (beta/experimental).
  */
 export default function StudioToolLauncher({
   isOpen,
@@ -20,14 +21,15 @@ export default function StudioToolLauncher({
   useEffect(() => {
     if (!isOpen) return;
 
-    function handleClickOutside(e) {
+    const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
         onClose();
       }
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -44,26 +46,53 @@ export default function StudioToolLauncher({
 
         <div className="launcher-list">
           {toolRegistry.map((tool) => {
-            const locked =
-              tier === "demo" && tool.tier !== "demo" ||
-              tier === "live" && tool.tier === "pro";
+            const {
+              id,
+              name,
+              icon,
+              visibleFor,
+              accessLevelByTier,
+              lockedBelow
+            } = tool;
+
+            // Visibility gate (tool not shown at all)
+            if (!visibleFor.includes(tier)) return null;
+
+            // Lock logic
+            const isLocked =
+              lockedBelow && isTierBelow(tier, lockedBelow);
+
+            const accessLabel = accessLevelByTier?.[tier] || null;
 
             return (
               <button
-                key={tool.id}
-                className={`launcher-item ${locked ? "locked" : ""}`}
-                disabled={locked}
+                key={id}
+                className={`launcher-item ${isLocked ? "locked" : ""}`}
+                disabled={isLocked}
                 onClick={() => {
-                  if (locked) return;
+                  if (isLocked) return;
                   onSelectTool(tool);
                   onClose();
                 }}
               >
-                <span className="tool-name">{tool.name}</span>
+                <i className={icon} aria-hidden />
 
-                <span className={`tool-badge tier-${tool.tier}`}>
-                  {tool.tier.toUpperCase()}
-                </span>
+                <span className="tool-name">{name}</span>
+
+                {/* Spacer pushes badge / lock to the right */}
+                <span className="tool-spacer" />
+
+                {isLocked ? (
+                  <span className="badge badge-locked">
+                    <i className="fa-solid fa-lock lock-icon" />
+                  </span>
+                ) : (
+                 accessLabel && (
+                    <span className={`badge badge-${accessLabel.toLowerCase()}`}>
+                      {accessLabel}
+                    </span>
+                  )
+                )}
               </button>
             );
           })}
