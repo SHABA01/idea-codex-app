@@ -75,8 +75,3 @@
     gap: 1.5rem;
   }
 }
-
-/* Dark Mode (optional, if data-theme toggles) 
-[data-theme="dark"] .feature-card {
-  border-color: rgba(255, 215, 0, 0.1);
-}*/

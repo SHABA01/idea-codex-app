@@ -14,7 +14,7 @@ const Footer = () => {
         <a href="#" aria-label="GitHub"><i className="fa-brands fa-github"></i></a>
         <a href="mailto:hello@ideacodex.com" aria-label="Email"><i className="fa-solid fa-envelope"></i></a>
       </div>
-      <p>© 2025 IdeaCodex. All rights reserved.</p>
+      <p>© 2026 IdeaCodex. All rights reserved.</p>
     </footer>
   );
 };

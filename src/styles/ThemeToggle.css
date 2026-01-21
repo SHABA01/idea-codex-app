@@ -38,5 +38,4 @@ body {
 
 [data-theme="dark"] .theme-toggle:hover {
   color: #000;
-  background: var(--border-gold);
 }

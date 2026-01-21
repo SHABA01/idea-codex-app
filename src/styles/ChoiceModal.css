@@ -222,29 +222,6 @@
 }
 
 /* 🌙 Dark Mode Overrides */
-[data-theme="dark"] .btn-studio-choice,
-[data-theme="dark"] .btn-dashboard-choice {
-  color: #000;
-  background: var(--border-gold);
-}
-
-[data-theme="dark"] .btn-studio-choice:hover,
-[data-theme="dark"] .btn-dashboard-choice:hover {
-  color: var(--border-gold);
-  background: transparent;
-}
-
-[data-theme="dark"] .btn-community-choice,
-[data-theme="dark"] .btn-profile-choice {
-  color: var(--border-gold);
-}
-
-[data-theme="dark"] .btn-community-choice:hover,
-[data-theme="dark"] .btn-profile-choice:hover {
-  color: #000;
-  background: var(--border-gold);
-}
-
 [data-theme="dark"] .choice-logo {
   border: 2px solid var(--border-gold);
 }
@@ -333,26 +310,6 @@
 
   .choice-footer {
     justify-content: center;
-  }
-
-  [data-theme="dark"] .btn-profile-choice {
-    color: #000;
-    background: var(--border-gold);
-  }
-
-  [data-theme="dark"] .btn-profile-choice:hover {
-    color: var(--border-gold);
-    background: transparent;
-  }
-
-  [data-theme="dark"] .btn-dashboard-choice {
-    color: var(--border-gold);
-    background: transparent;
-  }
-
-  [data-theme="dark"] .btn-dashboard-choice:hover {
-    color: #000;
-    background: var(--border-gold);
   }
 }
 

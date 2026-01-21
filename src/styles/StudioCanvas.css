@@ -16,25 +16,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-gold) transparent;
-}
-
-/* ===============================
-   SCROLLBAR (SUBTLE)
-   =============================== */
-
-.studio-canvas::-webkit-scrollbar {
-  width: 8px;
-}
-
-.studio-canvas::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
-  border-radius: 6px;
-}
-
-.studio-canvas::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 /* ===============================

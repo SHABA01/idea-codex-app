@@ -71,12 +71,10 @@
 
 [data-theme="dark"] .btn-signin:hover {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .btn-signup {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .btn-signup:hover {

@@ -83,12 +83,10 @@
 
 [data-theme="dark"] .btn-explore-market:hover {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .btn-explore-studio {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .btn-explore-studio:hover {

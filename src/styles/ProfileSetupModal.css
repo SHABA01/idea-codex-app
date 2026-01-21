@@ -196,12 +196,10 @@
 [data-theme="dark"] .profile-head .btn-skip:hover,
 [data-theme="dark"] .avatar-upload .avatar-btn:hover {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .profile-actions .btn-save-profile {
   color: #000;
-  background: var(--border-gold);
 }
 
 [data-theme="dark"] .profile-actions .btn-save-profile:hover {

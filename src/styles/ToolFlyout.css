@@ -29,23 +29,4 @@
   flex: 1;
   padding: 14px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-gold) transparent;
-}
-
-/* ===============================
-   SCROLLBAR (SUBTLE)
-   =============================== */
-
-.flyout-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.flyout-content::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
-  border-radius: 6px;
-}
-
-.flyout-content::-webkit-scrollbar-track {
-  background: transparent;
 }
