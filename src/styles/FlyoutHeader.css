@@ -1,0 +1,40 @@
+.flyout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.flyout-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flyout-icon {
+  color: var(--border-gold);
+}
+
+.flyout-title {
+  font-weight: 600;
+}
+
+.flyout-status {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.flyout-status.beta {
+  background: rgba(255, 200, 0, 0.15);
+  color: var(--border-gold);
+}
+
+.flyout-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+}

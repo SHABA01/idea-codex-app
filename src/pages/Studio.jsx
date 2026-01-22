@@ -16,16 +16,23 @@ export default function Studio() {
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [activeToolId, setActiveToolId] = useState(null);
 
+  const flyoutOpen = Boolean(activeToolId);
+
   const activeTool = toolRegistry.find(t => t.id === activeToolId);
 
   return (
     <StudioLayout
+      flyoutOpen={flyoutOpen}
+
       topbar={
         <StudioTopbar
           projectName={project.name}
           status={project.status}
           lastSaved={project.lastSaved}
-          onOpenTools={() => setLauncherOpen(true)}
+          onOpenTools={() => {
+            if (launcherOpen) return; // prevent double open
+            setLauncherOpen(true);
+          }}
         />
       }
 
@@ -34,8 +41,8 @@ export default function Studio() {
           isOpen={launcherOpen}
           onClose={() => setLauncherOpen(false)}
           onSelectTool={(tool) => {
-            setActiveToolId(tool.id);
             setLauncherOpen(false);
+            setActiveToolId(tool.id);
           }}
         />
       }
@@ -45,7 +52,7 @@ export default function Studio() {
       flyout={
         activeTool && (
           <ToolFlyout
-            title={activeTool.name}
+            tool={activeTool}
             onClose={() => setActiveToolId(null)}
           >
             <ToolRenderer

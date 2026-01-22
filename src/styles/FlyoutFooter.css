@@ -1,0 +1,16 @@
+.flyout-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flyout-insert-btn {
+  background: var(--border-gold);
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}

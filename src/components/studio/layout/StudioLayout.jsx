@@ -6,10 +6,11 @@ export default function StudioLayout({
   launcher,
   canvas,
   flyout,
-  aiBar
+  aiBar,
+  flyoutOpen
 }) {
   return (
-    <div className="studio-layout">
+    <div className={`studio-layout ${flyoutOpen ? "flyout-open" : ""}`}>
       {topbar && <header className="studio-topbar">{topbar}</header>}
 
       <div className="studio-body">
