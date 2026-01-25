@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { valuePropositionSchema } from "./valuePropositionSchema";
 
 export default function ValuePropositionTool({ onInsert }) {
@@ -16,14 +15,6 @@ export default function ValuePropositionTool({ onInsert }) {
         <textarea placeholder="Proof or evidence" onChange={e => update("proofOrEvidence", e.target.value)} />
         <textarea placeholder="Why now?" onChange={e => update("whyNow", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert Value Proposition",
-          onClick: () =>
-            onInsert({ tool: valuePropositionSchema.id, title: valuePropositionSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { riskRegisterSchema } from "./riskRegisterSchema";
 
 export default function RiskRegisterTool({ onInsert }) {
@@ -16,8 +15,6 @@ export default function RiskRegisterTool({ onInsert }) {
         <textarea placeholder="Legal / compliance risks" onChange={e => update("legalOrComplianceRisks", e.target.value)} />
         <textarea placeholder="Mitigation plan" onChange={e => update("mitigationPlan", e.target.value)} />
       </div>
-
-      <ToolFooter primaryAction={{ label: "Insert Risk Register", onClick: () => onInsert({ tool: riskRegisterSchema.id, title: riskRegisterSchema.title, content: data }) }} />
     </ToolStepShell>
   );
 }

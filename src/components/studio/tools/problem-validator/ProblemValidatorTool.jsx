@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { problemValidatorSchema } from "./problemValidatorSchema";
 
 export default function ProblemValidatorTool({ onInsert }) {
@@ -17,8 +16,6 @@ export default function ProblemValidatorTool({ onInsert }) {
         <textarea placeholder="Existing alternatives" onChange={e => update("currentAlternatives", e.target.value)} />
         <textarea placeholder="Validated / weak / invalid?" onChange={e => update("validationVerdict", e.target.value)} />
       </div>
-
-      <ToolFooter primaryAction={{ label: "Insert Validation", onClick: () => onInsert({ tool: problemValidatorSchema.id, title: problemValidatorSchema.title, content: data }) }} />
     </ToolStepShell>
   );
 }

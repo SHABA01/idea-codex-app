@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { monetizationSchema } from "./monetizationSchema";
 
 export default function MonetizationTool({ onInsert }) {
@@ -20,8 +19,6 @@ export default function MonetizationTool({ onInsert }) {
         <textarea placeholder="When and why users pay" onChange={e => update("paymentTrigger", e.target.value)} />
         <textarea placeholder="Monetization risks" onChange={e => update("risks", e.target.value)} />
       </div>
-
-      <ToolFooter primaryAction={{ label: "Insert Monetization Model", onClick: insert }} />
     </ToolStepShell>
   );
 }

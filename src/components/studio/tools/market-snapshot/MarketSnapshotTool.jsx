@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { marketSnapshotSchema } from "./marketSnapshotSchema";
 
 export default function MarketSnapshotTool({ onInsert, idea }) {
@@ -85,13 +84,6 @@ export default function MarketSnapshotTool({ onInsert, idea }) {
           onChange={(e) => update("whyNow", e.target.value)}
         />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert Market Snapshot",
-          onClick: handleInsert
-        }}
-      />
     </ToolStepShell>
   );
 }

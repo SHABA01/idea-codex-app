@@ -1,5 +1,4 @@
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { exportToMarkdown } from "./exporters/exportMarkdown";
 import { exportToPDF } from "./exporters/exportPDF";
 import { exportToPitch } from "./exporters/exportPitch";
@@ -56,8 +55,6 @@ export default function ExportTool({ project }) {
           </small>
         )}
       </div>
-
-      <ToolFooter />
     </ToolStepShell>
   );
 }

@@ -5,12 +5,26 @@
   justify-content: flex-end;
 }
 
+.flyout-footer .tool-status {
+  margin-right: auto;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  align-self: center;
+}
+
 .flyout-insert-btn {
-  background: var(--border-gold);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
   color: #000;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.flyout-insert-btn:hover {
+  background: transparent;
+  color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
 }

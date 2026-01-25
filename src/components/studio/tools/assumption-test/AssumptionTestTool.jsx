@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { assumptionTestSchema } from "./assumptionTestSchema";
 
 /**
@@ -118,8 +117,6 @@ export default function AssumptionTestTool({ onInsert }) {
           + Add another assumption
         </button>
       </div>
-
-      <ToolFooter onInsert={handleInsert} />
     </ToolStepShell>
   );
 }

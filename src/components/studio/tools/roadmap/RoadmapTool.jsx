@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { roadmapSchema } from "./roadmapSchema";
 
 export default function RoadmapTool({ onInsert }) {
@@ -16,14 +15,6 @@ export default function RoadmapTool({ onInsert }) {
         <textarea placeholder="Key dependencies" onChange={e => update("dependencies", e.target.value)} />
         <textarea placeholder="Success milestones" onChange={e => update("successMilestones", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert Roadmap",
-          onClick: () =>
-            onInsert({ tool: roadmapSchema.id, title: roadmapSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { pitchOutlineSchema } from "./pitchOutlineSchema";
 
 export default function PitchOutlineTool({ onInsert }) {
@@ -17,8 +16,6 @@ export default function PitchOutlineTool({ onInsert }) {
         <textarea placeholder="Business model" onChange={e => update("businessModel", e.target.value)} />
         <textarea placeholder="The ask" onChange={e => update("ask", e.target.value)} />
       </div>
-
-      <ToolFooter primaryAction={{ label: "Insert Pitch Outline", onClick: () => onInsert({ tool: pitchOutlineSchema.id, title: pitchOutlineSchema.title, content: data }) }} />
     </ToolStepShell>
   );
 }

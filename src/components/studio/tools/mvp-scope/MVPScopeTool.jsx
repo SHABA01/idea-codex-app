@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { mvpScopeSchema } from "./mvpScopeSchema";
 
 export default function MVPScopeTool({ onInsert }) {
@@ -17,14 +16,6 @@ export default function MVPScopeTool({ onInsert }) {
         <textarea placeholder="How success is measured" onChange={e => update("successCriteria", e.target.value)} />
         <textarea placeholder="Key assumptions this MVP tests" onChange={e => update("assumptionsTested", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert MVP Scope",
-          onClick: () =>
-            onInsert({ tool: mvpScopeSchema.id, title: mvpScopeSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import ToolFooter from "./ToolFooter";
 import "../../../../styles/ToolStepShell.css";
 
 /**
@@ -25,13 +24,6 @@ export default function ToolStepShell({
       <div className="tool-body">
         {children}
       </div>
-
-      <ToolFooter
-        onInsert={onInsert}
-        onReset={onReset}
-        status={status}
-        disabled={disabled}
-      />
     </section>
   );
 }

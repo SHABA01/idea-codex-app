@@ -1,71 +1,63 @@
-import React, { useState } from "react";
+import React from "react";
 import { useStudioProjects } from "../hooks/useStudioProjects";
+import { useStudioTool } from "../hooks/useStudioTool";
 
 import StudioLayout from "../components/studio/layout/StudioLayout";
 import StudioTopbar from "../components/studio/layout/StudioTopbar";
 import StudioToolLauncher from "../components/studio/layout/StudioToolLauncher";
 import ToolFlyout from "../components/studio/layout/ToolFlyout";
+import FlyoutFooter from "../components/studio/layout/FlyoutFooter";
 import StudioCanvas from "../components/studio/canvas/StudioCanvas";
 import ToolRenderer from "../components/studio/tools/ToolRenderer";
 import AIBar from "../components/studio/assistants/AIBar";
 import toolRegistry from "../components/studio/tools/toolRegistry";
 
 export default function Studio() {
-  const { project, addBlock, saveProject } = useStudioProjects();
+  const { project, addBlock } = useStudioProjects();
 
-  const [launcherOpen, setLauncherOpen] = useState(false);
-  const [activeToolId, setActiveToolId] = useState(null);
-
-  const flyoutOpen = Boolean(activeToolId);
-
-  const activeTool = toolRegistry.find(t => t.id === activeToolId);
+  const tool = useStudioTool({
+    toolRegistry,
+    onInsertBlock: addBlock
+  });
 
   return (
     <StudioLayout
-      flyoutOpen={flyoutOpen}
-
+      flyoutOpen={!!tool.activeTool}
       topbar={
         <StudioTopbar
           projectName={project.name}
-          status={project.status}
-          lastSaved={project.lastSaved}
-          onOpenTools={() => {
-            if (launcherOpen) return; // prevent double open
-            setLauncherOpen(true);
-          }}
+          onOpenTools={tool.openLauncher}
         />
       }
-
       launcher={
         <StudioToolLauncher
-          isOpen={launcherOpen}
-          onClose={() => setLauncherOpen(false)}
-          onSelectTool={(tool) => {
-            setLauncherOpen(false);
-            setActiveToolId(tool.id);
-          }}
+          isOpen={tool.isLauncherOpen}
+          onClose={tool.closeLauncher}
+          onSelectTool={tool.openTool}
         />
       }
-
       canvas={<StudioCanvas blocks={project.blocks} />}
-
       flyout={
-        activeTool && (
+        tool.activeTool && (
           <ToolFlyout
-            tool={activeTool}
-            onClose={() => setActiveToolId(null)}
+            tool={tool.activeTool}
+            onClose={tool.closeTool}
+            footer={
+              <FlyoutFooter
+               status={tool.status}
+                onInsert={tool.insert}
+              />
+            }
           >
             <ToolRenderer
-              activeToolId={activeToolId}
-              project={project}
-              userTier={project.tier}
-              onInsertBlock={addBlock}
-              onClose={() => setActiveToolId(null)}
+              tool={tool.activeTool}
+             status={tool.status}
+             onUpdateDraft={tool.updateDraft}
+             onInsert={tool.insert}
             />
           </ToolFlyout>
         )
       }
-
       aiBar={
         <AIBar
           onInsert={(text) =>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { executiveSummarySchema } from "./executiveSummarySchema";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 
 /**
  * Executive Summary Tool
@@ -118,8 +117,6 @@ export default function ExecutiveSummaryTool({ onInsert }) {
           />
         </label>
       </div>
-
-      <ToolFooter onInsert={handleInsert} />
     </ToolStepShell>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { swotSchema } from "./swotSchema";
 
 export default function SWOTTool({ onInsert }) {
@@ -15,14 +14,6 @@ export default function SWOTTool({ onInsert }) {
         <textarea placeholder="Opportunities" onChange={e => update("opportunities", e.target.value)} />
         <textarea placeholder="Threats" onChange={e => update("threats", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert SWOT",
-          onClick: () =>
-            onInsert({ tool: swotSchema.id, title: swotSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

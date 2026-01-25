@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { userFlowSchema } from "./userFlowSchema";
 
 export default function UserFlowTool({ onInsert }) {
@@ -16,14 +15,6 @@ export default function UserFlowTool({ onInsert }) {
         <textarea placeholder="Failure paths" onChange={e => update("failurePaths", e.target.value)} />
         <textarea placeholder="Success end state" onChange={e => update("successEndState", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert User Flow",
-          onClick: () =>
-            onInsert({ tool: userFlowSchema.id, title: userFlowSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { competitorBreakdownSchema } from "./competitorBreakdownSchema";
 
 /**
@@ -134,8 +133,6 @@ export default function CompetitorBreakdownTool({ onInsert }) {
           + Add another competitor
         </button>
       </div>
-
-      <ToolFooter onInsert={handleInsert} />
     </ToolStepShell>
   );
 }

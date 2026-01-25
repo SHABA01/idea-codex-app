@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { targetAudienceSchema } from "./targetAudienceSchema";
 
 export default function TargetAudienceTool({ onInsert }) {
@@ -16,14 +15,6 @@ export default function TargetAudienceTool({ onInsert }) {
         <textarea placeholder="Pain points" onChange={e => update("painPoints", e.target.value)} />
         <textarea placeholder="Buying triggers" onChange={e => update("buyingTriggers", e.target.value)} />
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert Audience Profile",
-          onClick: () =>
-            onInsert({ tool: targetAudienceSchema.id, title: targetAudienceSchema.title, content: data })
-        }}
-      />
     </ToolStepShell>
   );
 }

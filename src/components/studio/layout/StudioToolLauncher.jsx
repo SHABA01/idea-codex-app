@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import toolRegistry from "../tools/toolRegistry";
 import { useAppAccess } from "../../../contexts/AppAccessContext";
-import { isTierAtLeast, isTierBelow } from "../../../utils/tierOrder";
+import { isTierBelow } from "../../../utils/tierOrder";
 import "../../../styles/StudioToolLauncher.css";
 
 /**
  * StudioToolLauncher
  *
- * Shows tool availability based on user tier.
- * Does NOT show runtime state (beta/experimental).
+ * Tool discovery surface.
+ * Emits toolId only.
  */
 export default function StudioToolLauncher({
   isOpen,
@@ -55,14 +55,12 @@ export default function StudioToolLauncher({
               lockedBelow
             } = tool;
 
-            // Visibility gate (tool not shown at all)
             if (!visibleFor.includes(tier)) return null;
 
-            // Lock logic
             const isLocked =
               lockedBelow && isTierBelow(tier, lockedBelow);
 
-            const accessLabel = accessLevelByTier?.[tier] || null;
+            const accessLabel = accessLevelByTier?.[tier];
 
             return (
               <button
@@ -71,24 +69,23 @@ export default function StudioToolLauncher({
                 disabled={isLocked}
                 onClick={() => {
                   if (isLocked) return;
-                  onSelectTool(tool);
+                  onSelectTool(id);
                   onClose();
                 }}
               >
                 <i className={icon} aria-hidden />
-
                 <span className="tool-name">{name}</span>
-
-                {/* Spacer pushes badge / lock to the right */}
                 <span className="tool-spacer" />
 
                 {isLocked ? (
                   <span className="badge badge-locked">
-                    <i className="fa-solid fa-lock lock-icon" />
+                    <i className="fa-solid fa-lock" />
                   </span>
                 ) : (
-                 accessLabel && (
-                    <span className={`badge badge-${accessLabel.toLowerCase()}`}>
+                  accessLabel && (
+                    <span
+                      className={`badge badge-${accessLabel.toLowerCase()}`}
+                    >
                       {accessLabel}
                     </span>
                   )

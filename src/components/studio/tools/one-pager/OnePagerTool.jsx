@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { onePagerSchema } from "./onePagerSchema";
 
 export default function OnePagerTool({ onInsert }) {
@@ -17,8 +16,6 @@ export default function OnePagerTool({ onInsert }) {
         <textarea placeholder="Why this is different" onChange={e => update("differentiation", e.target.value)} />
         <textarea placeholder="Traction or next step" onChange={e => update("tractionOrNextStep", e.target.value)} />
       </div>
-
-      <ToolFooter primaryAction={{ label: "Insert One-Pager", onClick: () => onInsert({ tool: onePagerSchema.id, title: onePagerSchema.title, content: data }) }} />
     </ToolStepShell>
   );
 }

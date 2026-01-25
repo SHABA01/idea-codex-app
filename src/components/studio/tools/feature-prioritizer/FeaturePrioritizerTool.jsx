@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 import { featurePrioritizerSchema } from "./featurePrioritizerSchema";
 
 export default function FeaturePrioritizerTool({ onInsert }) {
@@ -141,13 +140,6 @@ export default function FeaturePrioritizerTool({ onInsert }) {
 
         <button onClick={addFeature}>+ Add Feature</button>
       </div>
-
-      <ToolFooter
-        primaryAction={{
-          label: "Insert Prioritized Features",
-          onClick: handleInsert
-        }}
-      />
     </ToolStepShell>
   );
 }

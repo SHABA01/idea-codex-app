@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { dashboardSummarySchema } from "./dashboardSummarySchema";
 import ToolStepShell from "../common/ToolStepShell";
-import ToolFooter from "../common/ToolFooter";
 
 /**
  * Dashboard Summary Tool
@@ -87,8 +86,6 @@ export default function DashboardSummaryTool({ project, onInsert }) {
           />
         </label>
       </div>
-
-      <ToolFooter onInsert={handleInsert} />
     </ToolStepShell>
   );
 }
