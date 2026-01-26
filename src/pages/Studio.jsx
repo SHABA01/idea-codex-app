@@ -51,9 +51,10 @@ export default function Studio() {
           >
             <ToolRenderer
               tool={tool.activeTool}
-             status={tool.status}
-             onUpdateDraft={tool.updateDraft}
-             onInsert={tool.insert}
+              status={tool.status}
+              draft={tool.draft}
+              onUpdateDraft={tool.updateDraft}
+              onReadyChange={tool.setReady}
             />
           </ToolFlyout>
         )

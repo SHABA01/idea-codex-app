@@ -20,6 +20,7 @@ export function useStudioTool({ toolRegistry, onInsertBlock }) {
     [activeToolId, toolRegistry]
   );
 
+
   /* =========================
      Launcher controls
      ========================= */
@@ -65,6 +66,10 @@ export function useStudioTool({ toolRegistry, onInsertBlock }) {
     closeTool();
   };
 
+  const setReady = (isReady) => {
+    setStatus(isReady ? "ready" : "draft");
+  };
+
   return {
     /* state */
     activeTool,
@@ -83,6 +88,7 @@ export function useStudioTool({ toolRegistry, onInsertBlock }) {
 
     /* data */
     updateDraft,
-    insert
+    insert,
+    setReady
   };
 }
