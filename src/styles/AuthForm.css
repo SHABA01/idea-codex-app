@@ -33,13 +33,7 @@
 
 .auth-input {
   width: 100%;
-  padding: 10px 14px;
   margin: 0.5rem 0;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  color: var(--text-primary);
-  outline: none;
 }
 
 .auth-btn {
@@ -60,6 +54,7 @@
   background: transparent;
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
 }
 
 .auth-divider {
@@ -87,6 +82,7 @@
   justify-content: center; /* centers icon + text */
   gap: 10px; /* adds space between icon and text */
   border: 1px solid var(--border-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
   border-radius: 6px;
   padding: 10px;
   background: transparent;

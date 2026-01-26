@@ -35,6 +35,35 @@
   background: transparent;
 }
 
+textarea {
+  resize: vertical;
+  max-height: 70px;
+  min-height: 50px;
+}
+
+input, 
+textarea {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  outline: none;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  font-family: inherit; /* Ensures it uses your site's font */
+}
+
+input:focus, 
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+}
 
 a {
   font-weight: 500;

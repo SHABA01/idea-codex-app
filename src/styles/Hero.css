@@ -48,6 +48,7 @@
   background: transparent;
   border: 1px solid var(--border-gold);
   color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
   padding: 8px 18px;
   border-radius: 6px;
   transition: all 0.3s ease;
@@ -74,6 +75,7 @@
   background: transparent;
   border: 1px solid var(--border-gold);
   color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
 }
 
 /* 🌙 Dark Mode Overrides */

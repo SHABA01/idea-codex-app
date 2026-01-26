@@ -3,6 +3,8 @@
 .resend-btn {
   background: transparent;
   border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -10,6 +12,6 @@
 .error-text { color: #ff6b6b; margin-top: 8px; }
 .success-text { color: #7af27a; margin-top: 8px; }
 .step-nav { display:flex; justify-content:space-between; gap: 12px; margin-top:12px; }
-.step-nav .auth-btn.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.08); color: var(--text-primary); }
+.step-nav .auth-btn.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.08); color: var(--text-primary); box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);}
 .auth-step { padding: 0.25rem 0; }
 .muted { color: var(--text-secondary); font-size: 0.95rem; }

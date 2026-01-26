@@ -81,24 +81,10 @@
   gap: 8px;
 }
 
-.ai-input input {
+.ai-input textarea {
   flex: 1;
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--card-border);
-  background: transparent;
-  color: var(--text-primary);
   font-size: 0.85rem;
-}
-
-.ai-input input:focus {
-  outline: none;
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35);
-}
-
-.ai-input input::placeholder {
-  color: var(--text-secondary);
 }
 
 .ai-input .btn-send {

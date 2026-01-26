@@ -86,7 +86,7 @@ export default function AIBar({ onInsert }) {
       </div>
 
       <div className="ai-input">
-        <input
+        <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={
@@ -95,6 +95,8 @@ export default function AIBar({ onInsert }) {
               : "AI quota reached — upgrade to continue"
           }
           disabled={!canSend}
+          rows="3"
+          maxLength={350}
         />
         <button className="btn-send" onClick={sendPrompt} disabled={!canSend || streaming}>
           {streaming ? "Thinking…" : "Send"}
