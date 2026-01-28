@@ -61,10 +61,10 @@ export default function Studio() {
       }
       aiBar={
         <AIBar
-          onInsert={(text) =>
+          onSend={(text) =>
             addBlock({
-              tool: "ai",
-              title: "AI Assist",
+              id: Date.now().toString(),
+              role: "user",
               content: text
             })
           }

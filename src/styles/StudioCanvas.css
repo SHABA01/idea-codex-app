@@ -1,21 +1,12 @@
 /* ===============================
-   STUDIO CANVAS
-   Core workspace for Studio tools
+   CANVAS ROOT
    =============================== */
 
 .studio-canvas {
-  position: relative;
   flex: 1;
-  min-width: 0; /* CRITICAL: prevents flex overflow squeeze */
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px 18px 24px;
-  background: var(--bg-primary);
-  border-radius: 14px;
   overflow-y: auto;
-  overflow-x: hidden;
-  box-sizing: border-box;
+  padding: 16px 12px;
+  display: flex;
 }
 
 /* ===============================
@@ -24,104 +15,153 @@
 
 .canvas-empty {
   margin: auto;
-  padding: 32px;
+  padding: 32px 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
 
   border: 1px dashed var(--card-border);
-  border-radius: 12px;
+  border-radius: 14px;
 
   background: linear-gradient(
     180deg,
     var(--card-bg),
-    rgba(255, 255, 255, 0.01)
+    rgba(255, 255, 255, 0.015)
   );
 }
 
+.canvas-empty-inner {
+  max-width: 420px;
+}
+
+.canvas-empty .primary {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.canvas-empty .secondary {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 /* ===============================
-   CANVAS BLOCKS
-   Each tool output
+   CHAT TIMELINE
    =============================== */
 
-.canvas-block {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
-
-  padding: 14px 16px;
-
+.chat-timeline {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-
-  animation: canvasFadeIn 0.25s ease-out;
+  gap: 12px;
 }
 
-/* Tool title */
-.canvas-block h4 {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent-gold);
-  letter-spacing: 0.02em;
+/* ===============================
+   MESSAGE ROW
+   =============================== */
+
+.msg-row {
+  display: flex;
+  width: 100%;
 }
 
-/* Tool content */
-.canvas-block pre {
-  margin: 0;
+.msg-row.left {
+  justify-content: flex-start;
+}
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+.msg-row.right {
+  justify-content: flex-end;
+}
+
+/* ===============================
+   MESSAGE BUBBLE
+   =============================== */
+
+.msg {
+  position: relative;
+  max-width: 72%;
+  padding: 10px 12px;
+  border-radius: 12px;
   font-size: 0.85rem;
-  line-height: 1.5;
+  line-height: 1.55;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+}
 
+/* User */
+.msg.user {
+  background: rgba(250, 204, 21, 0.08);
+  border-color: var(--accent-gold);
+}
+
+/* AI */
+.msg.ai {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Tool */
+.msg.tool {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--accent-gold);
+}
+
+/* ===============================
+   TOOL HEADER
+   =============================== */
+
+.msg-header {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.tool-name {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ===============================
+   CONTENT
+   =============================== */
+
+.msg-content {
   white-space: pre-wrap;
-  word-break: break-word;
-
   color: var(--text-primary);
-
-  background: rgba(0, 0, 0, 0.25);
-  padding: 12px;
-  border-radius: 10px;
-
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* ===============================
-   ANIMATIONS
+   ACTIONS
    =============================== */
 
-@keyframes canvasFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.msg-actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 
-/* ===============================
-   RESPONSIVE SAFETY
-   =============================== */
-
-@media (max-width: 900px) {
-  .studio-canvas {
-    padding: 14px;
-  }
-
-  .canvas-block {
-    padding: 12px;
-  }
+.msg:hover .msg-actions {
+  opacity: 1;
 }
 
-@media (max-width: 640px) {
-  .studio-canvas {
-    border-radius: 10px;
-  }
+.btn-insert {
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.btn-insert:hover {
+  color: var(--accent-gold);
 }

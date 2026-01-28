@@ -5,10 +5,11 @@
 .ai-bar {
   position: sticky;
   bottom: 0;
-  background: var(--card-bg);
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(4px);
-  border-top: 1px solid var(--card-border);
+  max-width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  background: transparent;
+  border: none;
   border-radius: 14px;
   padding: 12px;
   display: flex;
@@ -18,76 +19,63 @@
 }
 
 /* =========================================
-   RESULTS AREA
+   COMPOSER CONTAINER
    ========================================= */
 
-.ai-bar-results {
-  max-height: 220px;
-  overflow-y: auto;
+.ai-composer {
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 8px;
-  padding-right: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 14px;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 12px;
 }
 
-.ai-result {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.ai-result pre {
-  margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  color: var(--text-primary);
-}
-
-/* =========================================
-   RESULT ACTIONS
-   ========================================= */
-
-.ai-result-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.ai-result-actions button {
-  background: transparent;
-  border: 1px solid var(--card-border);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 0.7rem;
-  cursor: pointer;
-  color: var(--text-secondary);
-}
-
-.ai-result-actions button:hover {
-  color: var(--accent-gold);
+.ai-composer:focus-within {
+  outline: none;
   border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.25);
 }
 
-/* =========================================
-   INPUT ROW
-   ========================================= */
+/* ===============================
+   TEXTAREA (AUTO-GROW)
+   =============================== */
 
-.ai-input {
-  display: flex;
-  gap: 8px;
-}
-
-.ai-input textarea {
+.ai-composer textarea {
   flex: 1;
   padding: 10px;
   font-size: 0.85rem;
+  resize: none;
+  overflow: hidden;
+  min-height: 38px;
+  max-height: 160px;
+  line-height: 1.5;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-.ai-input .btn-send {
+.ai-composer textarea:focus {
+  outline: none;
+  border-color: none;
+  box-shadow: none;
+}
+
+/* ===============================
+   ACTIONS
+   =============================== */
+
+.ai-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-actions .btn-send {
   padding: 10px 14px;
   border-radius: 8px;
   background: var(--accent-gold);
@@ -95,27 +83,29 @@
   color: #000;
   font-weight: 700;
   cursor: pointer;
+  flex-shrink: 0;
   transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.ai-input .btn-send:hover {
+.ai-actions .btn-send:hover {
   background: transparent;
   color: var(--accent-gold);
   box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
 }
 
-.ai-input .btn-send:disabled {
+.ai-actions .btn-send:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* =========================================
-   FOOTER META
-   ========================================= */
+/* ===============================
+   META
+   =============================== */
 
 .ai-bar-meta {
   display: flex;
   justify-content: space-between;
+  padding: 0 6px;
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--accent-gold);
@@ -125,11 +115,8 @@
   opacity: 1;
 }
 
-.ai-bar-meta .btn-clear {
-  background: none;
-  border: none;
-  color: var(--accent-gold);
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0;
+@media (max-width: 900px) {
+  .ai-bar {
+    width: 95%;
+  }
 }
