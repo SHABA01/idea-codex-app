@@ -24,11 +24,16 @@
 
 .ai-composer {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 14px;
+  border-radius: 999px; /* pill */
+  transition:
+    min-height 0.1s ease-out,
+    border-radius 0.1s ease,
+    padding 0.1s ease;
+  min-height: 48px;
   background: var(--card-bg);
   backdrop-filter: blur(14px) saturate(130%);
   -webkit-backdrop-filter: blur(4px);
@@ -41,17 +46,23 @@
   box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.25);
 }
 
+.ai-composer.multiline {
+  border-radius: 30px; /* rectangle */
+  align-items: flex-end;
+  padding: 0 12px 12px 12px;
+}
+
 /* ===============================
    TEXTAREA (AUTO-GROW)
    =============================== */
 
 .ai-composer textarea {
   flex: 1;
-  padding: 10px;
+  padding: 6px 10px 0px;
   font-size: 0.85rem;
   resize: none;
-  overflow: hidden;
-  min-height: 38px;
+  overflow-y: hidden;
+  min-height: 25px;
   max-height: 160px;
   line-height: 1.5;
   background: transparent;
@@ -72,12 +83,13 @@
 .ai-actions {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 6px;
 }
 
 .ai-actions .btn-send {
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--accent-gold);
   border: 1px solid var(--accent-gold);
   color: #000;

@@ -15,17 +15,36 @@ export default function AIBar({ onSend }) {
   const [used, setUsed] = useState(0);
   const [value, setValue] = useState("");
   const [streaming, setStreaming] = useState(false);
+  const [isMultiline, setIsMultiline] = useState(false);
 
   const textareaRef = useRef(null);
+  const composerRef = useRef(null);
   const remaining = quota === Infinity ? "∞" : quota - used;
   const canSend = quota === Infinity || used < quota;
 
   /* Auto-grow textarea */
   useEffect(() => {
-    if (!textareaRef.current) return;
-    textareaRef.current.style.height = "auto";
-    textareaRef.current.style.height =
-      textareaRef.current.scrollHeight + "px";
+    const textarea = textareaRef.current;
+    const composer = composerRef.current;
+    if (!textarea || !composer) return;
+    
+    const MAX_HEIGHT = 160;
+    const BASE_HEIGHT = 30;
+    
+    textarea.style.height = "auto";
+    const newHeight = Math.min(textarea.scrollHeight, MAX_HEIGHT);
+    textarea.style.height = newHeight + "px";
+    
+    textarea.style.overflowY =
+      textarea.scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+    
+    const multiline = newHeight > 52;
+    setIsMultiline(multiline);
+    
+    // 👇 animate the container, not the textarea
+    composer.style.minHeight = multiline
+      ? newHeight + 24 + "px" // padding compensation
+      : BASE_HEIGHT + "px";
   }, [value]);
 
   const send = () => {
@@ -47,7 +66,10 @@ export default function AIBar({ onSend }) {
 
   return (
     <div className="ai-bar">
-      <div className="ai-composer">
+      <div
+        ref={composerRef}
+        className={`ai-composer ${isMultiline ? "multiline" : ""}`}
+      >
         <textarea
           ref={textareaRef}
           value={value}
@@ -60,7 +82,6 @@ export default function AIBar({ onSend }) {
           }
           disabled={!canSend}
           rows={1}
-          maxLength={500}
         />
 
         <div className="ai-actions">

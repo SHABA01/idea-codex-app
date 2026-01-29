@@ -8,7 +8,7 @@ export default function StudioCanvas({ messages = [] }) {
       {isEmpty ? (
         <div className="canvas-empty">
           <div className="canvas-empty-inner">
-            <p className="primary">Your workspace is empty</p>
+            <p className="primary">Your canvas is empty</p>
             <p className="secondary">
               Start by launching a tool or sending a message
             </p>
