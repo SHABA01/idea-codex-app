@@ -82,7 +82,7 @@
    =============================== */
 
 .studio-flyout-slot {
-  width: 420px;
+  width: var(--flyout-width);
   min-width: 300px;
   max-width: 420px;
 
@@ -102,12 +102,13 @@
    AI BAR
    =============================== */
 
+/* Default: flyout closed */
 .studio-ai-slot {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 20;
+  z-index: 30;
   pointer-events: none;
 }
 
@@ -115,6 +116,11 @@
   pointer-events: auto;
 }
 
+/* Flyout open */
+.studio-layout.flyout-open .studio-ai-slot {
+  left: 16px;
+  right: calc(var(--flyout-width) + 16px);
+}
 
 /* ===============================
    RESPONSIVE
