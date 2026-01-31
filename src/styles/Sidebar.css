@@ -6,7 +6,7 @@
   min-width: 240px;
   background: var(--card-bg);
   border-right: 1px solid var(--card-border);
-  height: 100dvh;
+  height: 99dvh;
   position: fixed;
   left: 0;
   top: 0;
@@ -217,7 +217,7 @@
   width: 250px;
   max-width: 86vw;
   background: var(--card-bg);
-  height: 100dvh;        /* Perfect vertical space */
+  height: 99dvh;        /* Perfect vertical space */
   max-height: 100dvh;    /* Prevent overflow beyond screen */
   transform: translateX(0);
   transition: transform 0.25s ease;
@@ -301,7 +301,6 @@
 
 /* Make the wrapper button behave like a nav-item */
 .sidebar-theme-toggle {
-  width: 100%;
   background: none;
   border: none;
   display: flex;
