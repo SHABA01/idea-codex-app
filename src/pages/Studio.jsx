@@ -10,6 +10,7 @@ import FlyoutFooter from "../components/studio/layout/FlyoutFooter";
 import StudioCanvas from "../components/studio/canvas/StudioCanvas";
 import ToolRenderer from "../components/studio/tools/ToolRenderer";
 import AIBar from "../components/studio/assistants/AIBar";
+import { mockAIResponse } from "../components/studio/assistants/mockAI";
 import toolRegistry from "../components/studio/tools/toolRegistry";
 
 export default function Studio() {
@@ -61,13 +62,22 @@ export default function Studio() {
       }
       aiBar={
         <AIBar
-          onSend={(text) =>
-            addBlock({
+          onSend={(text) => {
+            // 1️⃣ User message
+            const userBlock = {
               id: Date.now().toString(),
               role: "user",
-              content: text
-            })
-          }
+              content: text,
+              createdAt: Date.now()
+            };
+          
+            addBlock(userBlock);
+          
+            // 2️⃣ Mock AI response
+            setTimeout(() => {
+              addBlock(mockAIResponse(text));
+            }, 600);
+          }}
         />
       }
     />

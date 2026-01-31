@@ -1,7 +1,7 @@
 import "../../../styles/StudioCanvas.css";
 
-export default function StudioCanvas({ messages = [] }) {
-  const isEmpty = messages.length === 0;
+export default function StudioCanvas({ blocks = [] }) {
+  const isEmpty = blocks.length === 0;
 
   return (
     <div className="studio-canvas">
@@ -16,21 +16,21 @@ export default function StudioCanvas({ messages = [] }) {
         </div>
       ) : (
         <div className="chat-timeline">
-          {messages.map((msg) => (
+          {blocks.map((block) => (
             <div
-              key={msg.id}
-              className={`msg-row ${msg.role === "user" ? "right" : "left"}`}
+              key={block.id}
+              className={`msg-row ${block.role === "user" ? "right" : "left"}`}
             >
-              <div className={`msg ${msg.role}`}>
+              <div className={`msg ${block.role}`}>
                 {/* Tool header */}
-                {msg.role === "tool" && (
+                {block.role === "tool" && (
                   <div className="msg-header">
-                    <span className="tool-name">{msg.source}</span>
+                    <span className="tool-name">{block.source}</span>
                   </div>
                 )}
 
                 {/* Content */}
-                <div className="msg-content">{msg.content}</div>
+                <div className="msg-content">{block.content}</div>
 
                 {/* Actions */}
                 <div className="msg-actions">
