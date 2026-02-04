@@ -1,46 +1,38 @@
 import React from "react";
+import ChatBubble from "./ChatBubble";
 import "../../../styles/StudioCanvas.css";
-
-function MessageContent({ text }) {
-  const ref = React.useRef(null);
-  const [expanded, setExpanded] = React.useState(false);
-  const [overflowing, setOverflowing] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!ref.current) return;
-    setOverflowing(ref.current.scrollHeight > 120);
-  }, [text]);
-
-  return (
-    <>
-      <div
-        ref={ref}
-        className={`msg-content ${expanded ? "expanded" : ""}`}
-      >
-        {text}
-      </div>
-
-      {overflowing && !expanded && (
-        <button className="read-more" onClick={() => setExpanded(true)}>
-          …Read more
-        </button>
-      )}
-    </>
-  );
-}
 
 export default function StudioCanvas({ blocks = [], isTyping = false }) {
   const isEmpty = blocks.length === 0;
+  const timelineRef = React.useRef(null);
   const bottomRef = React.useRef(null);
+  const [autoScroll, setAutoScroll] = React.useState(true);
 
-  // Auto-scroll to bottom
+  // Detect manual scroll
   React.useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [blocks, isTyping]);
+    const el = timelineRef.current;
+    if (!el) return;
 
-  return (
-    <div className="studio-canvas">
-      {isEmpty ? (
+    const onScroll = () => {
+      const nearBottom =
+        el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+      setAutoScroll(nearBottom);
+    };
+
+    el.addEventListener("scroll", onScroll);
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Auto-scroll only when allowed
+  React.useEffect(() => {
+    if (autoScroll) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [blocks, isTyping, autoScroll]);
+
+  if (isEmpty) {
+    return (
+      <div className="studio-canvas">
         <div className="canvas-empty">
           <div className="canvas-empty-inner">
             <p className="primary">Your canvas is empty</p>
@@ -49,63 +41,55 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
             </p>
           </div>
         </div>
-      ) : (
-        <div className="chat-timeline">
-          {blocks.map((block, index) => {
-            const prev = blocks[index - 1];
-            const isGrouped =
-              prev &&
-              prev.role === block.role &&
-              prev.source === block.source;
+      </div>
+    );
+  }
 
-            return (
-              <div
-                key={block.id}
-                className={`msg-row ${
-                  block.role === "user" ? "right" : "left"
-                }`}
-              >
-                <div
-                  className={`msg ${block.role} ${
-                    isGrouped ? "grouped" : ""
-                  }`}
-                >
-                  {!isGrouped && block.role !== "user" && (
-                    <div className="msg-header">
-                      <span className="tool-name">
-                        {block.source || "IdeaCodex"}
-                      </span>
-                    </div>
-                  )}
+  return (
+    <div className="studio-canvas">
+      <div className="chat-timeline" ref={timelineRef}>
+        {blocks.map((block, index) => {
+          const prev = blocks[index - 1];
+          const isGrouped =
+            prev &&
+            prev.senderId === block.senderId &&
+            prev.role === block.role;
 
-                  <MessageContent text={block.content} />
+          return (
+            <ChatBubble
+              key={block.id}
+              block={block}
+              isGrouped={isGrouped}
+              isMine={block.role === "user"}
+              highlightable={block.role !== "user"}
+            />
+          );
+        })}
 
-                  <div className="msg-meta">
-                    {block.timestamp}
-                  </div>
-
-                  <div className="msg-actions">
-                    <button className="btn-insert" title="Insert into tool">
-                      →
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          {isTyping && (
-            <div className="msg-row left">
-              <div className="msg ai typing">
-                <span className="dot" />
-                <span className="dot" />
-                <span className="dot" />
-              </div>
+        {isTyping && (
+          <div className="msg-row left">
+            <div className="msg ai typing">
+              <span className="dot" />
+              <span className="dot" />
+              <span className="dot" />
             </div>
-          )}
+          </div>
+        )}
 
-          <div ref={bottomRef} />
-        </div>
+        <div ref={bottomRef} />
+      </div>
+
+      {!autoScroll && (
+        <button
+          className="scroll-to-bottom"
+          onClick={() => {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+            setAutoScroll(true);
+          }}
+          title="Jump to latest"
+        >
+          ↓
+        </button>
       )}
     </div>
   );

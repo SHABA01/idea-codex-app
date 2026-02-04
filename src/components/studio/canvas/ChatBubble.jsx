@@ -1,6 +1,13 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+function getHeaderLabel(block, isMine) {
+  if (isMine) return "You";
+  if (block.role === "ai") return "IdeaCodex";
+  if (block.role === "tool") return block.source || "Tool";
+  return block.displayName || block.fullName || "Collaborator";
+}
+
 export default function ChatBubble({
   block,
   isGrouped,
@@ -25,8 +32,15 @@ export default function ChatBubble({
         {!isGrouped && (
           <div className="msg-header">
             <span className="tool-name">
-              {block.headerLabel}
+              {getHeaderLabel(block, isMine)}
             </span>
+            {highlightable && (
+              <div className="msg-insert">
+                <button className="btn-insert" title="Insert into tool">
+                  →
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -35,7 +49,7 @@ export default function ChatBubble({
           className={`msg-content ${expanded ? "expanded" : ""}`}
         >
           <ReactMarkdown>
-            {block.content}
+            {block.content || ""}
           </ReactMarkdown>
         </div>
 
@@ -46,30 +60,24 @@ export default function ChatBubble({
         )}
 
         <div className="msg-meta">
-          {block.timestamp}
+          {block.timestamp || ""}
         </div>
 
-        {highlightable && (
-          <div className="msg-actions">
-            <button className="btn-insert" title="Insert into tool">
-              →
-            </button>
+        {(block.suggestedActions?.length || block.canConvert) && (
+          <div className="msg-cta">
+            {block.suggestedActions?.map((action) => (
+              <button key={action} className="msg-action-btn">
+                {action}
+              </button>
+            ))}
+
+            {block.canConvert && (
+              <button className="msg-action-primary">
+                Convert to Idea
+              </button>
+            )}
           </div>
         )}
-
-        <div className="msg-cta">
-          {block.suggestedActions?.map((action) => (
-            <button key={action} className="msg-action-btn">
-              {action}
-            </button>
-          ))}
-
-          {block.canConvert && (
-            <button className="msg-action-primary">
-              Convert to Idea
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );
