@@ -5,13 +5,26 @@
 .studio-canvas {
   position: relative;
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  padding: 16px 2px 16px 12px;
+  background: var(--bg-primary);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 14px;
+}
+
+/*.studio-canvas {
+  position: relative;
+  flex: 1;
+  overflow-y: hidden;
   padding: 16px 2px 16px 12px;
   display: flex;
   background: var(--bg-primary);
   border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 14px;
-}
+}*/
 
 /* ===============================
    EMPTY STATE
@@ -60,6 +73,22 @@
    =============================== */
 
 .chat-timeline {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding:
+    0 10px
+    calc(140px + env(safe-area-inset-bottom))
+    0 0;
+}
+
+
+/*.chat-timeline {
   width: 100%;
   margin: 0 auto;
   padding: 0 10px 0 0;
@@ -69,7 +98,7 @@
   overflow-y: auto;
   max-height: 61vh;
   height: 61vh;
-}
+}/*
 
 /* ===============================
    MESSAGE ROW
@@ -99,7 +128,7 @@
   word-wrap: break-word;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
-  padding: 12px 10px 26px 10px;
+  padding: 10px;
   border-radius: 12px;
   font-size: 0.85rem;
   line-height: 1.55;
@@ -148,9 +177,19 @@
    TOOL HEADER
    =============================== */
 
-.msg-header {
+/*.msg-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}*/
+
+.msg-header {
+  min-height: 18px;
+  display: flex;
   align-items: center;
   font-size: 0.7rem;
   font-weight: 600;
@@ -163,8 +202,23 @@
   letter-spacing: 0.04em;
 }
 
+/*.msg-insert {
+  position: absolute;
+  top:10px;
+  right: 10px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}*/
+
 .msg-insert {
-  position: relative;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  line-height: 1;
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -204,13 +258,23 @@
 }
 
 .read-more {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+  color: var(--accent-gold);
+  cursor: pointer;
+}
+
+/*.read-more {
   background: none;
   border: none;
   padding-top: 4px;
   font-size: 0.75rem;
   color: var(--accent-gold);
   cursor: pointer;
-}
+}*/
 
 .msg-content p {
   margin: 0;
@@ -221,11 +285,22 @@
    META (TIMESTAMP)
    =============================== */
 
-.msg-meta {
-  margin-top: 6px;
+/*.msg-meta {
+  margin-top: 0;
   font-size: 0.65rem;
   opacity: 0.6;
   text-align: right;
+}*/
+
+.msg-meta {
+  margin-top: 2px;
+  font-size: 0.65rem;
+  opacity: 0.6;
+  text-align: right;
+}
+
+.msg-meta.expanded {
+  margin-top: 6px;
 }
 
 /* ===============================

@@ -8,6 +8,19 @@ function getHeaderLabel(block, isMine) {
   return block.displayName || block.fullName || "Collaborator";
 }
 
+function getTimestamp(block) {
+  if (block.timestamp) return block.timestamp;
+
+  if (block.createdAt) {
+    return new Date(block.createdAt).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  return ""; // intentionally blank if nothing exists
+}
+
 export default function ChatBubble({
   block,
   isGrouped,
@@ -34,13 +47,14 @@ export default function ChatBubble({
             <span className="tool-name">
               {getHeaderLabel(block, isMine)}
             </span>
-            {highlightable && (
-              <div className="msg-insert">
-                <button className="btn-insert" title="Insert into tool">
-                  →
-                </button>
-              </div>
-            )}
+          </div>
+        )}
+
+        {highlightable && (
+          <div className="msg-insert">
+            <button className="btn-insert" title="Insert into tool">
+              →
+            </button>
           </div>
         )}
 
@@ -54,13 +68,14 @@ export default function ChatBubble({
         </div>
 
         {overflowing && !expanded && (
-          <button className="read-more" onClick={() => setExpanded(true)}>
+          <button className="read-more"
+           onClick={() => setExpanded(true)}>
             …Read more
           </button>
         )}
 
-        <div className="msg-meta">
-          {block.timestamp || ""}
+        <div className={`msg-meta ${expanded ? "expanded" : ""}`}>
+          {getTimestamp(block)}
         </div>
 
         {(block.suggestedActions?.length || block.canConvert) && (

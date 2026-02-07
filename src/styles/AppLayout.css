@@ -30,6 +30,11 @@
   min-height: 0; /* IMPORTANT for proper scroll */
 }
 
+/* 🚫 Studio pages must NOT scroll here */
+.app-content.no-scroll {
+  overflow: hidden;
+}
+
 /* ========================= TABLET & MOBILE (<= 1045px) ========================= */
 @media (max-width: 1045px) {
   .main-col {

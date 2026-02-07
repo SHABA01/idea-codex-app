@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatBubble from "./ChatBubble";
 import "../../../styles/StudioCanvas.css";
 
 export default function StudioCanvas({ blocks = [], isTyping = false }) {
   const isEmpty = blocks.length === 0;
-  const timelineRef = React.useRef(null);
-  const bottomRef = React.useRef(null);
-  const [autoScroll, setAutoScroll] = React.useState(true);
 
-  // Detect manual scroll
-  React.useEffect(() => {
+  const timelineRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
+
+  // Track user scroll position
+  useEffect(() => {
     const el = timelineRef.current;
     if (!el) return;
 
     const onScroll = () => {
-      const nearBottom =
-        el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const distanceFromBottom =
+        scrollHeight - (scrollTop + clientHeight);
+
+      const nearBottom = distanceFromBottom < 120;
+
       setAutoScroll(nearBottom);
+      setShowScrollBtn(!nearBottom);
     };
 
     el.addEventListener("scroll", onScroll);
@@ -24,7 +32,7 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
   }, []);
 
   // Auto-scroll only when allowed
-  React.useEffect(() => {
+  useEffect(() => {
     if (autoScroll) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
@@ -79,12 +87,13 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
         <div ref={bottomRef} />
       </div>
 
-      {!autoScroll && (
+      {showScrollBtn && (
         <button
           className="scroll-to-bottom"
           onClick={() => {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
             setAutoScroll(true);
+            setShowScrollBtn(false);
           }}
           title="Jump to latest"
         >

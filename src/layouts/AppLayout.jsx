@@ -1,12 +1,18 @@
 // src/layouts/AppLayout.jsx
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
 import HeaderLayout from "../components/HeaderLayout";
 import NeuralNetworkBackground from "../components/NeuralNetworkBackground";
 import "../styles/AppLayout.css";
 
 const AppLayout = () => {
+  const location = useLocation();
+
+  const isStudio =
+    location.pathname.startsWith("/studio") ||
+    location.pathname.startsWith("/app-builder");
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // ⭐ NEW: shared collapse state
@@ -38,7 +44,7 @@ const AppLayout = () => {
           mobileOpen={mobileOpen}
         />
 
-        <main className="app-content">
+        <main className={`app-content ${isStudio ? "no-scroll" : ""}`}>
           <NeuralNetworkBackground enabled={true} />
           <Outlet />
         </main>
