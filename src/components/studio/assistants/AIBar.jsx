@@ -53,15 +53,18 @@ export default function AIBar({ onSend }) {
     const bar = barRef.current;
     if (!bar) return;
 
-    const observer = new ResizeObserver(([entry]) => {
-      const height = Math.ceil(entry.contentRect.height);
+    const updateHeight = () => {
+      const height = Math.ceil(bar.getBoundingClientRect().height);
 
       document.documentElement.style.setProperty(
         "--ai-bar-height",
         `${height}px`
       );
-    });
+   };
 
+    updateHeight(); // initial sync
+
+    const observer = new ResizeObserver(updateHeight);
     observer.observe(bar);
 
     return () => observer.disconnect();
