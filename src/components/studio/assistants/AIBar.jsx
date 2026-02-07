@@ -18,6 +18,7 @@ export default function AIBar({ onSend }) {
   const [isMultiline, setIsMultiline] = useState(false);
 
   const textareaRef = useRef(null);
+  const barRef = useRef(null);
   const composerRef = useRef(null);
   const remaining = quota === Infinity ? "∞" : quota - used;
   const canSend = quota === Infinity || used < quota;
@@ -47,6 +48,25 @@ export default function AIBar({ onSend }) {
       : BASE_HEIGHT + "px";
   }, [value]);
 
+  /* Sync AI bar height with StudioCanvas */
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+
+    const observer = new ResizeObserver(([entry]) => {
+      const height = Math.ceil(entry.contentRect.height);
+
+      document.documentElement.style.setProperty(
+        "--ai-bar-height",
+        `${height}px`
+      );
+    });
+
+    observer.observe(bar);
+
+    return () => observer.disconnect();
+  }, []);
+
   const send = () => {
     if (!value.trim() || !canSend || streaming) return;
 
@@ -65,7 +85,8 @@ export default function AIBar({ onSend }) {
   };
 
   return (
-    <div className="ai-bar">
+    <div ref={barRef} className="ai-bar">
+
       <div
         ref={composerRef}
         className={`ai-composer ${isMultiline ? "multiline" : ""}`}

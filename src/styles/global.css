@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --flyout-width: 420px;
+  --ai-bar-height: 100px; /* single-line default */
 }
 
 * {

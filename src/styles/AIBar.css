@@ -50,6 +50,7 @@
   border-radius: 30px; /* rectangle */
   align-items: flex-end;
   padding: 0 12px 12px 12px;
+  /*--ai-bar-height: 160px;  expanded height */
 }
 
 /* ===============================

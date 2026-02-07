@@ -5,26 +5,21 @@ import "../../../styles/StudioCanvas.css";
 export default function StudioCanvas({ blocks = [], isTyping = false }) {
   const isEmpty = blocks.length === 0;
 
-  const timelineRef = useRef(null);
-  const bottomRef = useRef(null);
+  const timelineRef = React.useRef(null);
+  const bottomRef = React.useRef(null);
 
-  const [autoScroll, setAutoScroll] = useState(true);
-  const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const [isAtBottom, setIsAtBottom] = React.useState(true);
 
   // Track user scroll position
-  useEffect(() => {
+  React.useEffect(() => {
     const el = timelineRef.current;
     if (!el) return;
 
     const onScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = el;
-      const distanceFromBottom =
-        scrollHeight - (scrollTop + clientHeight);
+      const distance =
+        el.scrollHeight - el.scrollTop - el.clientHeight;
 
-      const nearBottom = distanceFromBottom < 120;
-
-      setAutoScroll(nearBottom);
-      setShowScrollBtn(!nearBottom);
+      setIsAtBottom(distance < 80);
     };
 
     el.addEventListener("scroll", onScroll);
@@ -32,11 +27,11 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
   }, []);
 
   // Auto-scroll only when allowed
-  useEffect(() => {
-    if (autoScroll) {
+  React.useEffect(() => {
+    if (isAtBottom) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [blocks, isTyping, autoScroll]);
+  }, [blocks, isTyping, isAtBottom]);
 
   if (isEmpty) {
     return (
@@ -87,14 +82,12 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
         <div ref={bottomRef} />
       </div>
 
-      {showScrollBtn && (
+      {!isAtBottom && (
         <button
           className="scroll-to-bottom"
-          onClick={() => {
-            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-            setAutoScroll(true);
-            setShowScrollBtn(false);
-          }}
+          onClick={() =>
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+          }
           title="Jump to latest"
         >
           ↓
