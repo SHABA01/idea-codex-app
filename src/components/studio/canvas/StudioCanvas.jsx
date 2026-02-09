@@ -16,6 +16,12 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
   // 🔒 Source of truth for auto-scroll permission
   const allowAutoScrollRef = useRef(true);
 
+  const forceRecomputeScrollState = () => {
+    requestAnimationFrame(() => {
+      updateScrollPosition();
+    });
+  };
+
   /* =========================
      Scroll position detection
      ========================= */
@@ -31,8 +37,7 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
     setIsAtBottom(nearBottom);
     allowAutoScrollRef.current = nearBottom;
 
-    // ✅ Clear unread once user returns to bottom
-    if (nearBottom) {
+    if (nearBottom && unreadCount !== 0) {
       setUnreadCount(0);
     }
   };
@@ -46,7 +51,7 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
 
     el.addEventListener("scroll", updateScrollPosition);
 
-    // 🔑 MUST recompute after mount (survives hard refresh)
+    // 🔑 Survives hard refresh
     requestAnimationFrame(updateScrollPosition);
 
     return () =>
@@ -64,12 +69,15 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
      New content handling
      ========================= */
   useEffect(() => {
-    if (allowAutoScrollRef.current) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      // ✅ New message while user is away
+    if (!allowAutoScrollRef.current) {
       setUnreadCount((c) => c + 1);
+      return;
     }
+
+    requestAnimationFrame(() => {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      forceRecomputeScrollState(); // 🔑
+    });
   }, [blocks.length, isTyping]);
 
   /* =========================
@@ -127,7 +135,6 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
         <div ref={bottomRef} />
       </div>
 
-      {/* ✅ Button visibility + unread badge */}
       {!isAtBottom && (
         <button
           className="scroll-to-bottom centered"
@@ -135,6 +142,7 @@ export default function StudioCanvas({ blocks = [], isTyping = false }) {
             allowAutoScrollRef.current = true;
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
             setUnreadCount(0);
+            forceRecomputeScrollState(); // 🔑
           }}
           title="Jump to latest"
         >
