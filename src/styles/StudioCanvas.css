@@ -334,24 +334,26 @@
   bottom: calc(var(--ai-bar-height) + 12px);
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: var(--accent-gold);
-  color: black;
-  font-size: 1rem;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--accent-gold);
+  background: transparent;
+  color: var(--accent-gold);
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
   z-index: 5;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .scroll-to-bottom:hover {
-  transform: translateY(-1px);
+  background: var(--accent-gold);
+  color: #000;
 }
 
 .scroll-to-bottom.centered {
   left: 50%;
   right: auto;
-  transform: translateX(-50%);
 }
 
 .unread-badge {
@@ -360,11 +362,11 @@
   right: -4px;
   min-width: 18px;
   height: 18px;
-  padding: 0 5px;
-  border-radius: 9px;
-  background: black;
-  color: var(--accent-gold);
-  font-size: 0.65rem;
+  padding: 0;
+  border-radius: 999px;
+  background: var(--accent-gold);
+  color: #000;
+  border: 1px solid var(--accent-gold);
   font-weight: 600;
   display: flex;
   align-items: center;
