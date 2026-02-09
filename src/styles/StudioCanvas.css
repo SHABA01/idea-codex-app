@@ -16,19 +16,7 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 14px;
   padding-bottom: var(--ai-bar-height, 100px); /* single-line default */
-  /*padding-bottom: 245px;  expanded height */
 }
-
-/*.studio-canvas {
-  position: relative;
-  flex: 1;
-  overflow-y: hidden;
-  padding: 16px 2px 16px 12px;
-  display: flex;
-  background: var(--bg-primary);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 14px;
-}*/
 
 /* ===============================
    EMPTY STATE
@@ -98,18 +86,6 @@
   );
   pointer-events: none;
 }
-
-/*.chat-timeline {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 10px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  overflow-y: auto;
-  max-height: 61vh;
-  height: 61vh;
-}/*
 
 /* ===============================
    MESSAGE ROW
@@ -188,16 +164,6 @@
    TOOL HEADER
    =============================== */
 
-/*.msg-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-  opacity: 0.7;
-  margin-bottom: 6px;
-}*/
-
 .msg-header {
   min-height: 18px;
   display: flex;
@@ -212,14 +178,6 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-
-/*.msg-insert {
-  position: absolute;
-  top:10px;
-  right: 10px;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}*/
 
 .msg-insert {
   position: absolute;
@@ -278,15 +236,6 @@
   cursor: pointer;
 }
 
-/*.read-more {
-  background: none;
-  border: none;
-  padding-top: 4px;
-  font-size: 0.75rem;
-  color: var(--accent-gold);
-  cursor: pointer;
-}*/
-
 .msg-content p {
   margin: 0;
   color: var(--text-primary);
@@ -295,13 +244,6 @@
 /* ===============================
    META (TIMESTAMP)
    =============================== */
-
-/*.msg-meta {
-  margin-top: 0;
-  font-size: 0.65rem;
-  opacity: 0.6;
-  text-align: right;
-}*/
 
 .msg-meta {
   margin-top: 2px;
@@ -389,7 +331,7 @@
 .scroll-to-bottom {
   position: absolute;
   right: 18px;
-  bottom: 90px;
+  bottom: calc(var(--ai-bar-height) + 12px);
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -404,6 +346,29 @@
 
 .scroll-to-bottom:hover {
   transform: translateY(-1px);
+}
+
+.scroll-to-bottom.centered {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.unread-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: black;
+  color: var(--accent-gold);
+  font-size: 0.65rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ===============================

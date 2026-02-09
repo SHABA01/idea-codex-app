@@ -18,8 +18,11 @@ export default function AIBar({ onSend }) {
   const [isMultiline, setIsMultiline] = useState(false);
 
   const textareaRef = useRef(null);
-  const barRef = useRef(null);
   const composerRef = useRef(null);
+  const barRef = useRef(null);
+
+  const lastHeightRef = useRef(0);
+
   const remaining = quota === Infinity ? "∞" : quota - used;
   const canSend = quota === Infinity || used < quota;
 
@@ -28,45 +31,45 @@ export default function AIBar({ onSend }) {
     const textarea = textareaRef.current;
     const composer = composerRef.current;
     if (!textarea || !composer) return;
-    
+
     const MAX_HEIGHT = 160;
-    const BASE_HEIGHT = 30;
-    
+    const BASE_HEIGHT = 48;
+
     textarea.style.height = "auto";
     const newHeight = Math.min(textarea.scrollHeight, MAX_HEIGHT);
-    textarea.style.height = newHeight + "px";
-    
+    textarea.style.height = `${newHeight}px`;
+
     textarea.style.overflowY =
       textarea.scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
-    
+
     const multiline = newHeight > 52;
     setIsMultiline(multiline);
-    
-    // 👇 animate the container, not the textarea
+
     composer.style.minHeight = multiline
-      ? newHeight + 24 + "px" // padding compensation
-      : BASE_HEIGHT + "px";
+      ? `${newHeight + 24}px`
+      : `${BASE_HEIGHT}px`;
   }, [value]);
 
-  /* Sync AI bar height with StudioCanvas */
+  /* Measure FINAL ai-bar height (loop-safe) */
   useEffect(() => {
     const bar = barRef.current;
     if (!bar) return;
 
-    const updateHeight = () => {
+    const observer = new ResizeObserver(() => {
       const height = Math.ceil(bar.getBoundingClientRect().height);
+
+      // 🔒 prevent feedback loop
+      if (height === lastHeightRef.current) return;
+
+      lastHeightRef.current = height;
 
       document.documentElement.style.setProperty(
         "--ai-bar-height",
         `${height}px`
       );
-   };
+    });
 
-    updateHeight(); // initial sync
-
-    const observer = new ResizeObserver(updateHeight);
     observer.observe(bar);
-
     return () => observer.disconnect();
   }, []);
 
@@ -89,7 +92,6 @@ export default function AIBar({ onSend }) {
 
   return (
     <div ref={barRef} className="ai-bar">
-
       <div
         ref={composerRef}
         className={`ai-composer ${isMultiline ? "multiline" : ""}`}
