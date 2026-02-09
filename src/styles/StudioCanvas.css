@@ -339,7 +339,12 @@
   border: 1px solid var(--accent-gold);
   background: transparent;
   color: var(--accent-gold);
+  font-size: 18px;        /* 🔑 controls arrow size */
   font-weight: 700;
+  line-height: 1;         /* 🔑 prevents vertical misalignment */
+  display: flex;          /* 🔑 perfect centering */
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
   z-index: 5;
