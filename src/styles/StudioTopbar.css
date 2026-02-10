@@ -29,15 +29,15 @@
   background: rgba(255,255,255,0.08);
 }
 
+.last-saved {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
 .meta-right {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.last-saved {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
 }
 
 .open-launcher-btn {

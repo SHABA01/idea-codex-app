@@ -39,7 +39,7 @@
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
   max-height: 70px;
   min-height: 50px;
 }

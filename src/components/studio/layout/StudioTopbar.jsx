@@ -18,12 +18,17 @@ export default function StudioTopbar({
       <div className="meta-left">
         <h2>{projectName || "Untitled Project"}</h2>
         <span className="project-status">{status || "Draft"}</span>
-      </div>
-
-      <div className="meta-right">
         <span className="last-saved">
           {lastSaved ? `Saved ${lastSaved}` : "Not saved yet"}
         </span>
+      </div>
+
+      <div className="meta-right">
+        
+        {/* More later features */}
+        {/*<span className="last-saved">
+          {lastSaved ? `Saved ${lastSaved}` : "Not saved yet"}
+        </span>*/}
 
         <button
           className="open-launcher-btn"
