@@ -11,6 +11,12 @@
   width: 100%;
 }
 
+.meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .meta-left h2 {
   margin: 0;
   font-size: 1.1rem;
@@ -21,7 +27,6 @@
   padding: 3px 6px;
   border-radius: 6px;
   background: rgba(255,255,255,0.08);
-  margin-left: 8px;
 }
 
 .meta-right {

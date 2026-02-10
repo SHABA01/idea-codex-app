@@ -28,7 +28,7 @@
   justify-content: space-between;
   gap: 16px;
 
-  padding: 10px 14px;
+  padding: 5px;
 
   background: var(--card-bg);
   border: 1px solid var(--card-border);

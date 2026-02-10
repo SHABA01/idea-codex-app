@@ -4,7 +4,7 @@
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  padding: 12px 20px;
+  padding: 5px 20px;
   border-bottom: 1px solid var(--card-border);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 30%);
   position: sticky;
@@ -91,6 +91,6 @@
   .mobile-open { display:inline-block; }
 
   .app-header {
-    padding: 10px 15px;
+    padding: 5px 15px;
   }
 }
